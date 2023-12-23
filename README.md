@@ -59,8 +59,7 @@ Hello, I'm **Varun Prakash**, an aspiring engineer currently studying at **SRM U
 - **HTML**: 80%
 - **CSS**: 65%
 - **Java**: 60%
-- **Python**: 7
-- 0%
+- **Python**: 70%
 - **C**: 80%
 
 ## Contact
