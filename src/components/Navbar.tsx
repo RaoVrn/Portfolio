@@ -107,7 +107,7 @@ const Navbar: React.FC = () => {
                 </svg>
               </a>
               <a
-                href="https://www.linkedin.com/in/varun--prakash/"
+                href="https://linkedin.com/in/varun--prakash"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-gray-100 dark:bg-dark-400 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-500 hover:text-primary-500 dark:hover:text-primary-400 transition-all duration-200 hover:scale-105"
@@ -188,10 +188,10 @@ const Navbar: React.FC = () => {
                   className="p-2 rounded-lg bg-gray-100 dark:bg-dark-400 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-500 transition-colors duration-200"
                   aria-label="GitHub"
                 >
-                  📧
+                  �
                 </a>
                 <a
-                  href="https://linkedin.com/in/varun-prakash"
+                  href="https://linkedin.com/in/varun--prakash"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-lg bg-gray-100 dark:bg-dark-400 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-dark-500 transition-colors duration-200"

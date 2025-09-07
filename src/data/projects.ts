@@ -95,7 +95,7 @@ export const skills: Skill[] = [
   { name: "JavaScript", level: 88, category: 'frontend', icon: '⚡' },
   { name: "React.js", level: 85, category: 'frontend', icon: '⚛️' },
   { name: "Tailwind CSS", level: 90, category: 'frontend', icon: '💨' },
-  { name: "Next.js", level: 80, category: 'frontend', icon: '�' },
+    { name: "Next.js", level: 80, category: 'frontend', icon: '▲' },
   
   // Backend
   { name: "Node.js", level: 85, category: 'backend', icon: '🟢' },
@@ -103,13 +103,15 @@ export const skills: Skill[] = [
   { name: "Flask", level: 75, category: 'backend', icon: '🌶️' },
   { name: "FastAPI", level: 80, category: 'backend', icon: '⚡' },
   { name: "MongoDB", level: 85, category: 'backend', icon: '🍃' },
-  { name: "MySQL", level: 80, category: 'backend', icon: '�' },
+    { name: "MySQL", level: 80, category: 'backend', icon: '🗄️' },
   
   // Cloud & DevOps
   { name: "Vercel", level: 85, category: 'cloud', icon: '▲' },
   { name: "Render", level: 75, category: 'cloud', icon: '☁️' },
   { name: "GitHub Pages", level: 90, category: 'cloud', icon: '📄' },
   { name: "Oracle Cloud", level: 70, category: 'cloud', icon: '☁️' },
+    { name: "AWS", level: 70, category: 'cloud', icon: '☁️' },
+    { name: "Docker", level: 65, category: 'cloud', icon: '🐳' },
   
   // Languages
   { name: "C++", level: 85, category: 'language', icon: '⚡' },
@@ -119,9 +121,9 @@ export const skills: Skill[] = [
   
   // Tools
   { name: "Git", level: 90, category: 'tools', icon: '📝' },
-  { name: "GitHub", level: 95, category: 'tools', icon: '�' },
+    { name: "GitHub", level: 95, category: 'tools', icon: '🐙' },
   { name: "VS Code", level: 95, category: 'tools', icon: '💙' },
-  { name: "Streamlit", level: 75, category: 'tools', icon: '�' }
+    { name: "Streamlit", level: 75, category: 'tools', icon: '📈' }
 ];
 
 // Achievements data based on resume
@@ -213,5 +215,23 @@ export const achievements: Achievement[] = [
     description: "Advanced certification in modern C++ programming concepts and best practices.",
     category: 'certification',
     icon: '⚡'
+  },
+  {
+    id: 9,
+    title: "Introduction to Machine Learning",
+    organization: "NPTEL",
+    date: "2024",
+    description: "Foundational concepts in supervised and unsupervised learning, model evaluation, and feature engineering.",
+    category: 'certification',
+    icon: '🧠'
+  },
+  {
+    id: 10,
+    title: "Database Management System",
+    organization: "NPTEL",
+    date: "2024",
+    description: "Core DBMS principles: relational modeling, SQL, transactions, indexing, and normalization.",
+    category: 'certification',
+    icon: '🗄️'
   }
 ];

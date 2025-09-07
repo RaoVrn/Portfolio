@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
   }, []);
 
   // Typing animation for tagline words
-  const words = ['Full-stack Developer', 'AI Enthusiast', 'Cloud Expert', 'Problem Solver'];
+  const words = ['Full‑stack Developer', 'AI/ML Builder', 'Cloud‑ready Apps', 'Problem Solver'];
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -81,7 +81,7 @@ const Hero: React.FC = () => {
               </span>
               <br />
               <span className="text-lg md:text-xl text-gray-600 dark:text-gray-400">
-                & Cloud Enthusiast
+                building real, useful products
               </span>
             </p>
           </div>
@@ -89,9 +89,8 @@ const Hero: React.FC = () => {
           {/* Description */}
           <div className="mb-10 max-w-3xl mx-auto">
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-              Passionate about creating innovative solutions with modern technologies. 
-              I build scalable web applications, leverage AI for real-world problems, 
-              and deploy robust cloud infrastructure.
+              I design and ship scalable web apps, weave in AI where it matters, and deploy
+              production‑ready systems to the cloud. Always learning, always building.
             </p>
           </div>
 
@@ -129,7 +128,7 @@ const Hero: React.FC = () => {
               <div className="text-sm text-gray-600 dark:text-gray-400">Projects Built</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-secondary-500 dark:text-secondary-400 mb-2">2+</div>
+              <div className="text-3xl md:text-4xl font-bold text-secondary-500 dark:text-secondary-400 mb-2">3+</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Years Learning</div>
             </div>
             <div className="text-center">

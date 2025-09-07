@@ -98,6 +98,16 @@ const Contact: React.FC = () => {
     {
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.948.684l.829 2.486A2 2 0 009.8 7.2l.005.006a2 2 0 01-.24 2.501l-1.27 1.27a11.042 11.042 0 004.727 4.727l1.27-1.27A2 2 0 0116.3 14.2l.006.005a2 2 0 011.03 1.87l-.001 2.126a1 1 0 01-1 1H16c-7.18 0-13-5.82-13-13V4a1 1 0 011-1z" />
+        </svg>
+      ),
+      title: 'Phone',
+      value: '+91 88262 07628',
+      link: 'tel:+918826207628'
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
         </svg>
       ),
