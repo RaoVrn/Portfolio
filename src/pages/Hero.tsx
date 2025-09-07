@@ -30,8 +30,9 @@ const Hero: React.FC = () => {
   // Download resume function
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/resume-varun-prakash.pdf';
-    link.download = 'Varun_Prakash_Resume.pdf';
+    link.href = 'https://drive.google.com/file/d/1mSyswbb70NNSkdam_htIfxJKBYTFDlTl/view?usp=sharing';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

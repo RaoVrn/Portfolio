@@ -72,8 +72,8 @@ const Contact: React.FC = () => {
         </svg>
       ),
       title: 'Email',
-      value: 'varun.prakash@email.com',
-      link: 'mailto:varun.prakash@email.com'
+      value: 'prakash.varun.0305@gmail.com',
+      link: 'mailto:prakash.varun.0305@gmail.com'
     },
     {
       icon: (
@@ -92,8 +92,8 @@ const Contact: React.FC = () => {
         </svg>
       ),
       title: 'LinkedIn',
-      value: 'linkedin.com/in/varun-prakash',
-      link: 'https://linkedin.com/in/varun-prakash'
+      value: 'linkedin.com/in/varun--prakash',
+      link: 'https://linkedin.com/in/varun--prakash'
     },
     {
       icon: (

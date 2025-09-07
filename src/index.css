@@ -3,8 +3,10 @@
 
 @import "tailwindcss";
 
-/* Custom CSS variables for Tailwind v4 */
+/* Configure Tailwind CSS v4 theme variables */
 @theme {
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --color-primary-50: #f0f9ff;
   --color-primary-100: #e0f2fe;
   --color-primary-200: #bae6fd;
@@ -92,11 +94,74 @@
 /* Base styles */
 html {
   scroll-behavior: smooth;
+  background-color: white;
+  color: #1f2937;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode for html */
+html.dark {
+  background-color: #1e1e2e;
+  color: #f3f4f6;
+}
+
+/* Test styles to verify dark mode is working */
+.dark nav {
+  background-color: #1e293b !important;
+}
+
+.dark .bg-white {
+  background-color: #1e293b !important;
+}
+
+.dark .text-gray-900 {
+  color: #f3f4f6 !important;
+}
+
+.dark .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+/* More comprehensive dark mode styles */
+.dark {
+  color-scheme: dark;
+}
+
+.dark .bg-gray-50 {
+  background-color: #374151 !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: #4b5563 !important;
+}
+
+.dark .bg-gray-200 {
+  background-color: #6b7280 !important;
+}
+
+.dark .text-gray-700 {
+  color: #e5e7eb !important;
+}
+
+.dark .text-gray-800 {
+  color: #f3f4f6 !important;
+}
+
+.dark .border-gray-200 {
+  border-color: #4b5563 !important;
+}
+
+.dark .border-gray-300 {
+  border-color: #6b7280 !important;
 }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Custom utility classes */

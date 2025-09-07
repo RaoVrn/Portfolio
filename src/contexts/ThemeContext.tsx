@@ -29,6 +29,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Apply theme to document and save to localStorage
   useEffect(() => {
     const root = document.documentElement;
+    
     if (isDark) {
       root.classList.add('dark');
       localStorage.setItem('theme', 'dark');
