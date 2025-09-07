@@ -1,10 +1,50 @@
 import React from 'react';
+import { ThemeProvider } from './contexts/ThemeContext.tsx';
 
-const App = () => {
+// Components
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+
+// Pages
+import Hero from './pages/Hero';
+import About from './pages/About';
+import Projects from './pages/Projects';
+import Skills from './pages/Skills';
+import Achievements from './pages/Achievements';
+import Contact from './pages/Contact';
+
+const App: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-indigo-600">Welcome to Varun Prakash Portfolio</h1>
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-white dark:bg-dark-200 transition-colors duration-300">
+        {/* Navigation */}
+        <Navbar />
+        
+        {/* Main Content */}
+        <main>
+          {/* Hero Section */}
+          <Hero />
+          
+          {/* About Section */}
+          <About />
+          
+          {/* Projects Section */}
+          <Projects />
+          
+          {/* Skills Section */}
+          <Skills />
+          
+          {/* Achievements Section */}
+          <Achievements />
+          
+          {/* Contact Section */}
+          <Contact />
+        </main>
+        
+        {/* Footer */}
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 };
 
