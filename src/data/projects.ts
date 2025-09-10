@@ -14,17 +14,6 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "RentEase - Property Management Platform",
-    description: "Full-stack rental system with tenant dashboards and AI assistant for smart property management.",
-    longDescription: "Built a comprehensive rental system with tenant dashboards and secure REST APIs to manage payments, listings, and maintenance. Integrated an AI assistant for smart search, rent reminders, and support, managing 4.7k+ properties across 6 major Indian cities.",
-    techStack: ["Next.js", "Node.js", "MongoDB", "Gemini API", "REST APIs", "AI Assistant"],
-    githubLink: "https://github.com/RaoVrn/rentease",
-    liveDemo: "https://rentease.vercel.app",
-    image: "/api/placeholder/600/400",
-    featured: true
-  },
-  {
-    id: 2,
     title: "Aura - AI-Powered Desktop Assistant",
     description: "AI desktop assistant with NLP command execution, file management, and offline automation.",
     longDescription: "Developing an AI desktop assistant with NLP command execution, file/app management, and offline automation. Added NLP features for web search, Spotify/YouTube control, and Gmail drafting. Designed high-performance APIs supporting plugins, memory, and real-time AI responses.",
@@ -35,7 +24,7 @@ export const projects: Project[] = [
     featured: true
   },
   {
-    id: 3,
+    id: 2,
     title: "TeamSync - Project Management Tool",
     description: "Full-stack project management tool with real-time collaboration and task management features.",
     longDescription: "Contributed to TeamSync, a full-stack project management tool developed with React.js, Node.js, and MongoDB, enhancing task management, collaboration, and real-time updates. Actively participated in daily agile meetings and strengthened expertise in API development, database design, and frontend-backend integration.",
@@ -46,35 +35,46 @@ export const projects: Project[] = [
     featured: true
   },
   {
-    id: 4,
-    title: "NLP2SQL - Natural Language to SQL Converter",
-    description: "Converting natural language queries to SQL using advanced NLP techniques and LLMs.",
-    longDescription: "Built NLP2SQL, converting natural language to SQL; selected among top 105 teams nationally in GDG Solution Challenge. Fine-tuned GPT-4o Mini for NLP2SQL; achieved 95.66% accuracy and deployed on Streamlit.",
-    techStack: ["Python", "NLP", "GPT-4o Mini", "SQL", "Streamlit", "Machine Learning"],
-    githubLink: "https://github.com/RaoVrn/nlp2sql",
-    liveDemo: "https://nlp2sql.streamlit.app",
+    id: 3,
+    title: "RentEase - Property Management Platform",
+    description: "Full-stack rental system with tenant dashboards and AI assistant for smart property management.",
+    longDescription: "Built a comprehensive rental system with tenant dashboards and secure REST APIs to manage payments, listings, and maintenance. Integrated an AI assistant for smart search, rent reminders, and support, managing 4.7k+ properties across 6 major Indian cities.",
+    techStack: ["Next.js", "Node.js", "MongoDB", "Gemini API", "REST APIs", "AI Assistant"],
+    githubLink: "https://github.com/RaoVrn/rentease",
+    liveDemo: "https://rentease.vercel.app",
     image: "/api/placeholder/600/400",
     featured: false
   },
   {
+    id: 4,
+    title: "FurEverHome",
+    description: "Helping pets find their forever homes through an intuitive adoption platform.",
+    longDescription: "A comprehensive pet adoption platform that connects loving families with pets in need of homes. Features advanced search filters, pet profiles, adoption tracking, and community features to ensure successful matches between pets and families.",
+    techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "Socket.io", "Cloudinary"],
+    githubLink: "https://github.com/RaoVrn/fureverhome",
+    liveDemo: "#",
+    image: "/api/placeholder/600/400",
+    featured: true
+  },
+  {
     id: 5,
-    title: "KubeWise - Kubernetes SRE Assistant",
-    description: "CLI-based Kubernetes SRE assistant using Pydantic-AI and agentic ML for infrastructure management.",
-    longDescription: "Developed KubeWise, a CLI-based Kubernetes SRE assistant using Pydantic-AI and agentic ML. Won 1st Runner-Up position at Guidewire DevTrails Hackathon for innovative approach to Kubernetes management and automation.",
-    techStack: ["Python", "Kubernetes", "Pydantic-AI", "CLI", "DevOps", "Machine Learning"],
-    githubLink: "https://github.com/RaoVrn/kubewise",
+    title: "FeedWise",
+    description: "Smart content curation and feed management system with AI-powered recommendations.",
+    longDescription: "An intelligent content curation platform that uses machine learning algorithms to provide personalized content recommendations. Features real-time content aggregation, user preference learning, and smart filtering capabilities.",
+    techStack: ["React.js", "Python", "FastAPI", "PostgreSQL", "ML Algorithms", "Redis"],
+    githubLink: "https://github.com/RaoVrn/feedwise",
     liveDemo: "#",
     image: "/api/placeholder/600/400",
     featured: false
   },
   {
     id: 6,
-    title: "Pondipetals Emporium - E-commerce Platform",
-    description: "E-commerce platform with real-time inventory management and instant checkout system.",
-    longDescription: "Contributed to an e-commerce platform with real-time inventory management and instant checkout. Implemented responsive UI and integrated RDBMS for efficient data handling, providing seamless shopping experience.",
-    techStack: ["HTML", "CSS", "JavaScript", "RDBMS", "MySQL", "Responsive Design"],
-    githubLink: "https://github.com/RaoVrn/pondipetals",
-    liveDemo: "https://pondipetals.github.io",
+    title: "NetPulse",
+    description: "Network monitoring and analytics dashboard for real-time infrastructure insights.",
+    longDescription: "A comprehensive network monitoring solution that provides real-time analytics, performance metrics, and automated alerting. Features include bandwidth monitoring, device discovery, and predictive analytics for network optimization.",
+    techStack: ["Vue.js", "Python", "Django", "InfluxDB", "Grafana", "Docker"],
+    githubLink: "https://github.com/RaoVrn/netpulse",
+    liveDemo: "#",
     image: "/api/placeholder/600/400",
     featured: false
   }
@@ -92,10 +92,10 @@ export const skills: Skill[] = [
   // Frontend
   { name: "HTML", level: 95, category: 'frontend', icon: '🌐' },
   { name: "CSS", level: 90, category: 'frontend', icon: '🎨' },
-  { name: "JavaScript", level: 88, category: 'frontend', icon: '⚡' },
+  { name: "JavaScript", level: 88, category: 'frontend', icon: '🟨' },
   { name: "React.js", level: 85, category: 'frontend', icon: '⚛️' },
   { name: "Tailwind CSS", level: 90, category: 'frontend', icon: '💨' },
-    { name: "Next.js", level: 80, category: 'frontend', icon: '▲' },
+  { name: "Next.js", level: 80, category: 'frontend', icon: '⬛' },
   
   // Backend
   { name: "Node.js", level: 85, category: 'backend', icon: '🟢' },
@@ -103,27 +103,27 @@ export const skills: Skill[] = [
   { name: "Flask", level: 75, category: 'backend', icon: '🌶️' },
   { name: "FastAPI", level: 80, category: 'backend', icon: '⚡' },
   { name: "MongoDB", level: 85, category: 'backend', icon: '🍃' },
-    { name: "MySQL", level: 80, category: 'backend', icon: '🗄️' },
+  { name: "MySQL", level: 80, category: 'backend', icon: '�' },
   
   // Cloud & DevOps
   { name: "Vercel", level: 85, category: 'cloud', icon: '▲' },
   { name: "Render", level: 75, category: 'cloud', icon: '☁️' },
   { name: "GitHub Pages", level: 90, category: 'cloud', icon: '📄' },
-  { name: "Oracle Cloud", level: 70, category: 'cloud', icon: '☁️' },
-    { name: "AWS", level: 70, category: 'cloud', icon: '☁️' },
-    { name: "Docker", level: 65, category: 'cloud', icon: '🐳' },
+  { name: "Oracle Cloud", level: 70, category: 'cloud', icon: '🔴' },
+  { name: "AWS", level: 70, category: 'cloud', icon: '🟠' },
+  { name: "Docker", level: 65, category: 'cloud', icon: '🐳' },
   
   // Languages
-  { name: "C++", level: 85, category: 'language', icon: '⚡' },
+  { name: "C++", level: 85, category: 'language', icon: '🔵' },
   { name: "Java", level: 80, category: 'language', icon: '☕' },
   { name: "Python", level: 90, category: 'language', icon: '🐍' },
   { name: "JavaScript", level: 88, category: 'language', icon: '🟨' },
   
   // Tools
   { name: "Git", level: 90, category: 'tools', icon: '📝' },
-    { name: "GitHub", level: 95, category: 'tools', icon: '🐙' },
+  { name: "GitHub", level: 95, category: 'tools', icon: '🐙' },
   { name: "VS Code", level: 95, category: 'tools', icon: '💙' },
-    { name: "Streamlit", level: 75, category: 'tools', icon: '📈' }
+  { name: "Streamlit", level: 75, category: 'tools', icon: '📈' }
 ];
 
 // Achievements data based on resume
