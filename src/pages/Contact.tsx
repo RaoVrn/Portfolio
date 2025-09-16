@@ -121,45 +121,40 @@ const Contact: React.FC = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="py-20 bg-white dark:bg-dark-200 transition-colors duration-300"
+      className="py-16 bg-white dark:bg-dark-200 transition-colors duration-300"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              Get In <span className="text-primary-500">Touch</span>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Touch</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full mb-6"></div>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full mb-4"></div>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Have a project in mind or want to collaborate? I'd love to hear from you. 
               Let's create something amazing together!
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-8">
             {/* Contact Form */}
-            <div className="bg-gray-50 dark:bg-dark-300 rounded-2xl p-8 border border-gray-200 dark:border-dark-400">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-6 border border-gray-200 dark:border-dark-400">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 Send me a message
               </h3>
 
               {submitted && (
-                <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                  <div className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-green-700 dark:text-green-300 font-medium">
-                      Thank you! Your message has been sent successfully.
-                    </span>
-                  </div>
+                <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                  <p className="text-green-700 dark:text-green-400 text-sm font-medium">
+                    ✅ Message sent successfully! I'll get back to you soon.
+                  </p>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Your Name
                   </label>
                   <input
@@ -169,13 +164,13 @@ const Contact: React.FC = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-dark-500 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-dark-500 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
                     placeholder="John Doe"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Email Address
                   </label>
                   <input
@@ -185,13 +180,13 @@ const Contact: React.FC = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-dark-500 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-dark-500 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200"
                     placeholder="john@example.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Message
                   </label>
                   <textarea
@@ -200,8 +195,8 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-dark-500 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200 resize-none"
+                    rows={4}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-dark-500 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-dark-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200 resize-none"
                     placeholder="Tell me about your project or just say hello!"
                   ></textarea>
                 </div>
@@ -209,100 +204,76 @@ const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-glow-lg transition-all duration-300 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   {isSubmitting ? (
                     <>
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
                       Sending...
                     </>
                   ) : (
-                    <>
-                      Send Message
-                      <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                      </svg>
-                    </>
+                    'Send Message'
                   )}
                 </button>
               </form>
             </div>
 
             {/* Contact Information */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   Let's connect
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                   I'm always open to discussing new opportunities, creative projects, 
                   or just having a chat about technology and innovation. Feel free to reach out!
                 </p>
               </div>
 
-              {/* Contact Info Cards */}
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <div
-                    key={info.title}
-                    className={`transform transition-all duration-700 ${
-                      isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
-                    }`}
-                    style={{ transitionDelay: `${index * 150}ms` }}
-                  >
+              {/* Contact Info Cards - Show only main contacts */}
+              <div className="space-y-3">
+                {contactInfo.slice(0, 3).map((info) => (
+                  <div key={info.title}>
                     {info.link ? (
                       <a
                         href={info.link}
                         target={info.link.startsWith('http') ? '_blank' : undefined}
                         rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="flex items-center p-4 bg-white dark:bg-dark-400 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-dark-500 hover:scale-105 group"
+                        className="flex items-center p-4 bg-white dark:bg-dark-400 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-dark-500 group"
                       >
-                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-200">
+                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center text-white">
                           {info.icon}
                         </div>
-                        <div className="ml-4">
-                          <h4 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-200">
+                        <div className="ml-3">
+                          <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-200">
                             {info.title}
                           </h4>
-                          <p className="text-gray-600 dark:text-gray-300">{info.value}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{info.value}</p>
                         </div>
                         <div className="ml-auto">
-                          <svg className="w-5 h-5 text-gray-400 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 text-gray-400 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                           </svg>
                         </div>
                       </a>
                     ) : (
-                      <div className="flex items-center p-4 bg-white dark:bg-dark-400 rounded-xl shadow-md border border-gray-200 dark:border-dark-500">
-                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center text-white">
+                      <div className="flex items-center p-4 bg-white dark:bg-dark-400 rounded-xl shadow-sm border border-gray-200 dark:border-dark-500">
+                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center text-white">
                           {info.icon}
                         </div>
-                        <div className="ml-4">
-                          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <div className="ml-3">
+                          <h4 className="font-semibold text-gray-900 dark:text-white">
                             {info.title}
                           </h4>
-                          <p className="text-gray-600 dark:text-gray-300">{info.value}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">{info.value}</p>
                         </div>
                       </div>
                     )}
                   </div>
                 ))}
-              </div>
-
-              {/* Quick Response Time */}
-              <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 p-6 rounded-xl border border-primary-200 dark:border-primary-800">
-                <div className="flex items-center mb-2">
-                  <svg className="w-6 h-6 text-primary-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                  </svg>
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">Quick Response</h4>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  I typically respond to messages within 24 hours. Looking forward to hearing from you!
-                </p>
               </div>
             </div>
           </div>
