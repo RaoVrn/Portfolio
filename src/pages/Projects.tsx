@@ -1,30 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { projects } from '../data/projects.ts';
 import ProjectCard from '../components/ProjectCardNew';
 
 const Projects: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [filter, setFilter] = useState<'all' | 'featured'>('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'showcase'>('grid');
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Intersection observer for animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   // Filter projects based on selection
   const filteredProjects = filter === 'all' 
@@ -34,11 +13,10 @@ const Projects: React.FC = () => {
   return (
     <section
       id="projects"
-      ref={sectionRef}
       className="py-16 bg-gray-50 dark:bg-dark-300 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div>
           {/* Section Header */}
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -50,9 +28,8 @@ const Projects: React.FC = () => {
             </p>
           </div>
 
-          {/* Filter and View Toggle Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
-            {/* Filter Buttons */}
+          {/* Filter Buttons */}
+          <div className="flex justify-end mb-8">
             <div className="inline-flex bg-white dark:bg-dark-400 rounded-lg p-1 shadow-lg border border-gray-200 dark:border-dark-500">
               <button
                 onClick={() => setFilter('all')}
@@ -75,74 +52,16 @@ const Projects: React.FC = () => {
                 Featured ({projects.filter((p: any) => p.featured).length})
               </button>
             </div>
-
-            {/* View Mode Toggle */}
-            <div className="inline-flex bg-white dark:bg-dark-400 rounded-lg p-1 shadow-lg border border-gray-200 dark:border-dark-500">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center ${
-                  viewMode === 'grid'
-                    ? 'bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-md'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400'
-                }`}
-              >
-                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                </svg>
-                Grid
-              </button>
-              <button
-                onClick={() => setViewMode('showcase')}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center ${
-                  viewMode === 'showcase'
-                    ? 'bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-md'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400'
-                }`}
-              >
-                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                </svg>
-                Showcase
-              </button>
-            </div>
           </div>
 
-          {/* Projects Display */}
-          {viewMode === 'grid' ? (
-            /* Grid View - Compact Cards */
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProjects.map((project: any, index: number) => (
-                <div
-                  key={project.id}
-                  className={`transform transition-all duration-500 ${
-                    isVisible 
-                      ? 'translate-y-0 opacity-100' 
-                      : 'translate-y-10 opacity-0'
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <ProjectCard project={project} index={index} viewMode="grid" />
-                </div>
-              ))}
-            </div>
-          ) : (
-            /* Showcase View - Detailed Cards */
-            <div className="space-y-8 lg:space-y-12">
-              {filteredProjects.map((project: any, index: number) => (
-                <div
-                  key={project.id}
-                  className={`transform transition-all duration-500 ${
-                    isVisible 
-                      ? 'translate-y-0 opacity-100' 
-                      : 'translate-y-10 opacity-0'
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <ProjectCard project={project} index={index} viewMode="showcase" />
-                </div>
-              ))}
-            </div>
-          )}
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 xl:gap-16">
+            {filteredProjects.map((project: any, index: number) => (
+              <div key={project.id} className="flex justify-center">
+                <ProjectCard project={project} index={index} />
+              </div>
+            ))}
+          </div>
 
           {/* View More Section */}
           <div className="text-center mt-12">

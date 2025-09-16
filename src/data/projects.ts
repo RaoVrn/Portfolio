@@ -18,7 +18,7 @@ export const projects: Project[] = [
     description: "AI desktop assistant with NLP command execution, file management, and offline automation.",
     longDescription: "Developing an AI desktop assistant with NLP command execution, file/app management, and offline automation. Added NLP features for web search, Spotify/YouTube control, and Gmail drafting. Designed high-performance APIs supporting plugins, memory, and real-time AI responses.",
     techStack: ["Python", "AI/ML", "Windows API", "NLP", "Speech Recognition", "Automation"],
-    githubLink: "https://github.com/RaoVrn/aura-assistant",
+    githubLink: "https://github.com/RaoVrn/Aura",
     liveDemo: "#",
     image: "/api/placeholder/600/400",
     featured: true
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     description: "Full-stack project management tool with real-time collaboration and task management features.",
     longDescription: "Contributed to TeamSync, a full-stack project management tool developed with React.js, Node.js, and MongoDB, enhancing task management, collaboration, and real-time updates. Actively participated in daily agile meetings and strengthened expertise in API development, database design, and frontend-backend integration.",
     techStack: ["React.js", "Node.js", "MongoDB", "Real-time Updates", "API Development"],
-    githubLink: "https://github.com/RaoVrn/teamsync",
+    githubLink: "https://github.com/MentorTeamSync/teamsync_Infosys_Internship_Oct2024",
     liveDemo: "https://teamsync.vercel.app",
     image: "/api/placeholder/600/400",
     featured: true
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     description: "Full-stack rental system with tenant dashboards and AI assistant for smart property management.",
     longDescription: "Built a comprehensive rental system with tenant dashboards and secure REST APIs to manage payments, listings, and maintenance. Integrated an AI assistant for smart search, rent reminders, and support, managing 4.7k+ properties across 6 major Indian cities.",
     techStack: ["Next.js", "Node.js", "MongoDB", "Gemini API", "REST APIs", "AI Assistant"],
-    githubLink: "https://github.com/RaoVrn/rentease",
+    githubLink: "https://github.com/RaoVrn/RentEase",
     liveDemo: "https://rentease.vercel.app",
     image: "/api/placeholder/600/400",
     featured: false
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     description: "Helping pets find their forever homes through an intuitive adoption platform.",
     longDescription: "A comprehensive pet adoption platform that connects loving families with pets in need of homes. Features advanced search filters, pet profiles, adoption tracking, and community features to ensure successful matches between pets and families.",
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "Socket.io", "Cloudinary"],
-    githubLink: "https://github.com/RaoVrn/fureverhome",
+    githubLink: "https://github.com/RaoVrn/FurEverHome",
     liveDemo: "#",
     image: "/api/placeholder/600/400",
     featured: true
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     description: "Smart content curation and feed management system with AI-powered recommendations.",
     longDescription: "An intelligent content curation platform that uses machine learning algorithms to provide personalized content recommendations. Features real-time content aggregation, user preference learning, and smart filtering capabilities.",
     techStack: ["React.js", "Python", "FastAPI", "PostgreSQL", "ML Algorithms", "Redis"],
-    githubLink: "https://github.com/RaoVrn/feedwise",
+    githubLink: "https://github.com/RaoVrn/FeedWise",
     liveDemo: "#",
     image: "/api/placeholder/600/400",
     featured: false
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     description: "Network monitoring and analytics dashboard for real-time infrastructure insights.",
     longDescription: "A comprehensive network monitoring solution that provides real-time analytics, performance metrics, and automated alerting. Features include bandwidth monitoring, device discovery, and predictive analytics for network optimization.",
     techStack: ["Vue.js", "Python", "Django", "InfluxDB", "Grafana", "Docker"],
-    githubLink: "https://github.com/RaoVrn/netpulse",
+    githubLink: "https://github.com/RaoVrn/NetPulse",
     liveDemo: "#",
     image: "/api/placeholder/600/400",
     featured: false
