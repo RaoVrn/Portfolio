@@ -44,123 +44,100 @@ const Skills: React.FC = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-16 bg-white dark:bg-dark-200 transition-colors duration-300 min-h-screen flex items-center"
+      className="py-6 bg-white dark:bg-dark-200 transition-colors duration-300 min-h-screen flex items-center"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="text-center mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-1">
               My <span className="text-primary-500">Skills</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full mb-6"></div>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              A comprehensive overview of my technical expertise across different domains of software development.
+            <div className="w-16 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto rounded-full mb-2"></div>
+            <p className="text-base text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+              Technical expertise across different domains of software development
             </p>
           </div>
 
-          {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column - Frontend & Backend */}
-            <div className="space-y-6">
+          {/* Skills Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Left Column */}
+            <div className="space-y-4">
               {/* Frontend */}
-              <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-6 border border-gray-200 dark:border-dark-400">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                  Frontend
+              <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-4 border border-gray-200 dark:border-dark-400">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <span className="text-primary-500">Frontend</span>
                   <div className="ml-3 flex-1 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {skillsByCategory.frontend.map((skill, index) => (
-                    <div key={skill.name} className="flex items-center justify-between p-3 bg-white dark:bg-dark-400 rounded-lg">
-                      <div className="flex items-center">
-                        <span className="text-xl mr-3">{skill.icon}</span>
-                        <span className="font-medium text-gray-700 dark:text-gray-300 text-sm">{skill.name}</span>
-                      </div>
-                      <span className="text-xs font-semibold text-primary-500 dark:text-primary-400">{skill.level}%</span>
+                <div className="grid grid-cols-3 gap-2">
+                  {skillsByCategory.frontend.map((skill) => (
+                    <div key={skill.name} className="p-3 bg-white dark:bg-dark-400 rounded-lg border border-gray-100 dark:border-dark-500 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 hover:shadow-md text-center">
+                      <span className="text-gray-800 dark:text-gray-200 font-medium text-sm">{skill.name}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Backend */}
-              <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-6 border border-gray-200 dark:border-dark-400">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                  Backend
+              <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-4 border border-gray-200 dark:border-dark-400">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <span className="text-primary-500">Backend</span>
                   <div className="ml-3 flex-1 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {skillsByCategory.backend.map((skill, index) => (
-                    <div key={skill.name} className="flex items-center justify-between p-3 bg-white dark:bg-dark-400 rounded-lg">
-                      <div className="flex items-center">
-                        <span className="text-xl mr-3">{skill.icon}</span>
-                        <span className="font-medium text-gray-700 dark:text-gray-300 text-sm">{skill.name}</span>
-                      </div>
-                      <span className="text-xs font-semibold text-primary-500 dark:text-primary-400">{skill.level}%</span>
+                <div className="grid grid-cols-3 gap-2">
+                  {skillsByCategory.backend.map((skill) => (
+                    <div key={skill.name} className="p-3 bg-white dark:bg-dark-400 rounded-lg border border-gray-100 dark:border-dark-500 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 hover:shadow-md text-center">
+                      <span className="text-gray-800 dark:text-gray-200 font-medium text-sm">{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Languages */}
+              <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-4 border border-gray-200 dark:border-dark-400">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <span className="text-accent-500">Languages</span>
+                  <div className="ml-3 flex-1 h-0.5 bg-gradient-to-r from-accent-500 to-primary-500"></div>
+                </h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {skillsByCategory.language.map((skill) => (
+                    <div key={skill.name} className="p-3 bg-white dark:bg-dark-400 rounded-lg border border-gray-100 dark:border-dark-500 hover:border-accent-300 dark:hover:border-accent-600 transition-all duration-200 hover:shadow-md text-center">
+                      <span className="text-gray-800 dark:text-gray-200 font-medium text-sm">{skill.name}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Right Column - Cloud, Languages & Tools */}
-            <div className="space-y-6">
+            {/* Right Column */}
+            <div className="space-y-4">
               {/* Cloud & DevOps */}
-              <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-6 border border-gray-200 dark:border-dark-400">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                  Cloud & DevOps
-                  <div className="ml-3 flex-1 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
+              <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-4 border border-gray-200 dark:border-dark-400">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <span className="text-secondary-500">Cloud & DevOps</span>
+                  <div className="ml-3 flex-1 h-0.5 bg-gradient-to-r from-secondary-500 to-accent-500"></div>
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {skillsByCategory.cloud.map((skill, index) => (
-                    <div key={skill.name} className="flex items-center justify-between p-3 bg-white dark:bg-dark-400 rounded-lg">
-                      <div className="flex items-center">
-                        <span className="text-xl mr-3">{skill.icon}</span>
-                        <span className="font-medium text-gray-700 dark:text-gray-300 text-sm">{skill.name}</span>
-                      </div>
-                      <span className="text-xs font-semibold text-primary-500 dark:text-primary-400">{skill.level}%</span>
+                <div className="grid grid-cols-3 gap-2">
+                  {skillsByCategory.cloud.map((skill) => (
+                    <div key={skill.name} className="p-3 bg-white dark:bg-dark-400 rounded-lg border border-gray-100 dark:border-dark-500 hover:border-secondary-300 dark:hover:border-secondary-600 transition-all duration-200 hover:shadow-md text-center">
+                      <span className="text-gray-800 dark:text-gray-200 font-medium text-sm">{skill.name}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Languages & Tools Combined */}
-              <div className="grid grid-cols-1 gap-6">
-                {/* Languages */}
-                <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-6 border border-gray-200 dark:border-dark-400">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                    Languages
-                    <div className="ml-3 flex-1 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
-                  </h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {skillsByCategory.language.map((skill, index) => (
-                      <div key={skill.name} className="flex items-center justify-between p-2 bg-white dark:bg-dark-400 rounded-lg">
-                        <div className="flex items-center">
-                          <span className="text-lg mr-2">{skill.icon}</span>
-                          <span className="font-medium text-gray-700 dark:text-gray-300 text-sm">{skill.name}</span>
-                        </div>
-                        <span className="text-xs font-semibold text-primary-500 dark:text-primary-400">{skill.level}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Tools */}
-                <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-6 border border-gray-200 dark:border-dark-400">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
-                    Tools
-                    <div className="ml-3 flex-1 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
-                  </h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {skillsByCategory.tools.map((skill, index) => (
-                      <div key={skill.name} className="flex items-center justify-between p-2 bg-white dark:bg-dark-400 rounded-lg">
-                        <div className="flex items-center">
-                          <span className="text-lg mr-2">{skill.icon}</span>
-                          <span className="font-medium text-gray-700 dark:text-gray-300 text-sm">{skill.name}</span>
-                        </div>
-                        <span className="text-xs font-semibold text-primary-500 dark:text-primary-400">{skill.level}%</span>
-                      </div>
-                    ))}
-                  </div>
+              {/* Tools */}
+              <div className="bg-gray-50 dark:bg-dark-300 rounded-xl p-4 border border-gray-200 dark:border-dark-400">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                  <span className="text-primary-500">Tools</span>
+                  <div className="ml-3 flex-1 h-0.5 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
+                </h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {skillsByCategory.tools.map((skill) => (
+                    <div key={skill.name} className="p-3 bg-white dark:bg-dark-400 rounded-lg border border-gray-100 dark:border-dark-500 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 hover:shadow-md text-center">
+                      <span className="text-gray-800 dark:text-gray-200 font-medium text-sm">{skill.name}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
