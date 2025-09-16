@@ -166,7 +166,7 @@ export const achievements: Achievement[] = [
     date: "April 2025",
     description: "Proposed LLM-driven schema mapping to extract structured data from unstructured inputs.",
     prize: "1st Runner-Up",
-    category: 'competition',
+    category: 'hackathon',
     icon: '🥈'
   },
   {
@@ -233,5 +233,14 @@ export const achievements: Achievement[] = [
     description: "Core DBMS principles: relational modeling, SQL, transactions, indexing, and normalization.",
     category: 'certification',
     icon: '🗄️'
+  },
+  {
+    id: 11,
+    title: "Top 2% Academic Performance",
+    organization: "SRM Institute of Science and Technology",
+    date: "2024-2025",
+    description: "Achieved top 2% academic ranking in the college with consistent excellence in Computer Science and Engineering.",
+    category: 'award',
+    icon: '🎓'
   }
 ];
