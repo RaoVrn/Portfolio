@@ -181,15 +181,15 @@ const About: React.FC = () => {
     </section>
 
     {/* Education & Experience Section */}
-    <section className="py-16 bg-gray-50 dark:bg-dark-500">
+    <section className="py-16 bg-gray-700 dark:bg-dark-500">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-white dark:text-white mb-3">
               My Journey
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+            <p className="text-gray-300 dark:text-gray-300 max-w-xl mx-auto">
               Explore my educational background and professional experience that have shaped my career
             </p>
           </div>
@@ -269,6 +269,7 @@ const About: React.FC = () => {
                         <p className="text-gray-600 dark:text-gray-300 text-sm">Colonel's Central Academy (CCA)</p>
                       </div>
                     </div>
+                    <span className="px-3 py-1 bg-secondary-100 dark:bg-secondary-900/30 text-secondary-700 dark:text-secondary-300 text-xs font-medium rounded-full">Completed</span>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="px-3 py-1 bg-secondary-500 text-white text-xs font-bold rounded-md">93.8%</span>
@@ -289,6 +290,7 @@ const About: React.FC = () => {
                         <p className="text-gray-600 dark:text-gray-300 text-sm">Colonel's Central Academy (CCA)</p>
                       </div>
                     </div>
+                    <span className="px-3 py-1 bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 text-xs font-medium rounded-full">Completed</span>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="px-3 py-1 bg-accent-500 text-white text-xs font-bold rounded-md">80%</span>

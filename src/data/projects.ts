@@ -136,6 +136,7 @@ export interface Achievement {
   prize?: string;
   category: 'hackathon' | 'competition' | 'certification' | 'award';
   icon: string;
+  link?: string;
 }
 
 export const achievements: Achievement[] = [
@@ -147,27 +148,30 @@ export const achievements: Achievement[] = [
     description: "Built NLP2SQL, converting natural language to SQL; selected among top 105 teams nationally out of 57,000+ developers.",
     prize: "Top 105",
     category: 'hackathon',
-    icon: '🏆'
+    icon: '🏆',
+    link: 'https://drive.google.com/file/d/16OVuWBPRMQXxP6r_FA3uEUDEg61e0s-1/view?usp=sharing'
   },
   {
     id: 2,
-    title: "Guidewire DevTrails Hackathon",
+    title: "Guidewire DevTrails University Hackathon",
     organization: "Guidewire",
     date: "May 2025",
     description: "Developed KubeWise, a CLI-based Kubernetes SRE assistant using Pydantic-AI and agentic ML.",
     prize: "1st Runner-Up",
     category: 'hackathon',
-    icon: '🥈'
+    icon: '🥈',
+    link: 'https://drive.google.com/file/d/1oAgFCdugdAlgvjWKn6mk0DaOpT_ElFL_/view?usp=sharing'
   },
   {
     id: 3,
     title: "Genesis Mini-Hack by TPH SRM",
-    organization: "The Programming Hub SRM",
+    organization: "The product House x SRM",
     date: "April 2025",
     description: "Proposed LLM-driven schema mapping to extract structured data from unstructured inputs.",
     prize: "1st Runner-Up",
     category: 'hackathon',
-    icon: '🥈'
+    icon: '🥈',
+    link: 'https://drive.google.com/file/d/1S4Q3yWtVw_xEil3bzP7gZxKB3maOF8Zm/view?usp=drive_link'
   },
   {
     id: 4,
@@ -177,7 +181,8 @@ export const achievements: Achievement[] = [
     description: "Fine-tuned GPT-4o Mini for NLP2SQL; achieved 95.66% accuracy and deployed on Streamlit.",
     prize: "2nd Runner-Up",
     category: 'hackathon',
-    icon: '🥉'
+    icon: '🥉',
+    link: 'https://drive.google.com/file/d/1KYDAXZz_pfVbjh1RYehdvkGwmunkrr1Z/view?usp=drive_link'
   },
   {
     id: 5,
@@ -187,7 +192,8 @@ export const achievements: Achievement[] = [
     description: "Built a pneumonia detection model using ML/DL; achieved 98% accuracy, ranked top among 40+ teams.",
     prize: "1st Runner-Up",
     category: 'hackathon',
-    icon: '🥈'
+    icon: '🥈',
+    link: 'https://drive.google.com/file/d/1AyiCa9BoS9ZeHUZSXq4EnRoESMPvNIXj/view?usp=drive_link'
   },
   {
     id: 6,
@@ -196,7 +202,8 @@ export const achievements: Achievement[] = [
     date: "2024",
     description: "Professional certification in Git, GitHub, and collaborative software development practices.",
     category: 'certification',
-    icon: '📜'
+    icon: '',
+    link: 'https://drive.google.com/file/d/16De0M_Lj-9lITfZ8oDRHdzh5_FvgVYf5/view?usp=sharing'
   },
   {
     id: 7,
@@ -205,7 +212,8 @@ export const achievements: Achievement[] = [
     date: "2024",
     description: "Certified in Oracle Cloud Infrastructure fundamentals and cloud computing concepts.",
     category: 'certification',
-    icon: '☁️'
+    icon: '',
+    link: 'https://drive.google.com/file/d/1s-7L6G3D99YQnzHpQL6glo4C5R9Evcbc/view?usp=drive_link'
   },
   {
     id: 8,
@@ -214,7 +222,8 @@ export const achievements: Achievement[] = [
     date: "2024",
     description: "Advanced certification in modern C++ programming concepts and best practices.",
     category: 'certification',
-    icon: '⚡'
+    icon: '',
+    link: 'https://drive.google.com/file/d/1jXdCe7YTqCexdq3EwUnMVPCi7GqCm8A0/view?usp=drive_link'
   },
   {
     id: 9,
@@ -223,24 +232,56 @@ export const achievements: Achievement[] = [
     date: "2024",
     description: "Foundational concepts in supervised and unsupervised learning, model evaluation, and feature engineering.",
     category: 'certification',
-    icon: '🧠'
+    icon: '',
+    link: 'https://drive.google.com/file/d/1CrrDV97BEL2pt_CmirMwgXHqxB2DQscl/view?usp=drive_link'
   },
   {
     id: 10,
-    title: "Database Management System",
+    title: "Data Base Management System",
     organization: "NPTEL",
     date: "2024",
     description: "Core DBMS principles: relational modeling, SQL, transactions, indexing, and normalization.",
     category: 'certification',
-    icon: '🗄️'
+    icon: '',
+    link: 'https://drive.google.com/file/d/10sZDLpbb-KWbKzh-fSbxmun6JIqcIksO/view?usp=drive_link'
   },
   {
     id: 11,
     title: "Top 2% Academic Performance",
     organization: "SRM Institute of Science and Technology",
-    date: "2024-2025",
+    date: "",
     description: "Achieved top 2% academic ranking in the college with consistent excellence in Computer Science and Engineering.",
     category: 'award',
     icon: '🎓'
+  },
+  {
+    id: 12,
+    title: "AWS Academy Graduate - AWS Machine Learning and Foundations",
+    organization: "AWS",
+    date: "2024",
+    description: "Comprehensive training in AWS machine learning services and cloud foundations, covering ML workflows and AWS core services.",
+    category: 'certification',
+    icon: '',
+    link: 'https://drive.google.com/file/d/10Uv_jL5z_m_irfd07qZKNKNM5ByWF0FK/view?usp=drive_link'
+  },
+  {
+    id: 13,
+    title: "Introduction to Front End Development",
+    organization: "Meta",
+    date: "2024",
+    description: "Foundational skills in HTML, CSS, and modern front-end development practices and responsive web design principles.",
+    category: 'certification',
+    icon: '',
+    link: 'https://drive.google.com/file/d/1_NaBPaBcz7fr-vs3sHPe8eqKw5eKQSyU/view?usp=drive_link'
+  },
+  {
+    id: 14,
+    title: "Programming with JavaScript",
+    organization: "Meta",
+    date: "2024",
+    description: "Advanced JavaScript programming concepts, ES6+ features, DOM manipulation, and modern development practices.",
+    category: 'certification',
+    icon: '',
+    link: 'https://drive.google.com/file/d/1pQHRcg97pieLYWEs8r_yh6VPTmA6gPGE/view?usp=drive_link'
   }
 ];
