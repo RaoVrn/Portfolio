@@ -32,14 +32,6 @@ const Skills: React.FC = () => {
     tools: skills.filter(skill => skill.category === 'tools'),
   };
 
-  const categoryNames = {
-    frontend: 'Frontend',
-    backend: 'Backend', 
-    cloud: 'Cloud & DevOps',
-    language: 'Languages',
-    tools: 'Tools'
-  };
-
   return (
     <section
       id="skills"
