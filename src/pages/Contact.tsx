@@ -1,6 +1,7 @@
 // Contact.tsx
 
 import React, { useEffect, useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 interface FormData {
   name: string;
@@ -17,7 +18,9 @@ const Contact: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const form = useRef<HTMLFormElement>(null);
 
   // Intersection observer for animations
   useEffect(() => {
@@ -50,16 +53,52 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate form submission (replace with actual form handling)
-    setTimeout(() => {
+    try {
+      // EmailJS configuration from environment variables
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      // Check if all required environment variables are set
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('EmailJS configuration is missing. Please check your environment variables.');
+      }
+
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          time: new Date().toLocaleString('en-US', {
+            timeZone: 'Asia/Kolkata',
+            dateStyle: 'full',
+            timeStyle: 'short'
+          }),
+          to_email: 'prakash.varun.0305@gmail.com',
+        },
+        publicKey
+      );
+
+      console.log('Email sent successfully:', result.text);
       setIsSubmitting(false);
       setSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
       
       // Reset success message after 5 seconds
       setTimeout(() => setSubmitted(false), 5000);
-    }, 2000);
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setIsSubmitting(false);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
+      
+      // Reset error message after 5 seconds
+      setTimeout(() => setSubmitError(null), 5000);
+    }
   };
 
   // Contact information
@@ -152,7 +191,15 @@ const Contact: React.FC = () => {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              {submitError && (
+                <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                  <p className="text-red-700 dark:text-red-400 text-sm font-medium">
+                    ❌ {submitError}
+                  </p>
+                </div>
+              )}
+
+              <form ref={form} onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Your Name
