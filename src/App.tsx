@@ -7,6 +7,7 @@ import { WorkSection } from "./components/Work/WorkSection";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { SkillsSection } from "./components/SkillsSection";
 import { AboutSection } from "./components/AboutSection";
+import { HighlightsSection } from "./components/HighlightsSection";
 import { Footer } from "./components/Footer";
 import { useMagnetic } from "./lib/useMagnetic";
 import "./styles/tokens.css";
@@ -27,6 +28,7 @@ export default function App() {
         <ExperienceSection />
         <SkillsSection />
         <AboutSection />
+        <HighlightsSection />
       </main>
       <Footer />
     </>

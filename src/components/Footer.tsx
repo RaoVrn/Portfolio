@@ -6,6 +6,10 @@ export function Footer() {
   return (
     <footer className={styles.footer} id="contact">
       <div className={`container ${styles.inner}`}>
+        <Reveal as="p" variant="fade" className={styles.label}>
+          Contact
+        </Reveal>
+
         <Reveal as="h2" variant="line" delay={60} className={styles.heading}>
           Let's build something useful.
         </Reveal>

@@ -10,6 +10,25 @@
   align-items: flex-start;
 }
 
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.label::before {
+  content: "";
+  width: 2.25rem;
+  height: 1px;
+  background: var(--accent);
+}
+
 .heading {
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 600;

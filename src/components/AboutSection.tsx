@@ -1,24 +1,20 @@
 import { about } from "../data/about";
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 import styles from "./AboutSection.module.css";
 
 export function AboutSection() {
   return (
     <section className={styles.section} id="about" aria-labelledby="about-heading">
       <div className={`container ${styles.inner}`}>
-        <header className={styles.header}>
-          <Reveal as="p" variant="fade" className={`label ${styles.label}`}>
-            About
-          </Reveal>
-
-          <Reveal as="h2" variant="line" delay={60} className={styles.heading} id="about-heading">
-            {about.headline}
-          </Reveal>
-
-          <Reveal as="p" variant="rise" delay={180} className={styles.intro}>
-            {about.intro}
-          </Reveal>
-        </header>
+        <SectionHeader
+          className={styles.header}
+          label="About"
+          heading={about.headline}
+          support={about.intro}
+          headingId="about-heading"
+          size="statement"
+        />
 
         <div className={styles.side}>
           <Reveal as="div" variant="rise" delay={160} className={styles.block}>

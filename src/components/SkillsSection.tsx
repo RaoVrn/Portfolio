@@ -1,20 +1,18 @@
 import { focusAreas, skillGroups } from "../data/skills";
 import { Reveal } from "./Reveal";
+import { SectionHeader } from "./SectionHeader";
 import styles from "./SkillsSection.module.css";
 
 export function SkillsSection() {
   return (
     <section className={styles.section} aria-labelledby="skills-heading">
       <div className={`container ${styles.inner}`}>
-        <header className={styles.header}>
-          <Reveal as="p" variant="fade" className={`label ${styles.label}`}>
-            What I work with
-          </Reveal>
-
-          <Reveal as="h2" variant="line" delay={60} className={styles.heading} id="skills-heading">
-            Focused areas and the tools behind them.
-          </Reveal>
-        </header>
+        <SectionHeader
+          className={styles.header}
+          label="What I work with"
+          heading="Focused areas and the tools behind them."
+          headingId="skills-heading"
+        />
 
         <div className={styles.content}>
           <Reveal as="div" variant="rise" delay={120} className={styles.areas}>

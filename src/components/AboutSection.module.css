@@ -16,28 +16,6 @@
   top: calc(var(--header-h) + var(--space-5));
 }
 
-.label {
-  margin-bottom: var(--space-4);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.label::before {
-  content: "";
-  width: 2.25rem;
-  height: 1px;
-  background: var(--accent);
-}
-
-.heading {
-  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: var(--text-1);
-}
-
 .intro {
   margin-top: var(--space-5);
   max-width: 28rem;
