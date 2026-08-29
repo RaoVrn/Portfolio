@@ -6,17 +6,21 @@
 
 :root {
   /* ----- Color: environment ---------------------------------- */
-  --bg: #0d0d10;               /* page background — deep graphite */
-  --bg-deep: #09090b;          /* recessed / deep panels          */
-  --surface: #16161a;          /* raised surfaces                 */
-  --surface-2: #1f1f25;        /* higher surfaces / hovers        */
+  --bg: #0a0a0a;               /* page background — near-black    */
+  --bg-deep: #070707;          /* recessed / deep panels          */
+  --surface: #121212;          /* primary surface                 */
+  --surface-2: #1a1a1a;        /* higher surfaces / hovers        */
 
-  --text-1: #eae7e0;           /* primary text — warm off-white   */
-  --text-2: #a6a29a;           /* secondary text                  */
-  --text-3: #84807a;           /* muted text / small labels — AA  */
+  --text-1: #ededed;           /* primary text — soft off-white   */
+  --text-2: #9c9c9c;           /* secondary text                  */
+  --text-3: #828282;           /* muted text / small labels — AA  */
 
-  --line: rgba(234, 231, 224, 0.08);
-  --line-strong: rgba(234, 231, 224, 0.16);
+  --line: rgba(237, 237, 237, 0.08);
+  --line-strong: rgba(237, 237, 237, 0.16);
+
+  /* Primary action surface — off-white material, dark text. */
+  --btn-bg: #ededed;
+  --btn-text: #0a0a0a;
 
   --accent: #8aae94;           /* muted sage — the single accent  */
   --accent-strong: #a6c2ad;
@@ -25,7 +29,7 @@
   --accent-ink: #10110f;       /* text placed on accent fills     */
   --error: #d98c7f;            /* validation / failure messages    */
 
-  --stroke: rgba(234, 231, 224, 0.5); /* outline / registration treatment */
+  --stroke: rgba(237, 237, 237, 0.5); /* outline / registration treatment */
 
   /* ----- Typography ------------------------------------------- */
   --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
@@ -71,7 +75,7 @@
   /* ----- Radii / shadow ---------------------------------------- */
   --radius-sm: 4px;
   --radius-md: 8px;
-  --radius-card: 14px;
+  --radius-card: 12px;
   --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.02), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
   --shadow-card-hover: 0 1px 0 rgba(255, 255, 255, 0.03), 0 24px 48px -24px rgba(0, 0, 0, 0.75);
   --shadow-preview: 0 2px 6px rgba(0, 0, 0, 0.4), 0 32px 64px -24px rgba(0, 0, 0, 0.75);

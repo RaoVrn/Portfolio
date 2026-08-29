@@ -67,6 +67,13 @@
   color: var(--text-2);
 }
 
+.rowSide {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+}
+
 .category {
   font-family: var(--font-mono);
   font-size: var(--text-mono);
@@ -74,6 +81,14 @@
   text-transform: uppercase;
   color: var(--text-3);
   white-space: nowrap;
+}
+
+.year {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+  opacity: 0.75;
 }
 
 .action {
@@ -133,8 +148,11 @@
     padding-block: var(--space-5);
   }
 
-  .category {
+  .rowSide {
     grid-column: 2;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-4);
   }
 
   .action {

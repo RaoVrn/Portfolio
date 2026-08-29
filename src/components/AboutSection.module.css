@@ -58,7 +58,7 @@
   height: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  background: rgba(22, 22, 26, 0.45);
+  background: rgba(18, 18, 18, 0.5);
   padding: var(--space-5);
   transition: border-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
 }

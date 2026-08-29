@@ -10,19 +10,15 @@
 /* Muted green atmosphere — a soft breath near the top. */
 .glow {
   position: absolute;
-  top: -12rem;
-  left: 50%;
-  width: 120rem;
-  height: 46rem;
-  transform: translateX(-50%);
-  background: radial-gradient(50% 100% at 50% 0%, rgba(138, 174, 148, 0.07), transparent 70%);
+  inset: 0;
+  background: radial-gradient(55% 100% at 50% 0%, rgba(138, 174, 148, 0.07), transparent 70%);
 }
 
 /* Soft neutral light falloff behind the main content. */
 .light {
   position: absolute;
   inset: 0;
-  background: radial-gradient(90rem 60rem at 70% -10%, rgba(234, 231, 224, 0.03), transparent 62%);
+  background: radial-gradient(90rem 60rem at 70% -10%, rgba(237, 237, 237, 0.03), transparent 62%);
 }
 
 /* ----- Above the content: film grain ----- */

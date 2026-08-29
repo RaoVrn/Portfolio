@@ -8,7 +8,11 @@ const NAV = [
   { id: "about", label: "About" },
 ];
 
-export function Header() {
+interface HeaderProps {
+  onOpenContact: () => void;
+}
+
+export function Header({ onOpenContact }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -108,13 +112,13 @@ export function Header() {
               </ul>
             </nav>
 
-            <a
+            <button
+              type="button"
               className={`${styles.contact} ${active === "contact" ? styles.contactActive : ""}`}
-              href="#contact"
-              aria-current={active === "contact" ? "true" : undefined}
+              onClick={onOpenContact}
             >
               Let's talk
-            </a>
+            </button>
 
             <button
               className={styles.menuButton}
@@ -153,14 +157,16 @@ export function Header() {
               </li>
             ))}
             <li>
-              <a
-                href="#contact"
-                onClick={() => setMenuOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  onOpenContact();
+                }}
                 className={`${styles.menuLink} ${styles.menuLinkAccent} ${active === "contact" ? styles.menuLinkAccentActive : ""}`}
-                aria-current={active === "contact" ? "true" : undefined}
               >
                 Let's talk
-              </a>
+              </button>
             </li>
           </ul>
         </nav>

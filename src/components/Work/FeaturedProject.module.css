@@ -2,7 +2,7 @@
   padding-block: clamp(2.5rem, 6vh, 4rem) clamp(3rem, 7vh, 4.5rem);
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
-  background: linear-gradient(180deg, rgba(23, 23, 27, 0.6), rgba(23, 23, 27, 0.25));
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.55), rgba(18, 18, 18, 0.2));
   padding-inline: clamp(1.5rem, 3.5vw, 3rem);
 }
 
@@ -167,7 +167,7 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--text-1);
-  background: rgba(15, 15, 18, 0.78);
+  background: rgba(10, 10, 10, 0.8);
   border: 1px solid rgba(138, 174, 148, 0.4);
   border-radius: 100px;
   backdrop-filter: blur(8px);

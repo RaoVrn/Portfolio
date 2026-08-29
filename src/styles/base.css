@@ -16,6 +16,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 1rem);
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
 }
 

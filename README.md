@@ -40,7 +40,7 @@ src/
     experience.ts       # work experience snapshot
     skills.ts           # what I work with
   lib/
-    useInView, useScroll, useMagnetic, useCanvasLoop hooks
+    useInView, useScroll, useMagnetic hooks
   styles/
     tokens.css          # design tokens — color, type, space, motion
     base.css            # reset, base styles, shared primitives

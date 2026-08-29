@@ -1,7 +1,7 @@
 import { useRef, type CSSProperties, type ElementType, type ReactNode } from "react";
 import { useInView } from "../lib/useInView";
 
-export type RevealVariant = "fade" | "rise" | "line" | "rule";
+export type RevealVariant = "fade" | "rise" | "line";
 
 interface RevealProps {
   as?: ElementType;

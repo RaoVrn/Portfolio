@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Header } from "./components/Header";
 import { SkipLink } from "./components/SkipLink";
 import { ScrollProgress } from "./components/ScrollProgress";
@@ -14,13 +15,14 @@ import "./styles/tokens.css";
 import "./styles/base.css";
 
 export default function App() {
+  const [contactOpen, setContactOpen] = useState(false);
   useMagnetic();
 
   return (
     <>
       <SkipLink />
       <Ambient />
-      <Header />
+      <Header onOpenContact={() => setContactOpen(true)} />
       <ScrollProgress />
       <main id="main">
         <Hero />
@@ -29,7 +31,11 @@ export default function App() {
         <AboutSection />
         <HighlightsSection />
       </main>
-      <ContactSection />
+      <ContactSection
+        open={contactOpen}
+        onOpen={() => setContactOpen(true)}
+        onClose={() => setContactOpen(false)}
+      />
       <Footer />
     </>
   );

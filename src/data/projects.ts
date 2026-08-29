@@ -9,7 +9,7 @@ export interface Project {
   category: string;
   year: string;
   description: string;
-  tags: string[];
+  tags?: string[];
   github?: string;
   live?: string;
   image?: { src: string; alt: string };
@@ -36,7 +36,6 @@ export const selectedProjects: Project[] = [
     year: "2025–26",
     description:
       "An AI system that monitors drivers and assesses risk from visual data through role-based dashboards.",
-    tags: ["Computer Vision", "Driver Monitoring", "Dashboards"],
     github: "https://github.com/RaoVrn/predictive-risk-assessment",
   },
   {
@@ -46,7 +45,6 @@ export const selectedProjects: Project[] = [
     year: "2025",
     description:
       "A property management platform for listings, tenants, payments, and maintenance.",
-    tags: ["Full Stack", "Property Management", "AI Assistance"],
     github: "https://github.com/RaoVrn/RentEase",
   },
   {
@@ -56,7 +54,6 @@ export const selectedProjects: Project[] = [
     year: "2025",
     description:
       "An AI-powered desktop assistant that turns natural-language commands into actions.",
-    tags: ["Automation", "Natural Language", "AI Systems"],
     github: "https://github.com/RaoVrn/Aura",
   },
   {
@@ -66,7 +63,6 @@ export const selectedProjects: Project[] = [
     year: "2025",
     description:
       "A pet adoption platform connecting people with pets through structured listings.",
-    tags: ["React", "Express", "MongoDB"],
     github: "https://github.com/RaoVrn/FurEverHome",
   },
   {
@@ -76,7 +72,6 @@ export const selectedProjects: Project[] = [
     year: "2024",
     description:
       "A real-time project management platform for teams. Built during the Infosys Springboard internship.",
-    tags: ["React", "Node.js", "MongoDB"],
     github: "https://github.com/RaoVrn/teamsync_Infosys_Internship_Oct2024",
   },
 ];

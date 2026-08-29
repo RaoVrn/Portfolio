@@ -24,7 +24,7 @@ export function FeaturedProject({ project }: { project: Project }) {
           </Reveal>
 
           <Reveal as="p" variant="fade" delay={300} className={styles.tech}>
-            {project.tags.join(" · ")}
+            {project.tags?.join(" · ")}
           </Reveal>
 
           <Reveal as="div" variant="rise" delay={360} className={styles.actions}>

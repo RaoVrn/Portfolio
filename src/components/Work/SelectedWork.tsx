@@ -26,7 +26,10 @@ export function SelectedWork() {
                   <p className={styles.desc}>{p.description}</p>
                 </div>
 
-                <span className={styles.category}>{p.category}</span>
+                <span className={styles.rowSide}>
+                  <span className={styles.category}>{p.category}</span>
+                  <span className={styles.year}>{p.year}</span>
+                </span>
 
                 <span className={styles.action}>
                   View project

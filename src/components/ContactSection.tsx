@@ -28,8 +28,13 @@ const INTERESTS = [
   },
 ];
 
-export function ContactSection() {
-  const [modalOpen, setModalOpen] = useState(false);
+interface ContactSectionProps {
+  open: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
+
+export function ContactSection({ open, onOpen, onClose }: ContactSectionProps) {
   const [active, setActive] = useState(-1);
   const [indicatorTop, setIndicatorTop] = useState(0);
   const listRef = useRef<HTMLUListElement>(null);
@@ -57,7 +62,7 @@ export function ContactSection() {
               <button
                 type="button"
                 className={styles.cta}
-                onClick={() => setModalOpen(true)}
+                onClick={onOpen}
                 data-magnetic
               >
                 Start a conversation
@@ -117,7 +122,7 @@ export function ContactSection() {
         </div>
       </div>
 
-      <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <ContactModal open={open} onClose={onClose} />
     </section>
   );
 }

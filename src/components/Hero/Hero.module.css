@@ -1,73 +1,105 @@
 .hero {
   position: relative;
-  min-height: 100svh;
+  min-height: calc(100svh - var(--header-h));
   display: flex;
-  align-items: center;
-  padding-top: calc(var(--header-h) + 2rem);
-  padding-bottom: var(--space-9);
+  flex-direction: column;
+  padding-top: clamp(4rem, 8vh, 5.5rem);
+  overflow: hidden;
 }
 
 .grid {
+  flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  gap: clamp(2.5rem, 5vw, 4.5rem);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  gap: clamp(3rem, 6vw, 6rem);
   align-items: center;
 }
 
-/* ----- Text ----- */
+/* ----- Left: identity ----- */
 
-.eyebrow {
-  margin-bottom: var(--space-5);
+.left {
+  max-width: 44rem;
+}
+
+.intro {
   font-size: 1.05rem;
   font-weight: 500;
   color: var(--text-2);
 }
 
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 2.25rem;
+  height: 1px;
+  background: var(--accent);
+}
+
 .title {
-  font-size: clamp(2.05rem, 4vw, 3.1rem);
+  margin-top: var(--space-5);
+  font-size: clamp(2rem, 3.4vw, 3.25rem);
   font-weight: 600;
   line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text-1);
 }
 
+.accent {
+  color: var(--accent);
+}
+
 .support {
   margin-top: var(--space-5);
-  max-width: 30rem;
+  max-width: 34rem;
+  font-size: clamp(1.0625rem, 1.3vw, 1.125rem);
   line-height: 1.6;
   color: var(--text-2);
 }
+
+/* ----- Actions ----- */
 
 .actions {
   margin-top: var(--space-7);
   display: flex;
   align-items: center;
   gap: var(--space-6);
+  flex-wrap: wrap;
 }
 
 .ctaPrimary {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-4) var(--space-7);
+  padding: var(--space-3) var(--space-6);
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--accent-ink);
-  background: var(--accent);
+  color: var(--btn-text);
+  background: var(--btn-bg);
   border-radius: var(--radius-sm);
   transition: background var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
 }
 
 .ctaPrimary:hover {
-  background: var(--accent-strong);
-  transform: translateY(-2px);
+  background: #ffffff;
+  transform: translateY(-1px);
 }
 
-.ctaPrimary svg {
+.ctaPrimary span {
   transition: transform var(--dur-base) var(--ease-out);
 }
 
-.ctaPrimary:hover svg {
+.ctaPrimary:hover span {
   transform: translateY(3px);
 }
 
@@ -75,70 +107,129 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-3);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-2);
   border-bottom: 1px solid var(--line-strong);
   padding-bottom: 3px;
   transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 
 .ctaGhost:hover {
-  color: var(--text-1);
+  color: var(--accent);
   border-color: var(--accent);
 }
 
-.focus {
+/* ----- Current focus ----- */
+
+.status {
   margin-top: var(--space-6);
+}
+
+.statusHead {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  font-size: 0.8125rem;
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--text-3);
 }
 
-.focusDot {
-  width: 5px;
-  height: 5px;
+.statusDot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--accent);
 }
 
-/* ----- Visual ----- */
+.statusAreas {
+  margin-top: var(--space-2);
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
 
-.visual {
+/* ----- Right: expertise index ----- */
+
+.index {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  border-top: 1px solid var(--line-strong);
+  padding-top: var(--space-5);
+  max-width: 15rem;
+  justify-self: end;
+}
+
+.indexItem {
+  display: flex;
+  gap: var(--space-4);
+  align-items: baseline;
+}
+
+.indexNum {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.05em;
+  color: var(--text-3);
+}
+
+.indexMain {
   min-width: 0;
+}
+
+.indexTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.indexItem:hover .indexTitle {
+  color: var(--accent-strong);
+}
+
+.indexDesc {
+  margin-top: var(--space-1);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-3);
 }
 
 /* ----- Scroll cue ----- */
 
 .scroll {
-  position: absolute;
-  left: 50%;
-  bottom: var(--space-5);
-  transform: translateX(-50%);
-  width: 1px;
-  height: 3rem;
-  background: linear-gradient(to bottom, var(--line-strong), transparent);
-  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
-.scrollLine {
-  display: block;
-  width: 100%;
-  height: 40%;
-  background: var(--accent);
-  opacity: 0.7;
-  animation: drift 2.6s var(--ease-inout) infinite;
+.scroll:hover {
+  color: var(--accent);
 }
 
-@keyframes drift {
-  0% {
-    transform: translateY(-100%);
-  }
-  55%,
+.scroll span {
+  animation: bob 2.4s var(--ease-inout) infinite;
+}
+
+@keyframes bob {
+  0%,
   100% {
-    transform: translateY(250%);
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
   }
 }
 
@@ -150,23 +241,24 @@
     gap: var(--space-7);
   }
 
-  .visual {
-    max-width: 30rem;
+  .index {
+    max-width: 20rem;
+    justify-self: start;
   }
 }
 
 @media (max-width: 520px) {
-  .actions {
-    flex-wrap: wrap;
+  .hero {
+    padding-top: clamp(3.5rem, 9vh, 5rem);
   }
 
-  .scroll {
+  .title br {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scrollLine {
-    opacity: 0.4;
+  .scroll span {
+    animation: none;
   }
 }

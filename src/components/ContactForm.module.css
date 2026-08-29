@@ -125,15 +125,15 @@
   padding: var(--space-3) var(--space-6);
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--accent-ink);
-  background: var(--accent);
+  color: var(--btn-text);
+  background: var(--btn-bg);
   border-radius: var(--radius-sm);
   transition: background var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
 }
 
 .submit:hover:not(:disabled) {
-  background: var(--accent-strong);
-  transform: translateY(-2px);
+  background: #ffffff;
+  transform: translateY(-1px);
 }
 
 .submit span {
