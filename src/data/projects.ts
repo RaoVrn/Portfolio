@@ -13,8 +13,6 @@ export interface Project {
   github?: string;
   live?: string;
   image?: { src: string; alt: string };
-  /** Small abstract motif used in the project grid. */
-  motif?: "risk" | "rentease" | "aura";
 }
 
 export const featuredProject: Project = {
@@ -37,10 +35,9 @@ export const selectedProjects: Project[] = [
     category: "AI · Computer Vision",
     year: "2025–26",
     description:
-      "A computer vision system that monitors drivers and helps assess risk through role-based dashboards.",
+      "An AI system that monitors drivers and assesses risk from visual data through role-based dashboards.",
     tags: ["Computer Vision", "Driver Monitoring", "Dashboards"],
     github: "https://github.com/RaoVrn/predictive-risk-assessment",
-    motif: "risk",
   },
   {
     id: "rentease",
@@ -51,7 +48,6 @@ export const selectedProjects: Project[] = [
       "A property management platform for listings, tenants, payments, and maintenance.",
     tags: ["Full Stack", "Property Management", "AI Assistance"],
     github: "https://github.com/RaoVrn/RentEase",
-    motif: "rentease",
   },
   {
     id: "aura",
@@ -62,7 +58,6 @@ export const selectedProjects: Project[] = [
       "An AI-powered desktop assistant that turns natural-language commands into actions.",
     tags: ["Automation", "Natural Language", "AI Systems"],
     github: "https://github.com/RaoVrn/Aura",
-    motif: "aura",
   },
   {
     id: "fureverhome",

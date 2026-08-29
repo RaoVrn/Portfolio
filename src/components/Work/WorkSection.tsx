@@ -13,7 +13,11 @@ export function WorkSection() {
         </Reveal>
 
         <Reveal as="h2" variant="rise" delay={60} className={styles.heading} id="work-heading">
-          Things I've built.
+          Selected work.
+        </Reveal>
+
+        <Reveal as="p" variant="rise" delay={160} className={styles.support}>
+          A selection of products, experiments, and systems I've built.
         </Reveal>
       </div>
 

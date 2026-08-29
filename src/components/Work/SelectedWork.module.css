@@ -2,178 +2,146 @@
   padding-top: var(--space-8);
 }
 
-.label {
-  margin-bottom: var(--space-6);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.label::before {
-  content: "";
-  width: 2.25rem;
-  height: 1px;
-  background: var(--accent);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-5);
-}
-
-/* ----- Card ----- */
-
-.card {
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  background: var(--surface);
-  transition: border-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
-  height: 100%;
-}
-
-.card:hover {
-  border-color: var(--line-strong);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-card-hover);
-}
-
-.cardFeatured:hover {
-  border-color: rgba(138, 174, 148, 0.35);
-}
-
-.link {
+.list {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: var(--space-5) var(--space-5) var(--space-4);
+  border-top: 1px solid var(--line-strong);
 }
 
-.motif {
-  height: 3.5rem;
-  margin-bottom: var(--space-5);
-  border-radius: var(--radius-md);
-  background: var(--bg-deep);
-  padding: var(--space-3);
+/* ----- Row ----- */
+
+.row {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-6);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--dur-base) var(--ease-out), padding-left var(--dur-base) var(--ease-out);
 }
 
-.body {
-  flex: 1;
+.row:hover {
+  border-color: var(--line-strong);
+  padding-left: var(--space-3);
 }
 
-.name {
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text-1);
+.num {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--text-3);
   transition: color var(--dur-base) var(--ease-out);
 }
 
-.card:hover .name {
+.row:hover .num {
+  color: var(--accent);
+}
+
+.main {
+  min-width: 0;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+  transition: color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.row:hover .name {
   color: var(--accent-strong);
+  transform: translateX(4px);
 }
 
 .desc {
-  margin-top: var(--space-2);
+  margin-top: var(--space-1);
   font-size: 0.875rem;
   line-height: 1.55;
+  color: var(--text-3);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.row:hover .desc {
   color: var(--text-2);
 }
 
-.tags {
-  margin-top: var(--space-3);
+.category {
   font-family: var(--font-mono);
   font-size: var(--text-mono);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--text-3);
+  white-space: nowrap;
 }
 
-.open {
+.action {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  margin-top: var(--space-4);
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-3);
   transition: color var(--dur-base) var(--ease-out);
 }
 
-.open span {
+.action span {
   transition: transform var(--dur-base) var(--ease-out);
 }
 
-.card:hover .open {
+.row:hover .action {
   color: var(--accent);
 }
 
-.card:hover .open span {
+.row:hover .action span {
   transform: translate(2px, -2px);
-}
-
-/* ----- Tier differences ----- */
-
-.cardCompact {
-  background: transparent;
-}
-
-.metaLine {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.year {
-  font-family: var(--font-mono);
-  font-size: var(--text-mono);
-  letter-spacing: 0.03em;
-  color: var(--text-3);
-  white-space: nowrap;
 }
 
 /* ----- More on GitHub ----- */
 
-.moreCard {
-  display: block;
+.more {
+  margin-top: var(--space-7);
+  display: flex;
+  justify-content: flex-end;
 }
 
-.moreTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-1);
-  transition: color var(--dur-base) var(--ease-out);
-}
-
-.moreCard:hover .moreTitle {
-  color: var(--accent-strong);
-}
-
-.moreDesc {
-  margin-top: var(--space-2);
+.more a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   font-size: 0.875rem;
-  line-height: 1.55;
-  color: var(--text-2);
+  font-weight: 600;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 3px;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 
-.cardCompact .link {
-  padding: var(--space-4);
-}
-
-.cardCompact .name {
-  font-size: 1rem;
+.more a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ----- Responsive ----- */
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 760px) {
+  .row {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--space-3);
+    padding-block: var(--space-5);
   }
-}
 
-@media (max-width: 600px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .category {
+    grid-column: 2;
+  }
+
+  .action {
+    display: none;
+  }
+
+  .more {
+    justify-content: flex-start;
   }
 }
