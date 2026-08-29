@@ -37,27 +37,102 @@
   color: var(--text-1);
 }
 
-/* ----- Groups ----- */
+/* ----- Content ----- */
 
-.groups {
+.content {
   display: flex;
   flex-direction: column;
+  gap: var(--space-7);
+}
+
+/* ----- Focus areas ----- */
+
+.areas {
   border-top: 1px solid var(--line-strong);
+}
+
+.areaList {
+  display: flex;
+  flex-direction: column;
+}
+
+.area {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-5);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  transition: border-color var(--dur-base) var(--ease-out), padding-left var(--dur-base) var(--ease-out);
+}
+
+.area:hover {
+  border-color: var(--line-strong);
+  padding-left: var(--space-2);
+}
+
+.areaNum {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text-3);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.area:hover .areaNum {
+  color: var(--accent);
+}
+
+.areaMain {
+  min-width: 0;
+}
+
+.areaTitle {
+  font-size: 0.975rem;
+  font-weight: 600;
+  color: var(--text-1);
+  transition: color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.area:hover .areaTitle {
+  color: var(--accent-strong);
+  transform: translateX(3px);
+}
+
+.areaDesc {
+  margin-top: var(--space-1);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-3);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.area:hover .areaDesc {
+  color: var(--text-2);
+}
+
+/* ----- Technology groups ----- */
+
+.groups {
+  border-top: 1px solid var(--line-strong);
+}
+
+.groupList {
+  display: flex;
+  flex-direction: column;
 }
 
 .group {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   gap: var(--space-6);
   align-items: baseline;
-  padding-block: var(--space-5);
+  padding-block: var(--space-4);
   border-bottom: 1px solid var(--line);
   transition: border-color var(--dur-base) var(--ease-out), padding-left var(--dur-base) var(--ease-out);
 }
 
 .group:hover {
   border-color: var(--line-strong);
-  padding-left: var(--space-3);
+  padding-left: var(--space-2);
 }
 
 .groupTitle {
@@ -71,7 +146,7 @@
   color: var(--accent-strong);
 }
 
-.items {
+.groupItems {
   font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--text-2);
@@ -93,6 +168,6 @@
 @media (max-width: 600px) {
   .group {
     grid-template-columns: 1fr;
-    gap: var(--space-2);
+    gap: var(--space-1);
   }
 }

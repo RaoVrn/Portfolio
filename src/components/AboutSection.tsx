@@ -1,4 +1,4 @@
-import { site } from "../data/site";
+import { about } from "../data/about";
 import { Reveal } from "./Reveal";
 import styles from "./AboutSection.module.css";
 
@@ -6,29 +6,44 @@ export function AboutSection() {
   return (
     <section className={styles.section} id="about" aria-labelledby="about-heading">
       <div className={`container ${styles.inner}`}>
-        <Reveal as="p" variant="fade" className={`label ${styles.label}`}>
-          About
-        </Reveal>
-
-        <div className={styles.statement}>
-          <Reveal as="p" variant="line" delay={80} className={styles.headline} id="about-heading">
-            I'm a software developer interested in building practical products
-            and exploring AI-powered applications.
+        <header className={styles.header}>
+          <Reveal as="p" variant="fade" className={`label ${styles.label}`}>
+            About
           </Reveal>
 
-          <Reveal as="p" variant="rise" delay={200} className={styles.copy}>
-            I enjoy learning by building, whether that means experimenting with
-            a new idea, creating a full-stack application, or improving a small
-            developer experience.
+          <Reveal as="h2" variant="line" delay={60} className={styles.heading} id="about-heading">
+            {about.headline}
           </Reveal>
 
-          <Reveal as="p" variant="fade" delay={280} className={styles.exploring}>
-            <span className={styles.exploringLabel}>Currently exploring</span>
-            AI systems · Automation · Full-stack development · Agentic applications
+          <Reveal as="p" variant="rise" delay={180} className={styles.intro}>
+            {about.intro}
+          </Reveal>
+        </header>
+
+        <div className={styles.side}>
+          <Reveal as="div" variant="rise" delay={160} className={styles.block}>
+            <p className={styles.blockLabel}>How I like to build</p>
+            <ol className={styles.steps}>
+              {about.buildSteps.map((step, i) => (
+                <li key={step} className={styles.step}>
+                  <span className={styles.stepNum} aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className={styles.stepText}>{step}</span>
+                </li>
+              ))}
+            </ol>
           </Reveal>
 
-          <Reveal as="p" variant="fade" delay={360} className={styles.meta}>
-            B.Tech in Computer Science and Engineering, SRM Institute · {site.location}
+          <Reveal as="div" variant="rise" delay={240} className={styles.block}>
+            <p className={styles.blockLabel}>Education</p>
+            <div className={styles.education}>
+              <p className={styles.school}>{about.education.school}</p>
+              <p className={styles.degree}>{about.education.degree}</p>
+              <p className={styles.edMeta}>
+                {about.education.detail} · {about.education.period} · {about.education.location}
+              </p>
+            </div>
           </Reveal>
         </div>
       </div>
