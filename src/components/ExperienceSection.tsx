@@ -12,7 +12,12 @@ export function ExperienceSection() {
           </Reveal>
 
           <Reveal as="h2" variant="rise" delay={60} className={styles.heading} id="experience-heading">
-            Where I've worked.
+            Where I've learned and contributed.
+          </Reveal>
+
+          <Reveal as="p" variant="rise" delay={140} className={styles.support}>
+            A quick overview of the teams and environments where I've built
+            software.
           </Reveal>
         </header>
 

@@ -16,7 +16,7 @@ export const experience: ExperienceEntry[] = [
     role: "Academic Trainee, Agentic AI Developer",
     period: "May 2026 – Aug 2026",
     focus:
-      "Worked on AI-powered application development while strengthening software engineering and practical development skills.",
+      "Strengthened software engineering foundations while working with Python, application development, and AI concepts.",
     tags: ["AI", "Agentic AI", "Python"],
   },
   {
@@ -24,7 +24,7 @@ export const experience: ExperienceEntry[] = [
     role: "Full Stack Developer Intern",
     period: "Oct 2024 – Dec 2024",
     focus:
-      "Built TeamSync, a collaborative project management application with real-time updates and role-based workflows.",
+      "Built TeamSync, a collaborative project management application for teams, with real-time updates.",
     tags: ["Full Stack", "React", "Node.js"],
   },
   {
