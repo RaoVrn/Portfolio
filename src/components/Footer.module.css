@@ -1,7 +1,7 @@
 .footer {
   padding-block: calc(var(--section-y) * 0.9) var(--space-10);
   border-top: 1px solid var(--line);
-  background: var(--bg-deep);
+  background: transparent;
 }
 
 .inner {

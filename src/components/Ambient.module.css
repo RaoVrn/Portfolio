@@ -1,0 +1,58 @@
+/* ----- Behind the content: depth layers ----- */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Muted green atmosphere — a soft breath near the top. */
+.glow {
+  position: absolute;
+  top: -12rem;
+  left: 50%;
+  width: 120rem;
+  height: 46rem;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 100% at 50% 0%, rgba(138, 174, 148, 0.07), transparent 70%);
+}
+
+/* Soft neutral light falloff behind the main content. */
+.light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90rem 60rem at 70% -10%, rgba(234, 231, 224, 0.03), transparent 62%);
+}
+
+/* Extremely faint technical structure. */
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: clamp(4rem, 8vw, 7rem) clamp(4rem, 8vw, 7rem);
+  mask-image: radial-gradient(90% 70% at 50% 0%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(90% 70% at 50% 0%, black 0%, transparent 75%);
+  opacity: 0.35;
+}
+
+/* ----- Above the content: film grain ----- */
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow,
+  .grid {
+    transform: none;
+  }
+}

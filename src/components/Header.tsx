@@ -2,8 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { chapters, site } from "../data/site";
 import styles from "./Header.module.css";
 
+const SECTION_NAV: Record<string, string> = {
+  work: "work",
+  index: "journey",
+  contact: "contact",
+};
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
@@ -11,7 +18,22 @@ export function Header() {
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setScrolled(window.scrollY > 16));
+      raf = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 16);
+
+        const probe = 0.45 * window.innerHeight;
+        let current = "";
+        for (const id of ["work", "index", "contact"]) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const r = el.getBoundingClientRect();
+          if (r.top <= probe && r.bottom > probe) {
+            current = id;
+            break;
+          }
+        }
+        setActive(SECTION_NAV[current] ?? "");
+      });
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -76,13 +98,21 @@ export function Header() {
               <ul className={styles.links}>
                 {navLinks.map((c) => (
                   <li key={c.id}>
-                    <a className={styles.link} href={`#${c.id}`}>
+                    <a
+                      className={`${styles.link} ${active === c.id ? styles.linkActive : ""}`}
+                      href={`#${c.id}`}
+                      aria-current={active === c.id ? "true" : undefined}
+                    >
                       {c.title}
                     </a>
                   </li>
                 ))}
                 <li>
-                  <a className={styles.link} href="#contact">
+                  <a
+                    className={`${styles.link} ${active === "contact" ? styles.linkActive : ""}`}
+                    href="#contact"
+                    aria-current={active === "contact" ? "true" : undefined}
+                  >
                     Contact
                   </a>
                 </li>

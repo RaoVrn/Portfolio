@@ -8,7 +8,7 @@
 }
 
 .header.scrolled {
-  background: rgba(21, 20, 18, 0.8);
+  background: rgba(15, 15, 18, 0.72);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-bottom-color: var(--line);
@@ -58,8 +58,16 @@
   position: relative;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--text-2);
+  color: var(--text-3);
   transition: color var(--dur-fast) var(--ease-out);
+}
+
+.linkActive {
+  color: var(--text-1);
+}
+
+.linkActive::after {
+  right: 0 !important;
 }
 
 .link::after {

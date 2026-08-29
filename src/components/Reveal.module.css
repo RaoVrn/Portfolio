@@ -24,6 +24,12 @@
   filter: none;
 }
 
+[data-variant="rule"] {
+  transform: scaleX(0);
+  transform-origin: left;
+  filter: none;
+}
+
 [data-reveal="in"] {
   opacity: 1;
   transform: none;

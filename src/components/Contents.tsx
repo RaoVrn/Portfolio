@@ -23,9 +23,9 @@ export function Contents() {
               variant="rise"
               delay={120 + i * 90}
               key={c.id}
-              id={c.id === "contact" ? undefined : c.id}
+              id={c.id === "work" || c.id === "contact" ? undefined : c.id}
             >
-              <div className={styles.row}>
+              <a href={`#${c.id}`} className={styles.row}>
                 <span className={styles.num} aria-hidden="true">
                   {c.n}
                 </span>
@@ -36,7 +36,7 @@ export function Contents() {
                 <span className={styles.rowArrow} aria-hidden="true">
                   →
                 </span>
-              </div>
+              </a>
             </Reveal>
           ))}
         </ol>

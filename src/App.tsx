@@ -1,7 +1,9 @@
 import { Header } from "./components/Header";
 import { SkipLink } from "./components/SkipLink";
 import { ScrollProgress } from "./components/ScrollProgress";
+import { Ambient } from "./components/Ambient";
 import { Hero } from "./components/Hero/Hero";
+import { WorkSection } from "./components/Work/WorkSection";
 import { Contents } from "./components/Contents";
 import { Footer } from "./components/Footer";
 import { useMagnetic } from "./lib/useMagnetic";
@@ -14,10 +16,12 @@ export default function App() {
   return (
     <>
       <SkipLink />
+      <Ambient />
       <Header />
       <ScrollProgress />
       <main id="main">
         <Hero />
+        <WorkSection />
         <Contents />
       </main>
       <Footer />
