@@ -1,0 +1,78 @@
+.section {
+  position: relative;
+  padding-block: clamp(4rem, 9vh, 6.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.label {
+  margin-bottom: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.label::before {
+  content: "";
+  width: 2.25rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+.statement {
+  max-width: 40rem;
+}
+
+.headline {
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+}
+
+.copy {
+  margin-top: var(--space-5);
+  max-width: 34rem;
+  line-height: 1.65;
+  color: var(--text-2);
+}
+
+.exploring {
+  margin-top: var(--space-6);
+  max-width: 34rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+.exploringLabel {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.meta {
+  margin-top: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.03em;
+  color: var(--text-3);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+}

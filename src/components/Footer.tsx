@@ -6,17 +6,21 @@ export function Footer() {
   return (
     <footer className={styles.footer} id="contact">
       <div className={`container ${styles.inner}`}>
-        <Reveal as="h2" variant="line" delay={80} className={styles.heading}>
-          Let's build something <span className={styles.outlineWord}>together</span>.
+        <Reveal as="h2" variant="line" delay={60} className={styles.heading}>
+          Let's build something useful.
         </Reveal>
 
-        <Reveal as="div" variant="rise" delay={200} className={styles.emailWrap}>
+        <Reveal as="p" variant="rise" delay={160} className={styles.subheading}>
+          Open to software engineering and AI application roles. Say hello.
+        </Reveal>
+
+        <Reveal as="div" variant="rise" delay={240} className={styles.emailWrap}>
           <a className={styles.email} href={`mailto:${site.email}`}>
             {site.email}
           </a>
         </Reveal>
 
-        <Reveal as="div" variant="rise" delay={300} className={styles.links}>
+        <Reveal as="div" variant="rise" delay={320} className={styles.links}>
           <a href={site.links.github} target="_blank" rel="noreferrer">
             GitHub
           </a>
@@ -28,7 +32,7 @@ export function Footer() {
           <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>
         </Reveal>
 
-        <Reveal as="div" variant="fade" delay={420} className={styles.bottom}>
+        <Reveal as="div" variant="fade" delay={400} className={styles.bottom}>
           <span>© 2026 {site.name}</span>
           <span>{site.location}</span>
           <span className={styles.colophon}>Designed and built by hand</span>

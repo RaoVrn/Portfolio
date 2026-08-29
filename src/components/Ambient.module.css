@@ -25,19 +25,6 @@
   background: radial-gradient(90rem 60rem at 70% -10%, rgba(234, 231, 224, 0.03), transparent 62%);
 }
 
-/* Extremely faint technical structure. */
-.grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: clamp(4rem, 8vw, 7rem) clamp(4rem, 8vw, 7rem);
-  mask-image: radial-gradient(90% 70% at 50% 0%, black 0%, transparent 75%);
-  -webkit-mask-image: radial-gradient(90% 70% at 50% 0%, black 0%, transparent 75%);
-  opacity: 0.35;
-}
-
 /* ----- Above the content: film grain ----- */
 
 .noise {
@@ -51,8 +38,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glow,
-  .grid {
+  .glow {
     transform: none;
   }
 }

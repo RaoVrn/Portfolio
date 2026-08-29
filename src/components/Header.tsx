@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { chapters, site } from "../data/site";
+import { site } from "../data/site";
 import styles from "./Header.module.css";
 
-const SECTION_NAV: Record<string, string> = {
-  work: "work",
-  index: "journey",
-  contact: "contact",
-};
+const NAV = [
+  { id: "work", label: "Work" },
+  { id: "experience", label: "Experience" },
+  { id: "about", label: "About" },
+];
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -23,7 +23,7 @@ export function Header() {
 
         const probe = 0.45 * window.innerHeight;
         let current = "";
-        for (const id of ["work", "index", "contact"]) {
+        for (const id of ["work", "experience", "about"]) {
           const el = document.getElementById(id);
           if (!el) continue;
           const r = el.getBoundingClientRect();
@@ -32,7 +32,7 @@ export function Header() {
             break;
           }
         }
-        setActive(SECTION_NAV[current] ?? "");
+        setActive(current);
       });
     };
     onScroll();
@@ -81,8 +81,6 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  const navLinks = chapters.filter((c) => c.id !== "contact");
-
   return (
     <>
       <header
@@ -96,26 +94,17 @@ export function Header() {
           <div className={styles.right}>
             <nav aria-label="Primary" className={styles.nav}>
               <ul className={styles.links}>
-                {navLinks.map((c) => (
-                  <li key={c.id}>
+                {NAV.map((item) => (
+                  <li key={item.id}>
                     <a
-                      className={`${styles.link} ${active === c.id ? styles.linkActive : ""}`}
-                      href={`#${c.id}`}
-                      aria-current={active === c.id ? "true" : undefined}
+                      className={`${styles.link} ${active === item.id ? styles.linkActive : ""}`}
+                      href={`#${item.id}`}
+                      aria-current={active === item.id ? "true" : undefined}
                     >
-                      {c.title}
+                      {item.label}
                     </a>
                   </li>
                 ))}
-                <li>
-                  <a
-                    className={`${styles.link} ${active === "contact" ? styles.linkActive : ""}`}
-                    href="#contact"
-                    aria-current={active === "contact" ? "true" : undefined}
-                  >
-                    Contact
-                  </a>
-                </li>
               </ul>
             </nav>
 
@@ -147,19 +136,27 @@ export function Header() {
       >
         <nav aria-label="Mobile">
           <ul className={styles.menuLinks}>
-            {chapters.map((c, i) => (
-              <li key={c.id}>
+            {NAV.map((item, i) => (
+              <li key={item.id}>
                 <a
                   ref={i === 0 ? firstLinkRef : undefined}
-                  href={`#${c.id}`}
+                  href={`#${item.id}`}
                   onClick={() => setMenuOpen(false)}
                   className={styles.menuLink}
                 >
-                  <span className={styles.menuNum}>{c.n}</span>
-                  {c.title}
+                  {item.label}
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href={`mailto:${site.email}`}
+                onClick={() => setMenuOpen(false)}
+                className={`${styles.menuLink} ${styles.menuLinkAccent}`}
+              >
+                Let's talk
+              </a>
+            </li>
           </ul>
         </nav>
 

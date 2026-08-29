@@ -3,176 +3,170 @@
   min-height: 100svh;
   display: flex;
   align-items: center;
-  padding-top: calc(var(--header-h) + 2.5rem);
-  padding-bottom: 5.5rem;
-  overflow: hidden;
+  padding-top: calc(var(--header-h) + 2rem);
+  padding-bottom: var(--space-9);
 }
 
-/* ----- Content ----- */
-
-.content {
-  position: relative;
-  z-index: var(--z-content);
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
 }
 
-/* ----- The name, as artwork ----- */
+/* ----- Text ----- */
 
-.name {
-  position: relative;
-  font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+.eyebrow {
+  margin-bottom: var(--space-5);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-2);
 }
 
 .title {
-  position: relative;
-  z-index: 1;
-  font-weight: 400;
-}
-
-.lineFirst,
-.lineLast {
-  display: block;
-  font-size: var(--text-display);
-  line-height: 0.95;
+  font-size: clamp(2.05rem, 4vw, 3.1rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   color: var(--text-1);
 }
 
-.lineFirst {
-  text-align: left;
-}
-
-.lineLast {
-  text-align: right;
+.support {
+  margin-top: var(--space-5);
+  max-width: 30rem;
+  line-height: 1.6;
   color: var(--text-2);
 }
 
-/* Print-registration outline copy behind the name. */
-.outline {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  transform: translate3d(14px, 10px, 0);
-  transition: transform 500ms var(--ease-out);
-  opacity: 0;
-  animation: outlineIn 1.4s var(--ease-out) 900ms forwards;
-}
-
-.outline .lineFirst,
-.outline .lineLast {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--stroke);
-  text-stroke: 1.5px var(--stroke);
-}
-
-@keyframes outlineIn {
-  to {
-    opacity: 0.6;
-  }
-}
-
-@supports not ((-webkit-text-stroke: 1px red) or (text-stroke: 1px red)) {
-  .outline {
-    display: none;
-  }
-}
-
-/* ----- Lower block ----- */
-
-.lower {
-  margin-top: var(--space-8);
+.actions {
+  margin-top: var(--space-7);
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
   gap: var(--space-6);
-  flex-wrap: wrap;
 }
 
-.statement {
-  font-size: var(--text-statement);
-  line-height: 1.4;
-  font-weight: 450;
-  letter-spacing: -0.01em;
-  color: var(--text-2);
-}
-
-.accentWord {
-  color: var(--accent);
-}
-
-.action {
-  padding-bottom: var(--space-2);
-}
-
-.cta {
+.ctaPrimary {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4) var(--space-7);
   font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--text-1);
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
+  color: var(--accent-ink);
+  background: var(--accent);
   border-radius: var(--radius-sm);
-  transition: border-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+  transition: background var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
 }
 
-.cta:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-dim);
+.ctaPrimary:hover {
+  background: var(--accent-strong);
+  transform: translateY(-2px);
 }
 
-.cta svg {
+.ctaPrimary svg {
   transition: transform var(--dur-base) var(--ease-out);
 }
 
-.cta:hover svg {
+.ctaPrimary:hover svg {
   transform: translateY(3px);
 }
 
-/* ----- Spec bar ----- */
+.ctaGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 3px;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
 
-.specs {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.ctaGhost:hover {
+  color: var(--text-1);
+  border-color: var(--accent);
+}
+
+.focus {
+  margin-top: var(--space-6);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding: var(--space-5) var(--gutter);
-  border-top: 1px solid var(--line);
+  gap: var(--space-3);
   font-size: 0.8125rem;
-  letter-spacing: 0.02em;
   color: var(--text-3);
+}
+
+.focusDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ----- Visual ----- */
+
+.visual {
+  min-width: 0;
+}
+
+/* ----- Scroll cue ----- */
+
+.scroll {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-5);
+  transform: translateX(-50%);
+  width: 1px;
+  height: 3rem;
+  background: linear-gradient(to bottom, var(--line-strong), transparent);
+  opacity: 0.8;
+}
+
+.scrollLine {
+  display: block;
+  width: 100%;
+  height: 40%;
+  background: var(--accent);
+  opacity: 0.7;
+  animation: drift 2.6s var(--ease-inout) infinite;
+}
+
+@keyframes drift {
+  0% {
+    transform: translateY(-100%);
+  }
+  55%,
+  100% {
+    transform: translateY(250%);
+  }
 }
 
 /* ----- Responsive ----- */
 
 @media (max-width: 900px) {
-  .lower {
-    flex-direction: column;
-    align-items: flex-start;
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+
+  .visual {
+    max-width: 30rem;
   }
 }
 
-@media (max-width: 640px) {
-  .hero {
-    padding-top: calc(var(--header-h) + 1.5rem);
+@media (max-width: 520px) {
+  .actions {
+    flex-wrap: wrap;
   }
 
-  .lineLast {
-    text-align: left;
+  .scroll {
+    display: none;
   }
+}
 
-  .specs {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2);
+@media (prefers-reduced-motion: reduce) {
+  .scrollLine {
+    opacity: 0.4;
   }
 }

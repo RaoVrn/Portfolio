@@ -1,69 +1,80 @@
-import { experiments, selectedProjects, type Project } from "../../data/projects";
+import { selectedProjects, type Project } from "../../data/projects";
+import { site } from "../../data/site";
 import { Reveal } from "../Reveal";
+import { ProjectMotif } from "./ProjectMotif";
 import styles from "./SelectedWork.module.css";
 
 export function SelectedWork() {
+  const featured = selectedProjects.slice(0, 3);
+  const compact = selectedProjects.slice(3);
+
   return (
-    <section className={styles.section} aria-labelledby="selected-work-heading">
+    <section className={styles.section} aria-label="Selected projects">
       <div className={`container ${styles.inner}`}>
-        <Reveal as="p" variant="fade" className={`label ${styles.eyebrow}`}>
-          02 — Selected projects
-        </Reveal>
-        <h3 className="sr-only" id="selected-work-heading">
+        <Reveal as="p" variant="fade" className={`label ${styles.label}`}>
           Selected projects
-        </h3>
-
-        <ol className={styles.list}>
-          {selectedProjects.map((p, i) => (
-            <ProjectRow key={p.id} project={p} number={i + 2} />
-          ))}
-        </ol>
-
-        <Reveal as="p" variant="fade" className={`label ${styles.groupLabel}`}>
-          Experiments
         </Reveal>
 
-        <ol className={styles.list}>
-          {experiments.map((p, i) => (
-            <ProjectRow key={p.id} project={p} number={selectedProjects.length + 2 + i} />
+        <div className={styles.grid}>
+          {featured.map((p, i) => (
+            <Reveal as="div" variant="rise" delay={60 + i * 70} key={p.id}>
+              <ProjectCard project={p} featured={true} />
+            </Reveal>
           ))}
-        </ol>
+          {compact.map((p, i) => (
+            <Reveal as="div" variant="rise" delay={60 + i * 70} key={p.id}>
+              <ProjectCard project={p} featured={false} />
+            </Reveal>
+          ))}
+
+          <Reveal as="div" variant="rise" delay={60 + compact.length * 70}>
+            <a className={`${styles.card} ${styles.cardCompact} ${styles.moreCard}`} href={site.links.github} target="_blank" rel="noreferrer">
+              <div className={styles.link}>
+                <p className={styles.moreTitle}>More on GitHub</p>
+                <p className={styles.moreDesc}>Every experiment, commit, and repository in one place.</p>
+                <span className={styles.open}>
+                  View profile
+                  <span aria-hidden="true">↗</span>
+                </span>
+              </div>
+            </a>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
 }
 
-function ProjectRow({ project, number }: { project: Project; number: number }) {
+function ProjectCard({ project, featured }: { project: Project; featured: boolean }) {
   return (
-    <Reveal as="li" variant="rise" delay={60 + number * 40} key={project.id}>
+    <article className={`${styles.card} ${featured ? styles.cardFeatured : styles.cardCompact}`}>
       <a
-        className={styles.row}
+        className={styles.link}
         href={project.github}
         target="_blank"
         rel="noreferrer"
-        aria-label={`${project.name} — ${project.shortDescription} — GitHub repository`}
+        aria-label={`${project.name} — ${project.description} — GitHub repository`}
       >
-        <span className={styles.num} aria-hidden="true">
-          {String(number).padStart(2, "0")}
-        </span>
+        {project.motif && (
+          <div className={styles.motif} aria-hidden="true">
+            <ProjectMotif kind={project.motif} />
+          </div>
+        )}
 
-        <div className={styles.rowMain}>
-          <h3 className={styles.name}>{project.name}</h3>
-          <p className={styles.note}>{project.shortDescription}</p>
-          <p className={styles.tech} aria-hidden="true">
-            {project.technologies.join(" · ")}
-          </p>
+        <div className={styles.body}>
+          <div className={styles.metaLine}>
+            <h3 className={styles.name}>{project.name}</h3>
+            <span className={styles.year}>{project.year}</span>
+          </div>
+          <p className={styles.desc}>{project.description}</p>
+          <p className={styles.tags}>{project.tags.join(" · ")}</p>
         </div>
 
-        <div className={styles.rowSide}>
-          <span className={styles.category}>{project.category}</span>
-          <span className={styles.year}>{project.year}</span>
-        </div>
-
-        <span className={styles.arrow} aria-hidden="true">
-          ↗
+        <span className={styles.open} aria-hidden="true">
+          GitHub
+          <span>↗</span>
         </span>
       </a>
-    </Reveal>
+    </article>
   );
 }

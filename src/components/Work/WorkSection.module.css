@@ -1,24 +1,15 @@
 .section {
   position: relative;
   padding-bottom: clamp(4rem, 9vh, 7rem);
+  border-top: 1px solid var(--line);
 }
-
-.rule {
-  display: block;
-  height: 1px;
-  width: 100%;
-  margin-bottom: var(--space-7);
-  background: linear-gradient(to right, var(--accent-dim), var(--line), transparent 85%);
-}
-
-/* ----- Compact chapter intro ----- */
 
 .intro {
-  padding-block: clamp(4rem, 9vh, 6.5rem) var(--space-7);
+  padding-block: clamp(3.5rem, 8vh, 5.5rem) var(--space-7);
 }
 
 .label {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
@@ -32,71 +23,13 @@
 }
 
 .heading {
-  font-family: var(--font-display);
-  font-size: clamp(1.9rem, 3.8vw, 3.1rem);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--text-1);
-  max-width: 24ch;
-}
-
-.outlineWord {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--stroke);
-  text-stroke: 1px var(--stroke);
-}
-
-.support {
-  margin-top: var(--space-4);
-  max-width: 36rem;
-  color: var(--text-2);
 }
 
 .featured {
   display: flex;
   flex-direction: column;
-}
-
-/* ----- Handoff into Journey ----- */
-
-.handoff {
-  margin-top: var(--space-10);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-5);
-  text-align: center;
-}
-
-.handoffLine {
-  font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
-  font-style: italic;
-  color: var(--text-2);
-}
-
-.handoffLink {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--accent);
-  border-bottom: 1px solid var(--accent);
-  padding-bottom: 3px;
-  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
-}
-
-.handoffLink span {
-  transition: transform var(--dur-base) var(--ease-out);
-}
-
-.handoffLink:hover {
-  color: var(--accent-strong);
-  border-color: var(--accent-strong);
-}
-
-.handoffLink:hover span {
-  transform: translateX(4px);
 }

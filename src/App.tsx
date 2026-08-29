@@ -4,7 +4,9 @@ import { ScrollProgress } from "./components/ScrollProgress";
 import { Ambient } from "./components/Ambient";
 import { Hero } from "./components/Hero/Hero";
 import { WorkSection } from "./components/Work/WorkSection";
-import { Contents } from "./components/Contents";
+import { ExperienceSection } from "./components/ExperienceSection";
+import { SkillsSection } from "./components/SkillsSection";
+import { AboutSection } from "./components/AboutSection";
 import { Footer } from "./components/Footer";
 import { useMagnetic } from "./lib/useMagnetic";
 import "./styles/tokens.css";
@@ -22,7 +24,9 @@ export default function App() {
       <main id="main">
         <Hero />
         <WorkSection />
-        <Contents />
+        <ExperienceSection />
+        <SkillsSection />
+        <AboutSection />
       </main>
       <Footer />
     </>

@@ -175,11 +175,8 @@
   padding-left: var(--space-3);
 }
 
-.menuNum {
-  font-family: var(--font-mono);
-  font-size: var(--text-mono);
-  letter-spacing: 0.05em;
-  color: var(--text-3);
+.menuLinkAccent {
+  color: var(--accent);
 }
 
 .menuFooter {
