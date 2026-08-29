@@ -1,0 +1,92 @@
+/* ============================================================
+   Design Tokens — Varun Prakash Portfolio
+   Noir editorial system: warm charcoal, off-white, one sage accent.
+   ============================================================ */
+
+:root {
+  /* ----- Color: environment ---------------------------------- */
+  --bg: #151412;               /* page background — warm charcoal  */
+  --bg-deep: #100f0e;          /* recessed / deep panels           */
+  --surface: #1c1a18;          /* raised surfaces                  */
+  --surface-2: #242220;        /* higher surfaces / hovers         */
+
+  --text-1: #edeae3;           /* primary text — warm off-white    */
+  --text-2: #a49e91;           /* secondary text                   */
+  --text-3: #878174;           /* muted text / small labels — AA    */
+
+  --line: rgba(237, 234, 227, 0.08);
+  --line-strong: rgba(237, 234, 227, 0.16);
+
+  --accent: #8aae94;           /* muted sage — the single accent   */
+  --accent-strong: #a6c2ad;
+  --accent-fill: #27402f;      /* deep pine for small fills        */
+  --accent-dim: rgba(138, 174, 148, 0.12);
+  --accent-ink: #111210;       /* text placed on accent fills      */
+
+  --stroke: rgba(237, 234, 227, 0.5); /* outline / registration treatment */
+
+  /* ----- Typography ------------------------------------------- */
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-display: clamp(3.4rem, 11.5vw, 9.5rem);   /* poster name */
+  --text-h2: clamp(2rem, 4.5vw, 3.6rem);
+  --text-h3: clamp(1.2rem, 1.8vw, 1.55rem);
+  --text-statement: clamp(1.35rem, 2.2vw, 1.9rem);
+  --text-body: clamp(1rem, 1.05vw, 1.0625rem);
+  --text-meta: 0.8125rem;
+  --text-label: 0.72rem;
+  --text-mono: 0.72rem;
+
+  --leading-display: 1;
+  --leading-h2: 1.08;
+  --leading-statement: 1.32;
+  --leading-body: 1.6;
+  --leading-tight: 1.25;
+
+  --track-label: 0.14em;
+  --track-wide: 0.06em;
+
+  /* ----- Spacing ---------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+  --space-10: 5rem;
+
+  /* ----- Layout ------------------------------------------------ */
+  --container: 76rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --header-h: 4.25rem;
+  --section-y: clamp(6rem, 14vh, 10rem);
+
+  /* ----- Radii / shadow ---------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-card: 20px;
+  --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.03), 0 24px 48px -24px rgba(0, 0, 0, 0.6);
+  --shadow-focus: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+
+  /* ----- Motion ------------------------------------------------ */
+  --dur-fast: 150ms;
+  --dur-base: 350ms;
+  --dur-slow: 800ms;
+  --dur-slower: 1200ms;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+
+  /* ----- Depth -------------------------------------------------- */
+  --z-atmo: 0;
+  --z-content: 1;
+  --z-progress: 40;
+  --z-header: 50;
+  --z-menu: 60;
+}

@@ -1,0 +1,39 @@
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out),
+    filter var(--dur-slow) var(--ease-out);
+  transition-delay: var(--rd, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-variant="rise"] {
+  transform: translateY(16px);
+  filter: blur(4px);
+}
+
+[data-variant="fade"] {
+  transform: none;
+  filter: none;
+}
+
+[data-variant="line"] {
+  overflow: hidden;
+  transform: translateY(110%);
+  filter: none;
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}

@@ -1,0 +1,84 @@
+.footer {
+  padding-block: calc(var(--section-y) * 0.9) var(--space-10);
+  border-top: 1px solid var(--line);
+  background: var(--bg-deep);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 400;
+  line-height: var(--leading-h2);
+  letter-spacing: -0.015em;
+  color: var(--text-1);
+}
+
+.outlineWord {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--stroke);
+  text-stroke: 1px var(--stroke);
+}
+
+.emailWrap {
+  margin-top: var(--space-7);
+}
+
+.email {
+  font-size: clamp(1.15rem, 2.4vw, 1.9rem);
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-base) var(--ease-out);
+  overflow-wrap: anywhere;
+}
+
+.email:hover {
+  border-bottom-color: var(--accent);
+}
+
+.links {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-3);
+}
+
+.links a {
+  color: var(--text-2);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.bottom {
+  margin-top: var(--space-10);
+  width: 100%;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: 0.8125rem;
+  color: var(--text-3);
+}
+
+.colophon {
+  color: var(--accent);
+}

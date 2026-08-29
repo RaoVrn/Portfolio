@@ -1,0 +1,178 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--header-h) + 2.5rem);
+  padding-bottom: 5.5rem;
+  overflow: hidden;
+}
+
+/* ----- Content ----- */
+
+.content {
+  position: relative;
+  z-index: var(--z-content);
+}
+
+/* ----- The name, as artwork ----- */
+
+.name {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  font-weight: 400;
+}
+
+.lineFirst,
+.lineLast {
+  display: block;
+  font-size: var(--text-display);
+  line-height: 0.95;
+  color: var(--text-1);
+}
+
+.lineFirst {
+  text-align: left;
+}
+
+.lineLast {
+  text-align: right;
+  color: var(--text-2);
+}
+
+/* Print-registration outline copy behind the name. */
+.outline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transform: translate3d(14px, 10px, 0);
+  transition: transform 500ms var(--ease-out);
+  opacity: 0;
+  animation: outlineIn 1.4s var(--ease-out) 900ms forwards;
+}
+
+.outline .lineFirst,
+.outline .lineLast {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--stroke);
+  text-stroke: 1.5px var(--stroke);
+}
+
+@keyframes outlineIn {
+  to {
+    opacity: 0.6;
+  }
+}
+
+@supports not ((-webkit-text-stroke: 1px red) or (text-stroke: 1px red)) {
+  .outline {
+    display: none;
+  }
+}
+
+/* ----- Lower block ----- */
+
+.lower {
+  margin-top: var(--space-8);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.statement {
+  font-size: var(--text-statement);
+  line-height: 1.4;
+  font-weight: 450;
+  letter-spacing: -0.01em;
+  color: var(--text-2);
+}
+
+.accentWord {
+  color: var(--accent);
+}
+
+.action {
+  padding-bottom: var(--space-2);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text-1);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+
+.cta:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.cta svg {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.cta:hover svg {
+  transform: translateY(3px);
+}
+
+/* ----- Spec bar ----- */
+
+.specs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--gutter);
+  border-top: 1px solid var(--line);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+}
+
+/* ----- Responsive ----- */
+
+@media (max-width: 900px) {
+  .lower {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: calc(var(--header-h) + 1.5rem);
+  }
+
+  .lineLast {
+    text-align: left;
+  }
+
+  .specs {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}
