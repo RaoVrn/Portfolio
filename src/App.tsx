@@ -5,7 +5,6 @@ import { Ambient } from "./components/Ambient";
 import { Hero } from "./components/Hero/Hero";
 import { WorkSection } from "./components/Work/WorkSection";
 import { ExperienceSection } from "./components/ExperienceSection";
-import { SkillsSection } from "./components/SkillsSection";
 import { AboutSection } from "./components/AboutSection";
 import { HighlightsSection } from "./components/HighlightsSection";
 import { Footer } from "./components/Footer";
@@ -26,7 +25,6 @@ export default function App() {
         <Hero />
         <WorkSection />
         <ExperienceSection />
-        <SkillsSection />
         <AboutSection />
         <HighlightsSection />
       </main>

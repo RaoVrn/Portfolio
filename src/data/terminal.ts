@@ -44,7 +44,7 @@ export const AUTO_SCRIPT: { cmd: string; out: TermLine[] }[] = [
   {
     cmd: "currently",
     out: [
-      { kind: "out", text: "Exploring AI systems, automation," },
+      { kind: "out", text: "Building across AI systems, automation," },
       { kind: "out", text: "and intelligent applications." },
     ],
   },
