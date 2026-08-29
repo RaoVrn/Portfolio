@@ -17,3 +17,6 @@ export const site = {
     title: "Academic Trainee, Agentic AI Developer",
   },
 } as const;
+
+/** Prebuilt mailto link used across the contact experience. */
+export const contactMailto = `mailto:${site.email}?subject=${encodeURIComponent("Let's connect")}`;

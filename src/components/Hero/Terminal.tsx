@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AUTO_SCRIPT, INTERACTIVE_HINT, runCommand, type TermLine } from "../../data/terminal";
+import { AUTO_SCRIPT, HINT, runCommand, type TermLine } from "../../data/terminal";
 import styles from "./Terminal.module.css";
 
 const reduced =
@@ -19,7 +19,9 @@ const fullScript = () =>
  * minimal interactive mode.
  */
 export function Terminal() {
-  const [history, setHistory] = useState<TermLine[]>(() => (reduced ? fullScript() : []));
+  const [history, setHistory] = useState<TermLine[]>(() =>
+    reduced ? [...fullScript(), { kind: "out", text: HINT }] : []
+  );
   const [typed, setTyped] = useState("");
   const [input, setInput] = useState("");
   const [ready, setReady] = useState(() => reduced);
@@ -28,7 +30,6 @@ export function Terminal() {
   const inputRef = useRef<HTMLInputElement>(null);
   const timers = useRef<number[]>([]);
   const cancelled = useRef(false);
-  const hinted = useRef(false);
 
   useEffect(() => {
     if (reduced) return;
@@ -50,7 +51,10 @@ export function Terminal() {
         setHistory((h) => [...h, ...step.out]);
         await sleep(520, timers.current);
       }
-      if (!cancelled.current) setReady(true);
+      if (!cancelled.current) {
+        setHistory((h) => [...h, { kind: "out", text: HINT }]);
+        setReady(true);
+      }
     };
 
     void run();
@@ -70,17 +74,13 @@ export function Terminal() {
   const skipToEnd = () => {
     if (ready) return;
     cancelled.current = true;
-    setHistory(fullScript());
+    setHistory([...fullScript(), { kind: "out", text: HINT }]);
     setTyped("");
     setReady(true);
   };
 
   const activate = () => {
     if (!ready) skipToEnd();
-    if (!hinted.current) {
-      hinted.current = true;
-      setHistory((h) => [...h, { kind: "out", text: INTERACTIVE_HINT }]);
-    }
     inputRef.current?.focus();
   };
 

@@ -6,11 +6,29 @@ A premium personal product site. Built with React, TypeScript and Vite.
 
 ```bash
 npm install
-npm run dev      # start the dev server
-npm run build    # type-check + production build
-npm run preview  # preview the production build
-npm run lint     # oxlint
+npm run dev       # starts the API server (port 3001) and Vite together
+npm run dev:web   # Vite only
+npm run dev:api   # API server only
+npm run build     # type-check + production build
+npm run lint      # oxlint
 ```
+
+## Contact form
+
+The contact modal submits to `POST /api/contact`:
+
+- **Local dev**: `server/index.js` (Express, port 3001) — Vite proxies `/api` to it.
+- **Vercel**: `api/contact.js` is a serverless function that delegates to the same shared handler (`server/contact.js`).
+
+Email delivery uses Resend. Required environment variables (never expose `RESEND_API_KEY` to the client):
+
+```
+RESEND_API_KEY=re_...
+RESEND_FROM=Portfolio <onboarding@resend.dev>
+CONTACT_EMAIL=prakash.varun.0305@gmail.com
+```
+
+Copy real values into `.env.local` (gitignored); `.env.example` holds the template.
 
 ## Architecture
 

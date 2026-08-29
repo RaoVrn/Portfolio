@@ -23,7 +23,7 @@ export function Header() {
 
         const probe = 0.45 * window.innerHeight;
         let current = "";
-        for (const id of ["work", "experience", "about"]) {
+        for (const id of ["work", "experience", "about", "contact"]) {
           const el = document.getElementById(id);
           if (!el) continue;
           const r = el.getBoundingClientRect();
@@ -108,7 +108,11 @@ export function Header() {
               </ul>
             </nav>
 
-            <a className={styles.contact} href={`mailto:${site.email}`}>
+            <a
+              className={`${styles.contact} ${active === "contact" ? styles.contactActive : ""}`}
+              href="#contact"
+              aria-current={active === "contact" ? "true" : undefined}
+            >
               Let's talk
             </a>
 
@@ -150,9 +154,10 @@ export function Header() {
             ))}
             <li>
               <a
-                href={`mailto:${site.email}`}
+                href="#contact"
                 onClick={() => setMenuOpen(false)}
-                className={`${styles.menuLink} ${styles.menuLinkAccent}`}
+                className={`${styles.menuLink} ${styles.menuLinkAccent} ${active === "contact" ? styles.menuLinkAccentActive : ""}`}
+                aria-current={active === "contact" ? "true" : undefined}
               >
                 Let's talk
               </a>

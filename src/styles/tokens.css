@@ -23,6 +23,7 @@
   --accent-fill: #27402f;      /* deep pine for small fills       */
   --accent-dim: rgba(138, 174, 148, 0.12);
   --accent-ink: #10110f;       /* text placed on accent fills     */
+  --error: #d98c7f;            /* validation / failure messages    */
 
   --stroke: rgba(234, 231, 224, 0.5); /* outline / registration treatment */
 

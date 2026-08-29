@@ -100,6 +100,14 @@
   color: var(--accent-strong);
 }
 
+.contactActive {
+  border-bottom: 1px solid var(--accent);
+}
+
+.menuLinkAccentActive {
+  color: var(--accent-strong);
+}
+
 .menuButton {
   display: none;
   flex-direction: column;

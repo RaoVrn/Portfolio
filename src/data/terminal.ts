@@ -50,7 +50,8 @@ export const AUTO_SCRIPT: { cmd: string; out: TermLine[] }[] = [
   },
 ];
 
-export const INTERACTIVE_HINT = 'Interactive mode available. Type "help" to explore.';
+/** Shown quietly once the automatic sequence ends. */
+export const HINT = 'Try typing: help';
 
 /** Commands available after the automatic sequence. */
 export function runCommand(raw: string): TermLine[] {
@@ -59,17 +60,35 @@ export function runCommand(raw: string): TermLine[] {
     case "help":
       return [
         { kind: "out", text: "Available commands:" },
-        { kind: "out", text: "about   work   experience   contact   clear" },
+        { kind: "out", text: "about   focus   skills   work   experience   contact   clear" },
       ];
     case "about":
-      return [{ kind: "out", text: "Software Engineer focused on AI, automation, and full-stack development." }];
+      return [
+        { kind: "out", text: "Software Engineer", strong: true },
+        { kind: "out", text: "Building AI-powered applications," },
+        { kind: "out", text: "full-stack products, and developer tools." },
+      ];
+    case "focus":
+      return [
+        { kind: "out", text: "AI Engineering" },
+        { kind: "out", text: "Full-Stack Development" },
+        { kind: "out", text: "Intelligent Developer Tools" },
+      ];
+    case "skills":
+      return [
+        { kind: "out", text: "AI Engineering" },
+        { kind: "out", text: "Software Engineering" },
+        { kind: "out", text: "Data Systems" },
+        { kind: "out", text: "Platform & Automation" },
+        { kind: "out", text: "AI-Assisted Development" },
+      ];
     case "work":
       return [
         { kind: "out", text: "Panda", href: featuredProject.live },
         { kind: "out", text: "Predictive Risk Assessment", href: selectedProjects[0].github },
         { kind: "out", text: "RentEase", href: selectedProjects[1].github },
       ];
-case "experience":
+    case "experience":
       return [
         { kind: "out", text: "HCLTech" },
         { kind: "out", text: "Samsung R&D Institute India" },
