@@ -63,17 +63,53 @@ export const highlights: Highlight[] = [
 ];
 
 export interface Certification {
-  name: string;
+  title: string;
   issuer: string;
-  courses?: string[];
+  year?: string;
+  url: string;
 }
 
 export const certifications: Certification[] = [
-  { name: "GitHub Foundations", issuer: "GitHub" },
-  { name: "Oracle Cloud Infrastructure Foundations", issuer: "Oracle" },
   {
-    name: "NPTEL",
+    title: "GitHub Foundations",
+    issuer: "GitHub",
+    url: "https://drive.google.com/file/d/16De0M_Lj-9lITfZ8oDRHdzh5_FvgVYf5/view",
+  },
+  {
+    title: "Oracle Cloud Infrastructure Foundations",
+    issuer: "Oracle",
+    url: "https://drive.google.com/file/d/1s-7L6G3D99YQnzHpQL6glo4C5R9Evcbc/view",
+  },
+  {
+    title: "Programming in Modern C++",
     issuer: "NPTEL",
-    courses: ["Programming in Modern C++", "Introduction to Machine Learning", "Database Management System"],
+    url: "https://drive.google.com/file/d/1jXdCe7YTqCexdq3EwUnMVPCi7GqCm8A0/view",
+  },
+  {
+    title: "Introduction to Machine Learning",
+    issuer: "NPTEL",
+    url: "https://drive.google.com/file/d/1CrrDV97BEL2pt_CmirMwgXHqxB2DQscl/view",
+  },
+  {
+    title: "Database Management System",
+    issuer: "NPTEL",
+    url: "https://drive.google.com/file/d/10sZDLpbb-KWbKzh-fSbxmun6JIqcIksO/view",
+  },
+  {
+    title: "AWS Academy Graduate — AWS Machine Learning Foundations",
+    issuer: "AWS Academy",
+    url: "https://drive.google.com/file/d/10Uv_jL5z_m_irfd07qZKNKNM5ByWF0FK/view",
+  },
+  {
+    title: "Introduction to Front-End Development",
+    issuer: "Meta",
+    year: "2024",
+    url: "https://drive.google.com/file/d/1_NaBPaBcz7fr-vs3sHPe8eqKw5eKQSyU/view?usp=drive_link",
+  },
+  {
+    title: "Programming with JavaScript",
+    issuer: "Meta",
+    year: "2024",
+    url: "https://drive.google.com/file/d/1pQHRcg97pieLYWEs8r_yh6VPTmA6gPGE/view",
   },
 ];

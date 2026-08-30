@@ -4,62 +4,194 @@
   border-top: 1px solid var(--line);
 }
 
-.grid {
-  margin-top: var(--space-8);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
+.body {
+  position: relative;
 }
 
-.card {
-  padding: var(--space-5);
-  border-top: 1px solid var(--line);
-  transition: border-color var(--dur-base) var(--ease-out);
-}
+/* ----- Oversized archive-year backdrop ----- */
 
-.card:hover {
-  border-top-color: var(--accent);
-}
-
-.name {
+.yearBackdrop {
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
   font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-size: clamp(7rem, 17vw, 13rem);
   font-weight: 600;
-  letter-spacing: -0.025em;
-  color: var(--text-1);
-  transition: color var(--dur-fast) var(--ease-out);
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: rgba(109, 181, 177, 0.045);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
 }
 
-.card:hover .name {
-  color: var(--accent);
+/* ----- Featured credentials: GitHub + Oracle ----- */
+
+.featured {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-7);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
 }
 
-.issuer {
-  margin-top: var(--space-1);
-  font-family: var(--font-mono);
-  font-size: var(--text-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-.courses {
-  margin-top: var(--space-4);
+.featuredItem {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
 
-.course {
-  font-size: 0.8125rem;
+.pairDivider {
+  border-left: 1px solid var(--line);
+  padding-left: var(--space-5);
+}
+
+.issuer {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--text-3);
+}
+
+/* ----- Credential link ----- */
+
+.cred {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  cursor: pointer;
+}
+
+.credRow {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.credRow:hover {
+  background: rgba(16, 19, 23, 0.55);
+  border-color: var(--line);
+  transform: translateX(2px);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  flex: none;
+}
+
+.credTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+  transition: color var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cred:hover .credTitle {
+  color: var(--accent-strong);
+}
+
+.arrow {
+  margin-left: auto;
+  flex: none;
+  color: var(--text-3);
+  opacity: 0.55;
+  transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+.cred:hover .arrow {
+  color: var(--accent);
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+/* ----- Archive groups ----- */
+
+.group {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.groupLabel {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.groupLabel::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: var(--accent);
+  align-self: center;
+}
+
+.groupName {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.groupMeta {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ----- Meta pair ----- */
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
 }
 
 /* ----- Responsive ----- */
 
 @media (max-width: 900px) {
-  .grid {
+  .yearBackdrop {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .featured,
+  .pair {
     grid-template-columns: 1fr;
-    max-width: 30rem;
+    gap: var(--space-3);
+  }
+
+  .pairDivider {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-3);
   }
 }
