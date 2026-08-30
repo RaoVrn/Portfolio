@@ -256,34 +256,94 @@
   animation-delay: var(--d, 0ms);
 }
 
-.nodes {
+.timelineEmpty {
   margin-top: var(--space-4);
+  font-size: 0.82rem;
+  color: var(--text-3);
+}
+
+.tl {
+  position: relative;
+  margin-top: var(--space-5);
+}
+
+.tlLine {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line-strong);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slower) var(--ease-out);
+}
+
+.tlLineOn {
+  transform: scaleX(1);
+}
+
+.tlSlots {
+  position: relative;
   display: flex;
+  justify-content: space-between;
+}
+
+.tlSlot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-2);
+  flex: 1;
 }
 
-.node {
+.tlNode {
   position: relative;
-  width: 14px;
-  height: 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  transition: transform var(--dur-fast) var(--ease-out);
+  background: var(--text-3);
+  opacity: 0.35;
+  animation: nodeIn 0.5s var(--ease-out) both;
+  animation-delay: var(--tl-d, 0ms);
+  transition: opacity var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 
-.node:hover,
-.node:focus-visible {
-  transform: scale(1.35);
-}
-
-.nodeCore {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
+.tlNodeActive {
+  opacity: 1;
   background: var(--accent);
+}
+
+.tlNode:hover,
+.tlNode:focus-visible {
+  transform: scale(1.45);
+  box-shadow: 0 0 0 4px var(--accent-dim);
+}
+
+@keyframes nodeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tlLabel {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+.tlLabelToday {
+  color: var(--accent);
 }
 
 .nodeTip {
@@ -408,8 +468,14 @@
 
   .featured,
   .activityList li,
-  .timeline {
+  .timeline,
+  .tlNode {
     animation: none;
+  }
+
+  .tlLine {
+    transform: scaleX(1);
+    transition: none;
   }
 }
 /* ----- Neutral fallback ----- */
@@ -478,22 +544,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-3);
-}
-
-.pulsePeriod {
-  position: absolute;
-  top: 2px;
-  right: var(--space-4);
-  font-family: var(--font-mono);
-  font-size: 0.52rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  opacity: 0.7;
-}
-
-.pulseItem + .pulseItem .pulsePeriod {
-  right: var(--space-1);
 }
 
 /* ----- Neutral states ----- */

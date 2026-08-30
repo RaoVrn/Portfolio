@@ -4,7 +4,7 @@
  * module only defines the sanitized contract and the /api call.
  */
 
-export interface FeaturedRepo {
+export interface CurrentBuild {
   name: string;
   description: string;
   language: string;
@@ -25,27 +25,30 @@ export interface ActivityItem {
   url: string;
 }
 
-export interface PulseStats {
-  /** Commits in the last 30 days across the most recently pushed repos. */
-  recentCommits: number;
-  /** Pull request events in the last 30 days (public feed). */
-  recentPullRequests: number;
-  publicRepos: number;
+export interface GithubStats {
+  /** Lifetime commits authored, per GitHub's commit search index. */
+  totalCommits: number | null;
+  /** Lifetime pull requests authored, per GitHub's issue search. */
+  totalPullRequests: number | null;
+  /** Total meaningful repositories (forks/archived/empty excluded). */
+  totalRepositories: number;
 }
 
 export interface TimelineDay {
   date: string;
-  repo: string | null;
-  type: "commits" | "push" | "pr";
   count: number;
+  commits: number;
+  prs: number;
+  repos: string[];
 }
 
 export interface LiveDevelopmentData {
   /** Null when no repo shows meaningful recent activity. */
-  featuredRepo: FeaturedRepo | null;
+  currentBuild: CurrentBuild | null;
   recentActivity: ActivityItem[];
-  stats: PulseStats;
-  timeline: TimelineDay[];
+  /** Null when lifetime stats could not be computed. */
+  githubStats: GithubStats | null;
+  activityTimeline: TimelineDay[];
 }
 
 /** Returns null when GitHub is unreachable so the UI can fall back. */

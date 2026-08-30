@@ -1,8 +1,8 @@
 import { ArrowUpRight } from "lucide-react";
-import { formatRelativeTime, type FeaturedRepo } from "../../lib/github";
+import { formatRelativeTime, type CurrentBuild } from "../../lib/github";
 import styles from "./LiveDevelopment.module.css";
 
-export function FeaturedProject({ repo }: { repo: FeaturedRepo }) {
+export function FeaturedProject({ repo }: { repo: CurrentBuild }) {
   return (
     <a
       href={repo.url}

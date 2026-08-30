@@ -44,14 +44,14 @@ export function LiveDevelopment() {
         <Skeleton />
       ) : status === "live" && data ? (
         <>
-          {data.featuredRepo ? (
-            <FeaturedProject repo={data.featuredRepo} />
+          {data.currentBuild ? (
+            <FeaturedProject repo={data.currentBuild} />
           ) : (
             <ExploringState />
           )}
           {data.recentActivity.length > 0 && <RecentActivity items={data.recentActivity} />}
-          <PulseStats stats={data.stats} />
-          {data.timeline.length > 0 && <ActivityTimeline days={data.timeline} />}
+          {data.githubStats && <PulseStats stats={data.githubStats} />}
+          <ActivityTimeline days={data.activityTimeline} />
         </>
       ) : (
         <ExploringState offline />

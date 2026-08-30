@@ -63,17 +63,24 @@ function FeaturedProject() {
         </p>
         <h3 className={styles.featuredName}>{featuredProject.name}</h3>
         <p className={styles.featuredDesc}>{featuredProject.description}</p>
-        <p className={styles.featuredTech}>{featuredProject.tags?.join(" · ")}</p>
+        <p className={styles.featuredTech}>
+          {featuredProject.tags?.map((tag, i) => (
+            <span key={tag}>
+              {i > 0 && <span className={styles.techSep} aria-hidden="true">/</span>}
+              {tag}
+            </span>
+          ))}
+        </p>
         <div className={styles.featuredLinks}>
           {featuredProject.github && (
             <a
               href={featuredProject.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.linkPrimary}
+              className={styles.linkGhost}
             >
               <GitBranch size={14} aria-hidden="true" />
-              Source
+              View source
             </a>
           )}
           {featuredProject.live && (
@@ -81,29 +88,41 @@ function FeaturedProject() {
               href={featuredProject.live}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.linkGhost}
+              className={styles.linkPrimary}
             >
-              Live demo
+              Launch Panda
               <ArrowUpRight size={13} aria-hidden="true" />
             </a>
           )}
         </div>
       </div>
 
-      {featuredProject.image && (
+      {featuredProject.live && featuredProject.image && (
         <a
-          href={featuredProject.live ?? featuredProject.github}
+          href={featuredProject.live}
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.featuredMedia}
-          aria-label={`Open ${featuredProject.name}`}
+          className={styles.preview}
+          aria-label={`Open the live ${featuredProject.name} application`}
         >
-          <img
-            src={featuredProject.image.src}
-            alt={featuredProject.image.alt}
-            className={styles.featuredImg}
-            loading="lazy"
-          />
+          <span className={styles.previewBar}>
+            <span className={styles.previewDot} aria-hidden="true" />
+            <span className={styles.previewLabel}>{featuredProject.name.toLowerCase()} · live preview</span>
+          </span>
+          <span className={styles.previewShot}>
+            <img
+              src={featuredProject.image.src}
+              alt={featuredProject.image.alt}
+              className={styles.previewImg}
+              loading="lazy"
+              width={1440}
+              height={880}
+            />
+            <span className={styles.previewOverlay}>
+              Explore {featuredProject.name}
+              <ArrowUpRight size={13} aria-hidden="true" />
+            </span>
+          </span>
         </a>
       )}
     </div>

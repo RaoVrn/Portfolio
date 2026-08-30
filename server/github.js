@@ -7,31 +7,34 @@
  *   GITHUB_USERNAME        — GitHub username (defaults to RaoVrn)
  *   GITHUB_TOKEN           — optional fine-grained token; public data
  *                            works without one (rate limit 60/hr per IP)
- *   GITHUB_FEATURED_REPO   — optional manual pin; overrides auto-detection
- *                            when the repo exists on the account
+ *   GITHUB_FEATURED_REPO   — optional manual pin for CURRENT BUILD
  *
  * ─────────────────────────────────────────────────────────────
- * CURRENTLY-BUILDING DETECTION
- * ─────────────────────────────────────────────────────────────
- * No single timestamp decides the featured repo. Each meaningful
- * repository is scored from multiple signals:
+ * DATA MODEL — each metric has its own source. They never share
+ * a filtered dataset:
  *
- *   WEIGHTS.recencyTiers   — age of the latest commit (or pushed_at):
- *                            ≤1d = 50, ≤7d = 38, ≤14d = 28,
- *                            ≤30d = 18, ≤60d = 8, older = 0
- *   WEIGHTS.commits7d      — +1.0 per commit in the last 7 days
- *                            (consistency beats isolated pushes)
- *   WEIGHTS.commits30d     — +0.5 per commit in the last 30 days
- *   WEIGHTS.pushEvents30d  — +6 per push event in the last 30 days
- *                            (from the public events feed)
- *   WEIGHTS.prEvents30d    — +8 per pull request event in 30 days
- *   WEIGHTS.newRepo90d     — +6 if the repository was created in the
- *                            last 90 days (early-stage projects)
+ *   currentBuild        — most active repo by the scoring system
+ *                         (forks/archived/empty excluded)
+ *   recentActivity      — latest push/PR events from the events feed
+ *   githubStats         — LIFETIME numbers, computed independently:
+ *       totalRepositories   — ALL owned repos (paginated, type=owner,
+ *                             non-fork), verified against
+ *                             user.public_repos
+ *       totalCommits        — per owned repo, commits authored by
+ *                             GITHUB_USERNAME on the default branch,
+ *                             counted exactly via the Link header
+ *                             (1 request per repo, no pagination walk)
+ *       totalPullRequests   — lifetime PRs authored, from the issue
+ *                             search index (authoritative total_count)
+ *   activityTimeline    — last 14 days: probe commits (top repos)
+ *                         + PR events, grouped by day
  *
- * Forks, archived, and empty repositories are excluded before
- * scoring. If the top score is below MIN_ACTIVE_SCORE, no repo is
- * featured at all — the UI shows "Exploring something new."
- * rather than pretending an old repository is active.
+ * CACHING — two independent caches:
+ *   live  cache: 30 min   (currentBuild, recentActivity, timeline)
+ *   stats cache: 12 hours (lifetime totals)
+ * Both persist to disk so stale data survives restarts and is
+ * served when GitHub is down — correct values are never replaced
+ * with zeros.
  * ─────────────────────────────────────────────────────────────
  */
 
@@ -39,14 +42,14 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
-const CACHE_TTL = 30 * 60 * 1000;
-const CACHE_FILE = join(dirname(fileURLToPath(import.meta.url)), ".github-cache.json");
 const DAY = 24 * 60 * 60 * 1000;
+const HERE = dirname(fileURLToPath(import.meta.url));
 
 const USERNAME = process.env.GITHUB_USERNAME || "RaoVrn";
 const TOKEN = process.env.GITHUB_TOKEN || "";
 const FEATURED = process.env.GITHUB_FEATURED_REPO || "";
 
+/* ----- Weights for the "currently building" scoring system ----- */
 const WEIGHTS = {
   recencyTiers: [
     { maxDays: 1, score: 50 },
@@ -62,11 +65,14 @@ const WEIGHTS = {
   newRepo90d: 6,
 };
 const MIN_ACTIVE_SCORE = 20;
-const WINDOW_DAYS = 30; // stats + scoring window
-const TIMELINE_DAYS = 14; // activity timeline span
-const PROBE_REPOS = 6; // repos that get a commit probe (efficient)
+const PROBE_REPOS = 6;
+const TIMELINE_DAYS = 14;
+const COMMIT_BATCH = 5; // concurrent per-repo commit requests
 
-let memory = { at: 0, data: null };
+const CACHES = {
+  live: { ttl: 30 * 60 * 1000, memory: null, file: join(HERE, ".github-live-cache.json") },
+  stats: { ttl: 12 * 60 * 60 * 1000, memory: null, file: join(HERE, ".github-stats-cache.json") },
+};
 
 function log(...args) {
   console.log("[github]", ...args);
@@ -79,7 +85,7 @@ class GitHubError extends Error {
   }
 }
 
-async function gh(path) {
+async function gh(path, withLink = false) {
   const headers = { "User-Agent": "varun-portfolio", Accept: "application/vnd.github+json" };
   if (TOKEN) headers.Authorization = `Bearer ${TOKEN}`;
   const res = await fetch(`https://api.github.com${path}`, { headers });
@@ -93,12 +99,13 @@ async function gh(path) {
     }
     throw new GitHubError(res.status, `${message} (rate remaining: ${res.headers.get("x-ratelimit-remaining") ?? "n/a"})`);
   }
-  return res.json();
+  if (!withLink) return res.json();
+  return { data: await res.json(), link: res.headers.get("link") ?? "" };
 }
 
-function loadDiskCache() {
+function loadCache(kind) {
   try {
-    const raw = readFileSync(CACHE_FILE, "utf8");
+    const raw = readFileSync(CACHES[kind].file, "utf8");
     const parsed = JSON.parse(raw);
     if (parsed?.at && parsed?.data) return parsed;
   } catch {
@@ -107,11 +114,11 @@ function loadDiskCache() {
   return null;
 }
 
-function saveDiskCache(at, data) {
+function saveCache(kind, at, data) {
   try {
-    writeFileSync(CACHE_FILE, JSON.stringify({ at, data }));
+    writeFileSync(CACHES[kind].file, JSON.stringify({ at, data }));
   } catch (err) {
-    log("disk cache write failed:", err.message);
+    log(`${kind} cache write failed:`, err.message);
   }
 }
 
@@ -119,6 +126,23 @@ const firstLine = (msg) => (msg || "Update").split("\n")[0].trim().slice(0, 72);
 
 function isMeaningful(repo) {
   return !repo.fork && !repo.archived && repo.size > 0 && !!repo.pushed_at;
+}
+
+/** Fetch ALL owned (non-fork) repos, following pagination to completion. */
+async function fetchAllRepos() {
+  const all = [];
+  let page = 0;
+  for (;;) {
+    page += 1;
+    const batch = await gh(`/users/${USERNAME}/repos?per_page=100&page=${page}&type=owner`);
+    all.push(...batch);
+    if (batch.length < 100) break;
+    if (page >= 10) {
+      log("repo pagination safety cap reached");
+      break;
+    }
+  }
+  return all;
 }
 
 function daysBetween(now, thenMs) {
@@ -166,20 +190,22 @@ export function scoreRepository({ repo, commits, events, now }) {
   return { score: Math.round(score), parts, latestDate: new Date(latestMs).toISOString() };
 }
 
-async function fetchLiveData() {
-  const now = Date.now();
-  const sinceIso = new Date(now - WINDOW_DAYS * DAY).toISOString();
+/* ============================================================
+   LIVE ACTIVITY (30-minute cache)
+   ============================================================ */
 
-  const [user, repos, events] = await Promise.all([
-    gh(`/users/${USERNAME}`),
-    gh(`/users/${USERNAME}/repos?sort=pushed&per_page=30&type=owner`),
+async function fetchLiveActivity() {
+  const now = Date.now();
+  const sinceIso = new Date(now - 30 * DAY).toISOString();
+
+  const [repos, events] = await Promise.all([
+    fetchAllRepos(),
     gh(`/users/${USERNAME}/events?per_page=100`),
   ]);
-
   const meaningful = repos.filter(isMeaningful);
   meaningful.sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
 
-  // Commit probes for the most recently pushed repos (efficient: 6 requests max).
+  // Commit probes for the most recently pushed repos.
   const probes = new Map();
   for (const repo of meaningful.slice(0, PROBE_REPOS)) {
     try {
@@ -190,57 +216,31 @@ async function fetchLiveData() {
     }
   }
 
-  // Summarize the public events feed (single request).
-  const eventState = { byRepo: new Map(), totalCommits: 0, prs: 0, days: new Map() };
+  // Score repositories → currentBuild.
+  const eventsByRepo = new Map();
   for (const e of events) {
-    const t = new Date(e.created_at).getTime();
-    if (t < now - WINDOW_DAYS * DAY) continue;
     const repo = e.repo?.name?.split("/")[1];
     if (!repo) continue;
-    const state = eventState.byRepo.get(repo) ?? { pushes: 0, prs: 0 };
-    if (e.type === "PushEvent") {
-      state.pushes += 1;
-      eventState.totalCommits += e.payload?.size ?? 0;
-    } else if (e.type === "PullRequestEvent") {
-      state.prs += 1;
-      eventState.prs += 1;
-    }
-    eventState.byRepo.set(repo, state);
-
-    const dayKey = e.created_at.slice(0, 10);
-    const day = eventState.days.get(dayKey) ?? { repos: new Map() };
-    const per = day.repos.get(repo) ?? { commits: 0, prs: 0 };
-    if (e.type === "PushEvent") per.commits += e.payload?.size ?? 0;
-    else if (e.type === "PullRequestEvent") per.prs += 1;
-    day.repos.set(repo, per);
-    eventState.days.set(dayKey, day);
+    const s = eventsByRepo.get(repo) ?? { pushes: 0, prs: 0 };
+    if (e.type === "PushEvent") s.pushes += 1;
+    else if (e.type === "PullRequestEvent") s.prs += 1;
+    eventsByRepo.set(repo, s);
   }
 
-  // Stats: commits come from the commit probes (the events feed omits sizes).
-  const probedCommits = [...probes.values()].reduce((n, c) => n + c.length, 0);
-
-  // Latest commit message per probed repo, to enrich feed messages.
-  const probeLatest = new Map();
-  for (const [name, commits] of probes) {
-    const latest = commits[0]?.commit?.message;
-    if (latest) probeLatest.set(name, firstLine(latest));
-  }
-
-  // Score every meaningful repo.
-  const scored = [];
-  for (const repo of meaningful) {
-    const commits = probes.get(repo.name) ?? [];
-    const events_ = eventState.byRepo.get(repo.name) ?? { pushes: 0, prs: 0 };
-    const { score, parts, latestDate } = scoreRepository({ repo, commits, events: events_, now });
-    scored.push({ repo, score, parts, latestDate });
-  }
-  scored.sort((a, b) => b.score - a.score);
+  const scored = meaningful
+    .map((repo) => {
+      const commits = probes.get(repo.name) ?? [];
+      const events_ = eventsByRepo.get(repo.name) ?? { pushes: 0, prs: 0 };
+      const r = scoreRepository({ repo, commits, events: events_, now });
+      return { repo, ...r };
+    })
+    .sort((a, b) => b.score - a.score);
   const best = scored[0];
 
-  let featuredRepo = null;
+  let currentBuild = null;
   if (best && best.score >= MIN_ACTIVE_SCORE) {
     const { repo, score, parts } = best;
-    featuredRepo = {
+    currentBuild = {
       name: repo.name,
       description: repo.description ?? "",
       url: repo.html_url,
@@ -250,71 +250,154 @@ async function fetchLiveData() {
         `Highest activity score (${score}): ` +
         `${parts.commits7d + parts.commits30d} commit points, ` +
         `${parts.pushEvents} push points, ${parts.prEvents} PR points` +
-        `, ${repo.name} pushed ${daysBetween(now, new Date(best.latestDate).getTime()).toFixed(1)}d ago`,
+        `, pushed ${daysBetween(now, new Date(best.latestDate).getTime()).toFixed(1)}d ago`,
       activityScore: score,
     };
   }
 
-  // Recent activity: push/PR events from the feed, most recent first.
+  // Recent activity: push/PR events, most recent first.
+  const probeLatest = new Map();
+  for (const [name, commits] of probes) {
+    const latest = commits[0]?.commit?.message;
+    if (latest) probeLatest.set(name, firstLine(latest));
+  }
   const recentActivity = [];
   const seen = new Set();
   for (const e of events) {
     if (recentActivity.length >= 3) break;
     const repo = e.repo?.name?.split("/")[1];
-    if (!repo || new Date(e.created_at).getTime() < now - WINDOW_DAYS * DAY) continue;
+    if (!repo) continue;
     if (e.type === "PushEvent") {
       const message =
         firstLine(e.payload?.commits?.[0]?.message) || probeLatest.get(repo) || `Push to ${e.payload?.ref ?? "branch"}`;
       const key = `${repo}-${message}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      recentActivity.push({ repo, message, type: "commit", timestamp: e.created_at, url: `https://github.com/${USERNAME}/${repo}` });
+      recentActivity.push({ type: "commit", repo, message, timestamp: e.created_at, url: `https://github.com/${USERNAME}/${repo}` });
     } else if (e.type === "PullRequestEvent") {
       const pr = e.payload?.pull_request;
       const message = `PR: ${firstLine(pr?.title ?? "Update")}`;
       const key = `${repo}-${message}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      recentActivity.push({ repo, message, type: "pr", timestamp: e.created_at, url: pr?.html_url ?? `https://github.com/${USERNAME}/${repo}` });
+      recentActivity.push({ type: "pr", repo, message, timestamp: e.created_at, url: pr?.html_url ?? `https://github.com/${USERNAME}/${repo}` });
     }
   }
 
-  // Activity timeline: last 14 days from the events feed.
+  // Activity timeline: last 14 days from probe commits + PR events.
   const timeline = [];
+  let activeDays = 0;
   for (let i = TIMELINE_DAYS - 1; i >= 0; i--) {
-    const dayStart = new Date(now - i * DAY);
+    const dayStart = new Date(new Date(now).setHours(0, 0, 0, 0) - i * DAY);
     const key = dayStart.toISOString().slice(0, 10);
-    const day = eventState.days.get(key);
-    if (!day) continue;
-    let bestRepo = null;
-    let bestType = null;
-    let bestCount = 0;
-    for (const [name, per] of day.repos) {
-      const commits = per.commits;
-      const prs = per.prs;
-      if (commits === 0 && prs === 0) continue;
-      const total = commits + prs;
-      if (total > bestCount) {
-        bestCount = total;
-        bestRepo = name;
-        bestType = commits >= 3 ? "commits" : commits > 0 ? "push" : "pr";
-      }
+    const perRepo = new Map();
+    for (const [name, commits] of probes) {
+      const n = commits.filter((c) => c.commit?.author?.date?.slice(0, 10) === key).length;
+      if (n > 0) perRepo.set(name, n);
     }
-    if (!bestRepo) continue;
-    timeline.push({ date: key, repo: bestRepo, type: bestType, count: bestCount });
+    let prs = 0;
+    for (const e of events) {
+      if (e.type !== "PullRequestEvent") continue;
+      if (e.created_at.slice(0, 10) !== key) continue;
+      prs += 1;
+      const repo = e.repo?.name?.split("/")[1];
+      if (repo && !perRepo.has(repo)) perRepo.set(repo, 0);
+    }
+    const commits = [...perRepo.values()].reduce((n, c) => n + c, 0);
+    const count = commits + prs;
+    if (count > 0) activeDays += 1;
+    timeline.push({
+      date: key,
+      count,
+      commits,
+      prs,
+      repos: [...perRepo.keys()].slice(0, 2),
+    });
   }
+  log(`timeline: ${TIMELINE_DAYS} days, ${activeDays} with activity`);
+
+  return { currentBuild, recentActivity, activityTimeline: timeline };
+}
+
+/* ============================================================
+   LIFETIME STATS (12-hour cache) — independent of live activity
+   ============================================================ */
+
+/** Last-page number from a GitHub Link header → exact total. */
+export function lastPageFromLink(link) {
+  const m = /page=(\d+)>;\s*rel="last"/.exec(link ?? "");
+  return m ? Number(m[1]) : null;
+}
+
+async function fetchLifetimeStats() {
+  const [user, repos] = await Promise.all([gh(`/users/${USERNAME}`), fetchAllRepos()]);
+
+  // 1. TOTAL REPOSITORIES = every owned (non-fork) repo, all pages.
+  const totalRepositories = repos.length;
+  log(
+    `repos: ${repos.length} owned (pages complete), public_repos=${user.public_repos}, ` +
+      `meaningful-for-build=${repos.filter(isMeaningful).length} (separate dataset)`
+  );
+
+  // 2. TOTAL COMMITS — per repo, commits authored by USERNAME on the
+  //    default branch, counted exactly with per_page=1 + Link header.
+  //    One request per repo (no history walk); batched to respect
+  //    rate limits. Default-branch only: the REST API has no way to
+  //    enumerate every branch's history cheaply. Documented.
+  const commitTotals = [];
+  let commitCalls = 0;
+  let commitFailures = 0;
+  for (let i = 0; i < repos.length; i += COMMIT_BATCH) {
+    const batch = repos.slice(i, i + COMMIT_BATCH);
+    const results = await Promise.all(
+      batch.map(async (repo) => {
+        commitCalls += 1;
+        try {
+          const { data, link } = await gh(
+            `/repos/${USERNAME}/${repo.name}/commits?author=${USERNAME}&per_page=1`,
+            true
+          );
+          const last = lastPageFromLink(link);
+          return { name: repo.name, total: last ?? (data.length > 0 ? 1 : 0) };
+        } catch (err) {
+          commitFailures += 1;
+          log(`commit count failed for ${repo.name}:`, err.message);
+          return { name: repo.name, total: null };
+        }
+      })
+    );
+    commitTotals.push(...results);
+  }
+
+  const counted = commitTotals.filter((r) => r.total !== null);
+  const totalCommits = counted.reduce((n, r) => n + r.total, 0);
+  const commitMethod = `per-repo authored-commit count via Link header (${commitCalls} requests, ${commitFailures} failures, default branch only)`;
+  log(`commits: ${totalCommits} authored by ${USERNAME}, ${commitMethod}`);
+
+  // 3. TOTAL PULL REQUESTS — lifetime PRs authored, authoritative
+  //    total_count from the issue search index (no pagination walk).
+  let totalPullRequests = null;
+  try {
+    const prSearch = await gh(`/search/issues?q=author:${USERNAME}+type:pr&per_page=1`);
+    totalPullRequests = prSearch.total_count ?? null;
+  } catch (err) {
+    log("PR search failed:", err.message);
+  }
+  log(`pull requests: ${totalPullRequests} authored (issue search total_count)`);
 
   return {
-    featuredRepo,
-    recentActivity,
-    stats: {
-      recentCommits: probedCommits,
-      recentPullRequests: eventState.prs,
-      publicRepos: user.public_repos,
+    githubStats: {
+      totalCommits,
+      totalPullRequests,
+      totalRepositories,
     },
-    timeline,
+    _commitMethod: commitMethod,
   };
 }
+
+/* ============================================================
+   HANDLER
+   ============================================================ */
 
 export async function handleGithub(req, res) {
   if (req.method !== "GET") {
@@ -324,43 +407,85 @@ export async function handleGithub(req, res) {
 
   const now = Date.now();
 
-  if (memory.data && now - memory.at < CACHE_TTL) {
-    res.json(memory.data);
-    return;
-  }
-
-  const disk = loadDiskCache();
-  if (disk && now - disk.at < CACHE_TTL) {
-    memory = disk;
-    res.json(disk.data);
-    return;
-  }
-
-  try {
-    log(`fetching for "${USERNAME}" (token: ${TOKEN ? "configured" : "none"}, pin: ${FEATURED || "auto"})`);
-    const data = await fetchLiveData();
-    memory = { at: now, data };
-    saveDiskCache(now, data);
-    log(
-      `ok — stats: ${data.stats.recentCommits} commits/30d, ${data.stats.recentPullRequests} PRs/30d, ${data.stats.publicRepos} repos; ` +
-        `featured: ${data.featuredRepo ? `"${data.featuredRepo.name}" (score ${data.featuredRepo.activityScore})` : "none (below threshold)"}`
-    );
-    res.json(data);
-  } catch (err) {
-    const stale = memory.data || disk?.data;
-    if (stale) {
-      log("serving stale cache after failure:", err.message);
-      res.json(stale);
-      return;
+  // Live activity: fresh cache → stale cache → fetch.
+  let live = null;
+  let liveError = null;
+  const memLive = CACHES.live.memory;
+  if (memLive && now - memLive.at < CACHES.live.ttl) {
+    live = memLive.data;
+  } else {
+    const diskLive = loadCache("live");
+    if (diskLive && now - diskLive.at < CACHES.live.ttl) {
+      CACHES.live.memory = diskLive;
+      live = diskLive.data;
+    } else {
+      try {
+        const data = await fetchLiveActivity();
+        CACHES.live.memory = { at: now, data };
+        saveCache("live", now, data);
+        live = data;
+      } catch (err) {
+        liveError = err;
+        const stale = CACHES.live.memory?.data || loadCache("live")?.data;
+        if (stale) {
+          log("serving stale live cache:", err.message);
+          live = stale;
+        }
+      }
     }
-    const status = err.status ?? 502;
+  }
+
+  // Lifetime stats: fresh cache → stale cache → fetch.
+  let stats = null;
+  let statsError = null;
+  const memStats = CACHES.stats.memory;
+  if (memStats && now - memStats.at < CACHES.stats.ttl) {
+    stats = memStats.data;
+  } else {
+    const diskStats = loadCache("stats");
+    if (diskStats && now - diskStats.at < CACHES.stats.ttl) {
+      CACHES.stats.memory = diskStats;
+      stats = diskStats.data;
+    } else {
+      try {
+        const data = await fetchLifetimeStats();
+        CACHES.stats.memory = { at: now, data };
+        saveCache("stats", now, data);
+        stats = data;
+      } catch (err) {
+        statsError = err;
+        const stale = CACHES.stats.memory?.data || loadCache("stats")?.data;
+        if (stale) {
+          log("serving stale stats cache:", err.message);
+          stats = stale;
+        }
+      }
+    }
+  }
+
+  if (!live && !stats) {
+    const status = (liveError ?? statsError)?.status ?? 502;
     const detail =
       status === 403
         ? "GitHub rate limit exceeded — add GITHUB_TOKEN to raise it (5,000 req/hr)"
         : status === 404
           ? "GitHub returned 404 — check GITHUB_USERNAME"
           : "fetch failure — check network/serverless configuration";
-    log(`FAILED (${detail}):`, err.message);
+    log(`FAILED (${detail}):`, liveError?.message || statsError?.message);
     res.status(status).json({ error: "GitHub unavailable", detail });
+    return;
   }
+
+  log(
+    `ok — build: ${live?.currentBuild ? `"${live.currentBuild.name}" (${live.currentBuild.activityScore})` : "none"}, ` +
+      `activity: ${live?.recentActivity?.length ?? 0} items, ` +
+      `stats: ${stats ? `${stats.githubStats.totalCommits} commits, ${stats.githubStats.totalPullRequests} PRs, ${stats.githubStats.totalRepositories} repos` : "stale-only"}`
+  );
+
+  res.json({
+    currentBuild: live?.currentBuild ?? null,
+    recentActivity: live?.recentActivity ?? [],
+    githubStats: stats?.githubStats ?? null,
+    activityTimeline: live?.activityTimeline ?? [],
+  });
 }

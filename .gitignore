@@ -28,4 +28,4 @@ dist-ssr
 .env.*.local
 
 # GitHub live-data cache (runtime artifact)
-server/.github-cache.json
+server/.github-*-cache.json
