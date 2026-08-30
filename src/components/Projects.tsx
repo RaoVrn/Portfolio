@@ -97,33 +97,33 @@ function FeaturedProject() {
         </div>
       </div>
 
-      {featuredProject.live && featuredProject.image && (
-        <a
-          href={featuredProject.live}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.preview}
-          aria-label={`Open the live ${featuredProject.name} application`}
-        >
-          <span className={styles.previewBar}>
-            <span className={styles.previewDot} aria-hidden="true" />
-            <span className={styles.previewLabel}>{featuredProject.name.toLowerCase()} · live preview</span>
-          </span>
-          <span className={styles.previewShot}>
-            <img
-              src={featuredProject.image.src}
-              alt={featuredProject.image.alt}
-              className={styles.previewImg}
-              loading="lazy"
-              width={1440}
-              height={880}
-            />
-            <span className={styles.previewOverlay}>
-              Explore {featuredProject.name}
-              <ArrowUpRight size={13} aria-hidden="true" />
+      {featuredProject.live && (
+        <div className={styles.preview}>
+          <div className={styles.previewHeader}>
+            <span className={styles.previewId}>
+              <span className={styles.previewDot} aria-hidden="true" />
+              {featuredProject.name.toLowerCase()} / live preview
             </span>
-          </span>
-        </a>
+            <a
+              href={featuredProject.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.previewOpen}
+            >
+              Open app
+              <ArrowUpRight size={11} aria-hidden="true" />
+            </a>
+          </div>
+          <div className={styles.previewBody}>
+            <iframe
+              src={featuredProject.live}
+              title={`${featuredProject.name} live preview`}
+              className={styles.previewFrame}
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        </div>
       )}
     </div>
   );

@@ -24,7 +24,7 @@ export const featuredProject: Project = {
     "A hands-on platform for learning Git through guided lessons, interactive practice, and AI-assisted help.",
   tags: ["React", "TypeScript", "Vite", "Tailwind", "Supabase", "AI"],
   github: "https://github.com/RaoVrn/panda",
-  live: "https://panda-indol-theta.vercel.app/dashboard",
+  live: "https://panda-indol-theta.vercel.app/",
   image: { src: "/images/panda-hero.png", alt: "Panda, the live learning platform" },
 };
 

@@ -12,11 +12,13 @@
 
 .featured {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.05fr);
+  gap: var(--space-6);
+  align-items: center;
+  padding: var(--space-6);
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   background: linear-gradient(180deg, rgba(16, 19, 23, 0.5), rgba(8, 9, 12, 0.3));
-  overflow: hidden;
   transition: border-color var(--dur-base) var(--ease-out);
 }
 
@@ -25,7 +27,7 @@
 }
 
 .featuredInfo {
-  padding: var(--space-7);
+  padding: 0;
   display: flex;
   flex-direction: column;
 }
@@ -97,8 +99,10 @@
 .linkGhost {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
+  min-height: 2.4rem;
   font-size: 0.82rem;
   font-weight: 500;
   border-radius: var(--radius-sm);
@@ -124,23 +128,41 @@
   color: var(--accent);
 }
 
-/* ----- Live preview ----- */
+/* ----- Nested live preview window ----- */
 
 .preview {
-  position: relative;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid var(--line);
-  background: rgba(8, 9, 12, 0.6);
   min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(8, 9, 12, 0.65);
+  overflow: hidden;
+  transition: border-color var(--dur-base) var(--ease-out);
 }
 
-.previewBar {
+.preview:hover {
+  border-color: var(--line-strong);
+}
+
+.previewHeader {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--line);
+}
+
+.previewId {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
 }
 
 .previewDot {
@@ -161,63 +183,50 @@
   }
 }
 
-.previewLabel {
+.previewOpen {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-3);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
-.previewShot {
+.preview:hover .previewId,
+.previewId:hover {
+  color: var(--text-2);
+}
+
+.previewOpen svg {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.preview:hover .previewOpen,
+.previewOpen:hover {
+  color: var(--accent);
+}
+
+.previewOpen:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.previewBody {
   position: relative;
-  display: block;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  flex: 1;
+  background: var(--bg-deep);
 }
 
-.previewImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.previewFrame {
   display: block;
-  transition: transform var(--dur-slow) var(--ease-out);
-}
-
-.preview:hover .previewImg {
-  transform: scale(1.03);
-}
-
-.previewOverlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-1);
-  background: rgba(8, 9, 12, 0.55);
-  opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-out);
-}
-
-.previewOverlay svg {
-  color: var(--accent);
-  transition: transform var(--dur-base) var(--ease-out);
-}
-
-.preview:hover .previewOverlay,
-.preview:focus-visible .previewOverlay {
-  opacity: 1;
-}
-
-.preview:hover .previewOverlay svg {
-  transform: translate(2px, -2px);
+  width: 125%;
+  height: 125%;
+  border: 0;
+  transform: scale(0.8);
+  transform-origin: top left;
 }
 
 /* ----- Project list ----- */
@@ -314,15 +323,7 @@
 
   .featured {
     grid-template-columns: 1fr;
-  }
-
-  .preview {
-    border-left: none;
-    border-top: 1px solid var(--line);
-  }
-
-  .previewShot {
-    aspect-ratio: 16 / 10;
+    gap: var(--space-5);
   }
 }
 
@@ -331,11 +332,11 @@
     grid-template-columns: 1fr;
   }
 
-  .featuredInfo {
+  .featured {
     padding: var(--space-5);
   }
 
-  .previewShot {
+  .previewBody {
     aspect-ratio: 4 / 3;
   }
 }
@@ -343,9 +344,5 @@
 @media (prefers-reduced-motion: reduce) {
   .previewDot {
     animation: none;
-  }
-
-  .previewImg {
-    transition: none;
   }
 }
