@@ -66,9 +66,12 @@ export function Arsenal() {
             key={category.id}
           >
             {category.items.map((item) => (
-              <li key={item} className={styles.item}>
-                <TechIcon name={item} className={styles.itemIcon} />
-                <span className={styles.itemName}>{item}</span>
+              <li key={item.name} className={styles.item}>
+                <div className={styles.itemHead}>
+                  <TechIcon name={item.name} className={styles.itemIcon} />
+                  <span className={styles.itemName}>{item.name}</span>
+                </div>
+                <p className={styles.itemTag}>{item.tag}</p>
               </li>
             ))}
           </ul>
