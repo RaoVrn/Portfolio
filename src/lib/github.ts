@@ -88,3 +88,56 @@ export function formatShortDate(iso: string): string {
   const date = new Date(y, (m ?? 1) - 1, d ?? 1);
   return date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
+import { useEffect, useState } from "react";
+
+export interface LiveDevelopmentState {
+  data: LiveDevelopmentData | null;
+  /** True once the first fetch attempt has finished. */
+  loaded: boolean;
+  /** When the latest data was received (for the sync indicator). */
+  syncedAt: number | null;
+}
+
+/**
+ * Single source of live GitHub data for the UI. Fetches on mount,
+ * polls every `refreshMs` (60s) while the tab is visible, keeps the
+ * previous data visible while refreshing, and never clears data on
+ * failure — a failed poll just retries on the next tick.
+ */
+export function useLiveDevelopment(refreshMs = 60_000): LiveDevelopmentState {
+  const [data, setData] = useState<LiveDevelopmentData | null>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [syncedAt, setSyncedAt] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    let timer = 0;
+
+    const load = async () => {
+      const d = await getLiveDevelopmentData();
+      if (cancelled) return;
+      if (d) {
+        setData(d);
+        setSyncedAt(Date.now());
+      }
+      setLoaded(true);
+    };
+
+    load();
+    timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") load();
+    }, refreshMs);
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") load();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [refreshMs]);
+
+  return { data, loaded, syncedAt };
+}

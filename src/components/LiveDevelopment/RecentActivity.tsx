@@ -19,7 +19,10 @@ export function RecentActivity({ items }: { items: ActivityItem[] }) {
               <span className={styles.activityDot} aria-hidden="true" />
               <span className={styles.activityBody}>
                 <span className={styles.activityRepo}>{item.repo}</span>
-                <span className={styles.activityMsg}>{item.message}</span>
+                <span className={styles.activityMsg}>
+                  {item.type === "pr" ? "Pull Request · " : "Commit · "}
+                  {item.message}
+                </span>
               </span>
               <span className={styles.activityTime}>{formatRelativeTime(item.timestamp)}</span>
               <ArrowUpRight className={styles.activityArrow} size={12} aria-hidden="true" />

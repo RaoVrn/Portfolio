@@ -69,9 +69,19 @@ const PROBE_REPOS = 6;
 const TIMELINE_DAYS = 14;
 const COMMIT_BATCH = 5; // concurrent per-repo commit requests
 
+/**
+ * Refresh cadence is rate-limit-aware:
+ *   with a token (5,000 req/hr):  live 5 min, stats 30 min
+ *   without a token (60 req/hr):  live 15 min, stats 15 min
+ *   (stats without a token use the 2-request search-index method,
+ *    see fetchLifetimeStats below)
+ * The client polls /api/github every 60s; the server serves cached
+ * data until the TTL expires, then revalidates from GitHub. This is
+ * the only caching layer — responses are never cached by proxies.
+ */
 const CACHES = {
-  live: { ttl: 30 * 60 * 1000, memory: null, file: join(HERE, ".github-live-cache.json") },
-  stats: { ttl: 12 * 60 * 60 * 1000, memory: null, file: join(HERE, ".github-stats-cache.json") },
+  live: { ttl: TOKEN ? 5 * 60 * 1000 : 15 * 60 * 1000, memory: null, file: join(HERE, ".github-live-cache.json") },
+  stats: { ttl: TOKEN ? 30 * 60 * 1000 : 15 * 60 * 1000, memory: null, file: join(HERE, ".github-stats-cache.json") },
 };
 
 function log(...args) {
@@ -339,39 +349,52 @@ async function fetchLifetimeStats() {
       `meaningful-for-build=${repos.filter(isMeaningful).length} (separate dataset)`
   );
 
-  // 2. TOTAL COMMITS — per repo, commits authored by USERNAME on the
-  //    default branch, counted exactly with per_page=1 + Link header.
-  //    One request per repo (no history walk); batched to respect
-  //    rate limits. Default-branch only: the REST API has no way to
-  //    enumerate every branch's history cheaply. Documented.
-  const commitTotals = [];
-  let commitCalls = 0;
-  let commitFailures = 0;
-  for (let i = 0; i < repos.length; i += COMMIT_BATCH) {
-    const batch = repos.slice(i, i + COMMIT_BATCH);
-    const results = await Promise.all(
-      batch.map(async (repo) => {
-        commitCalls += 1;
-        try {
-          const { data, link } = await gh(
-            `/repos/${USERNAME}/${repo.name}/commits?author=${USERNAME}&per_page=1`,
-            true
-          );
-          const last = lastPageFromLink(link);
-          return { name: repo.name, total: last ?? (data.length > 0 ? 1 : 0) };
-        } catch (err) {
-          commitFailures += 1;
-          log(`commit count failed for ${repo.name}:`, err.message);
-          return { name: repo.name, total: null };
-        }
-      })
-    );
-    commitTotals.push(...results);
+  // 2. TOTAL COMMITS — two documented modes:
+  //    WITH token: per repo, commits authored by USERNAME on the default
+  //      branch, counted exactly via per_page=1 + Link header (1 request
+  //      per repo, batched; no history walk, no double counting).
+  //    WITHOUT token: GitHub's commit search index total_count
+  //      (2 requests) — fresh enough for a 15-minute refresh within the
+  //      60 req/hr unauth budget; index lags pushes by minutes.
+  let totalCommits = null;
+  let commitMethod = "";
+  if (TOKEN) {
+    const commitTotals = [];
+    let commitCalls = 0;
+    let commitFailures = 0;
+    for (let i = 0; i < repos.length; i += COMMIT_BATCH) {
+      const batch = repos.slice(i, i + COMMIT_BATCH);
+      const results = await Promise.all(
+        batch.map(async (repo) => {
+          commitCalls += 1;
+          try {
+            const { data, link } = await gh(
+              `/repos/${USERNAME}/${repo.name}/commits?author=${USERNAME}&per_page=1`,
+              true
+            );
+            const last = lastPageFromLink(link);
+            return { name: repo.name, total: last ?? (data.length > 0 ? 1 : 0) };
+          } catch (err) {
+            commitFailures += 1;
+            log(`commit count failed for ${repo.name}:`, err.message);
+            return { name: repo.name, total: null };
+          }
+        })
+      );
+      commitTotals.push(...results);
+    }
+    const counted = commitTotals.filter((r) => r.total !== null);
+    totalCommits = counted.reduce((n, r) => n + r.total, 0);
+    commitMethod = `per-repo authored-commit count via Link header (${commitCalls} requests, ${commitFailures} failures, default branch only)`;
+  } else {
+    try {
+      const commitsSearch = await gh(`/search/commits?q=author:${USERNAME}&per_page=1`);
+      totalCommits = commitsSearch.total_count ?? null;
+      commitMethod = "GitHub commit search index total_count (no token configured)";
+    } catch (err) {
+      log("commit search failed:", err.message);
+    }
   }
-
-  const counted = commitTotals.filter((r) => r.total !== null);
-  const totalCommits = counted.reduce((n, r) => n + r.total, 0);
-  const commitMethod = `per-repo authored-commit count via Link header (${commitCalls} requests, ${commitFailures} failures, default branch only)`;
   log(`commits: ${totalCommits} authored by ${USERNAME}, ${commitMethod}`);
 
   // 3. TOTAL PULL REQUESTS — lifetime PRs authored, authoritative

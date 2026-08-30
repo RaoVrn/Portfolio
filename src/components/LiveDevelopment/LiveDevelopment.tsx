@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLiveDevelopmentData, type LiveDevelopmentData } from "../../lib/github";
+import { useLiveDevelopment } from "../../lib/github";
 import { ActivityTimeline } from "./ActivityTimeline";
 import { FeaturedProject } from "./FeaturedProject";
 import { PulseStats } from "./PulseStats";
@@ -8,25 +8,24 @@ import styles from "./LiveDevelopment.module.css";
 
 type Status = "loading" | "live" | "offline";
 
+/** Compact "Xs ago" for the sync indicator. */
+function formatAgo(ms: number): string {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  if (s < 5) return "just now";
+  if (s < 60) return `${s}s ago`;
+  return `${Math.floor(s / 60)}m ago`;
+}
+
 export function LiveDevelopment() {
-  const [status, setStatus] = useState<Status>("loading");
-  const [data, setData] = useState<LiveDevelopmentData | null>(null);
+  const { data, loaded, syncedAt } = useLiveDevelopment();
+  const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
-    let cancelled = false;
-    getLiveDevelopmentData().then((d) => {
-      if (cancelled) return;
-      if (d) {
-        setData(d);
-        setStatus("live");
-      } else {
-        setStatus("offline");
-      }
-    });
-    return () => {
-      cancelled = true;
-    };
+    const t = window.setInterval(() => setNow(Date.now()), 5_000);
+    return () => window.clearInterval(t);
   }, []);
+
+  const status: Status = !loaded ? "loading" : data ? "live" : "offline";
 
   return (
     <div className={styles.wrap}>
@@ -36,7 +35,11 @@ export function LiveDevelopment() {
           Live development
         </p>
         <p className={styles.sync}>
-          {status === "live" ? "Synced with GitHub" : status === "offline" ? "GitHub offline" : "Loading"}
+          {status === "live" && syncedAt
+            ? `Synced with GitHub · ${formatAgo(now - syncedAt)}`
+            : status === "offline"
+              ? "GitHub offline"
+              : "Loading"}
         </p>
       </div>
 
