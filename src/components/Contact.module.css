@@ -1,0 +1,83 @@
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--line);
+}
+
+.body {
+  margin-top: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text-1);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.email svg {
+  color: var(--text-3);
+  transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.email:hover {
+  color: var(--accent);
+}
+
+.email:hover svg {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.cta {
+  padding: var(--space-3) var(--space-5);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  border-radius: var(--radius-sm);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.cta:hover {
+  background: var(--accent-strong);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  font-size: 0.85rem;
+  color: var(--text-3);
+  border-radius: var(--radius-sm);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--text-1);
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}

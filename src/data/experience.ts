@@ -8,6 +8,8 @@ export interface ExperienceEntry {
   period: string;
   focus: string;
   tags: string[];
+  /** Small system flow shown under the entry. */
+  flow?: string[];
 }
 
 export const experience: ExperienceEntry[] = [
@@ -18,6 +20,7 @@ export const experience: ExperienceEntry[] = [
     focus:
       "Strengthened software engineering foundations while working with Python, application development, and AI concepts.",
     tags: ["AI", "Agentic AI", "Python"],
+    flow: ["Input", "Agent", "Tools", "Output"],
   },
   {
     company: "Infosys Springboard",
@@ -26,6 +29,7 @@ export const experience: ExperienceEntry[] = [
     focus:
       "Built TeamSync, a collaborative project management application for teams, with real-time updates.",
     tags: ["Full Stack", "React", "Node.js"],
+    flow: ["Frontend", "API", "Backend", "Database"],
   },
   {
     company: "Samsung R&D Institute India",
@@ -34,5 +38,6 @@ export const experience: ExperienceEntry[] = [
     focus:
       "Worked on AI and computer vision research involving image generation, visual question answering, and image inpainting.",
     tags: ["AI", "Computer Vision"],
+    flow: ["Images", "Model", "Insight"],
   },
 ];

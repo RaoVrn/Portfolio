@@ -21,7 +21,7 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-ui);
   font-size: var(--text-body);
   line-height: var(--leading-body);
   color: var(--text-1);

@@ -1,0 +1,35 @@
+.env {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-atmo);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  width: 46rem;
+  height: 46rem;
+  left: -14%;
+  top: -20%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(109, 181, 177, 0.045), transparent 70%);
+  filter: blur(80px);
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(231, 234, 238, 0.016) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(231, 234, 238, 0.016) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 18%, black 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 18%, black 25%, transparent 75%);
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 60%, rgba(3, 4, 6, 0.5) 100%);
+}

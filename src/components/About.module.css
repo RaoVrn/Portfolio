@@ -1,0 +1,224 @@
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--line);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.lead {
+  position: sticky;
+  top: calc(var(--header-h) + var(--space-6));
+}
+
+/* ----- Block label ----- */
+
+.blockLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.blockLabel::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ----- Focus rows ----- */
+
+.focusList {
+  display: flex;
+  flex-direction: column;
+}
+
+.focusRow {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-block: var(--space-4);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.focusRow + .focusRow {
+  margin-top: var(--space-2);
+}
+
+.focusNumber {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.focusRow:hover .focusNumber {
+  color: var(--accent);
+}
+
+.focusRow:hover .focusTitle {
+  color: var(--accent);
+}
+
+.focusTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.focusDesc {
+  margin-top: var(--space-1);
+  font-size: 0.875rem;
+  color: var(--text-3);
+}
+
+/* ----- Split: education + journey ----- */
+
+.split {
+  margin-top: var(--space-8);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.mini {
+  border-top: 1px solid var(--line-strong);
+  padding-top: var(--space-5);
+}
+
+.eduSchool {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.eduDegree {
+  margin-top: var(--space-1);
+  font-size: 0.8125rem;
+  color: var(--text-2);
+}
+
+.eduMeta {
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.05em;
+  color: var(--text-3);
+}
+
+.eduCgpa {
+  color: var(--accent);
+}
+
+.eduCgpaValue {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text-1);
+}
+
+.eduDivider {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+/* ----- Journey rail ----- */
+
+.journey {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  padding-top: var(--space-2);
+}
+
+.journeyLine {
+  position: absolute;
+  top: 0.4rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.journeyStep {
+  position: relative;
+}
+
+.journeyNode {
+  position: absolute;
+  top: -0.4rem;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  background: var(--bg);
+  transform: translateY(-50%);
+}
+
+.journeyYear {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.journeyTitle {
+  margin-top: var(--space-1);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.journeyDetail {
+  margin-top: var(--space-1);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+/* ----- Responsive ----- */
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+
+  .lead {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,57 +1,83 @@
 /* ============================================================
    Design Tokens — Varun Prakash Portfolio
-   Noir system: deep graphite environment, warm off-white text,
-   one muted sage accent. Layered ambient atmosphere.
+   "System Noir" — cool near-black environment, off-white text,
+   one muted teal accent. Editorial serif × technical mono.
    ============================================================ */
 
 :root {
   /* ----- Color: environment ---------------------------------- */
-  --bg: #0a0a0a;               /* page background — near-black    */
-  --bg-deep: #070707;          /* recessed / deep panels          */
-  --surface: #121212;          /* primary surface                 */
-  --surface-2: #1a1a1a;        /* higher surfaces / hovers        */
+  --bg: #0b0d10;               /* page background — near-black   */
+  --bg-deep: #08090c;          /* recessed / deep panels          */
+  --surface: #101317;          /* primary surface                 */
+  --surface-2: #171b21;        /* higher surfaces / hovers        */
+  --surface-3: #1e242c;        /* active surface                  */
 
-  --text-1: #ededed;           /* primary text — soft off-white   */
-  --text-2: #9c9c9c;           /* secondary text                  */
-  --text-3: #828282;           /* muted text / small labels — AA  */
+  --text-1: #e7eaee;           /* primary text — soft off-white   */
+  --text-2: #99a1ab;           /* secondary text                  */
+  --text-3: #6e7681;           /* muted text / labels — AA        */
 
-  --line: rgba(237, 237, 237, 0.08);
-  --line-strong: rgba(237, 237, 237, 0.16);
+  --line: rgba(231, 234, 238, 0.07);
+  --line-strong: rgba(231, 234, 238, 0.14);
 
   /* Primary action surface — off-white material, dark text. */
-  --btn-bg: #ededed;
-  --btn-text: #0a0a0a;
+  --btn-bg: #e7eaee;
+  --btn-text: #0b0d10;
 
-  --accent: #8aae94;           /* muted sage — the single accent  */
-  --accent-strong: #a6c2ad;
-  --accent-fill: #27402f;      /* deep pine for small fills       */
-  --accent-dim: rgba(138, 174, 148, 0.12);
-  --accent-ink: #10110f;       /* text placed on accent fills     */
-  --error: #d98c7f;            /* validation / failure messages    */
+  /* Single accent — muted teal, used sparingly. */
+  --accent: #6db5b1;
+  --accent-strong: #8fcfcb;
+  --accent-fill: #143536;
+  --accent-dim: rgba(109, 181, 177, 0.12);
+  --accent-ink: #071011;
 
-  --stroke: rgba(237, 237, 237, 0.5); /* outline / registration treatment */
+  --error: #d98c7f;            /* validation / failure messages  */
 
-  /* ----- Typography ------------------------------------------- */
-  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --stroke: rgba(231, 234, 238, 0.5);
 
-  --text-display: clamp(3.4rem, 11.5vw, 9.5rem);   /* poster name */
-  --text-h2: clamp(2rem, 4.5vw, 3.6rem);
-  --text-h3: clamp(1.2rem, 1.8vw, 1.55rem);
-  --text-statement: clamp(1.35rem, 2.2vw, 1.9rem);
-  --text-body: clamp(1rem, 1.05vw, 1.0625rem);
-  --text-meta: 0.8125rem;
-  --text-label: 0.72rem;
-  --text-mono: 0.72rem;
+  /* ----- Glows ------------------------------------------------ */
+  --glow-soft: 0 0 0 1px rgba(109, 181, 177, 0.1), 0 10px 40px -20px rgba(109, 181, 177, 0.12);
+  --glow-card: 0 0 0 1px rgba(109, 181, 177, 0.16), 0 20px 60px -30px rgba(109, 181, 177, 0.14);
 
-  --leading-display: 1;
-  --leading-h2: 1.08;
-  --leading-statement: 1.32;
-  --leading-body: 1.6;
+  /* ----- Typography -------------------------------------------
+     System: Space Grotesk (display/headings) · Instrument Sans
+             (body/ui) · JetBrains Mono (engineering metadata)
+     Hierarchy by contrast, not decoration:
+       - display: engineered grotesk, low x-height, tight tracking
+       - ui:      neutral product interface type
+       - mono:    technical metadata (dates, labels, stacks)
+     Display is the technical voice: hero lockup, section
+     statements, titles, brand. Emphatic words = weight contrast.
+     Scale:
+       Display XL  — hero name          (--text-display)
+       Display LG  — section headings   (--text-h2)
+       Heading     — subheadings        (--text-h3)
+       Statement   — hero positioning   (--text-statement)
+       Body        — paragraphs         (--text-body)
+       Small       — descriptions       (--text-meta)
+       Meta / Mono — labels, dates, tags (--text-label / --text-mono)
+     ------------------------------------------------------------ */
+  --font-display: "Space Grotesk", "Instrument Sans", -apple-system, "Segoe UI", sans-serif;
+  --font-ui: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-display: clamp(3.4rem, 11.5vw, 8.6rem); /* Display XL — hero name */
+  --text-h2: clamp(2rem, 4.4vw, 3.3rem);         /* Display LG — sections */
+  --text-h3: clamp(1.15rem, 1.6vw, 1.3rem);      /* Heading */
+  --text-statement: clamp(1.3rem, 2.1vw, 1.7rem);/* Statement */
+  --text-body: clamp(1rem, 1.03vw, 1.0625rem);   /* Body */
+  --text-meta: 0.8125rem;                        /* Small */
+  --text-label: 0.7rem;                          /* Labels */
+  --text-mono: 0.72rem;                          /* Mono metadata */
+
+  --leading-display: 1.02;
+  --leading-h2: 1.1;
+  --leading-statement: 1.4;
+  --leading-body: 1.62;
   --leading-tight: 1.25;
 
-  --track-label: 0.14em;
+  --track-display: -0.035em;   /* hero name */
+  --track-heading: -0.025em;   /* section headings */
+  --track-label: 0.14em;       /* mono labels */
   --track-wide: 0.06em;
 
   /* ----- Spacing ---------------------------------------------- */
@@ -69,15 +95,15 @@
   /* ----- Layout ------------------------------------------------ */
   --container: 76rem;
   --gutter: clamp(1.25rem, 4vw, 3rem);
-  --header-h: 4.25rem;
+  --header-h: 4rem;
   --section-y: clamp(6rem, 14vh, 10rem);
 
   /* ----- Radii / shadow ---------------------------------------- */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-card: 12px;
-  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.02), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
-  --shadow-card-hover: 0 1px 0 rgba(255, 255, 255, 0.03), 0 24px 48px -24px rgba(0, 0, 0, 0.75);
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-card: 10px;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.02), 0 14px 36px -18px rgba(0, 0, 0, 0.65);
+  --shadow-card-hover: 0 1px 0 rgba(255, 255, 255, 0.03), 0 28px 56px -28px rgba(0, 0, 0, 0.8);
   --shadow-preview: 0 2px 6px rgba(0, 0, 0, 0.4), 0 32px 64px -24px rgba(0, 0, 0, 0.75);
   --shadow-focus: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
 

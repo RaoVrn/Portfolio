@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { Header } from "./components/Header";
-import { SkipLink } from "./components/SkipLink";
+import { Background } from "./components/Background";
+import { Navbar } from "./components/Navbar";
 import { ScrollProgress } from "./components/ScrollProgress";
-import { Ambient } from "./components/Ambient";
-import { Hero } from "./components/Hero/Hero";
-import { WorkSection } from "./components/Work/WorkSection";
-import { ExperienceSection } from "./components/ExperienceSection";
-import { AboutSection } from "./components/AboutSection";
-import { HighlightsSection } from "./components/HighlightsSection";
-import { ContactSection } from "./components/ContactSection";
+import { SkipLink } from "./components/SkipLink";
+import { Hero } from "./components/Hero";
+import { About } from "./components/About";
+import { Experience } from "./components/Experience";
+import { Projects } from "./components/Projects";
+import { Achievements } from "./components/Achievements";
+import { Arsenal } from "./components/Arsenal";
+import { Certifications } from "./components/Certifications";
+import { Contact } from "./components/Contact";
+import { ContactModal } from "./components/ContactModal";
 import { Footer } from "./components/Footer";
 import { useMagnetic } from "./lib/useMagnetic";
 import "./styles/tokens.css";
@@ -21,21 +24,20 @@ export default function App() {
   return (
     <>
       <SkipLink />
-      <Ambient />
-      <Header onOpenContact={() => setContactOpen(true)} />
+      <Background />
+      <Navbar onOpenContact={() => setContactOpen(true)} />
       <ScrollProgress />
       <main id="main">
         <Hero />
-        <WorkSection />
-        <ExperienceSection />
-        <AboutSection />
-        <HighlightsSection />
+        <About />
+        <Experience />
+        <Projects />
+        <Achievements />
+        <Arsenal />
+        <Certifications />
       </main>
-      <ContactSection
-        open={contactOpen}
-        onOpen={() => setContactOpen(true)}
-        onClose={() => setContactOpen(false)}
-      />
+      <Contact onOpenContact={() => setContactOpen(true)} />
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
       <Footer />
     </>
   );

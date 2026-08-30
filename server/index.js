@@ -5,12 +5,14 @@
  */
 import express from "express";
 import { handleContact } from "./contact.js";
+import { handleGithub } from "./github.js";
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(express.json({ limit: "10kb" }));
 app.post("/api/contact", handleContact);
+app.get("/api/github", handleGithub);
 
 app.listen(PORT, () => {
   console.log(`API server listening on http://localhost:${PORT}`);

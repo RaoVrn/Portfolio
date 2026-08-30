@@ -1,0 +1,520 @@
+.wrap {
+  width: min(100%, 24rem);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----- Header ----- */
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.liveLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.liveDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: breathe 3s var(--ease-inout) infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.sync {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ----- Shared block label ----- */
+
+.blockLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ----- Featured project ----- */
+
+.featured {
+  display: block;
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--line);
+  animation: fadeUp 0.6s var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.name {
+  margin-top: var(--space-3);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--text-1);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.featured:hover .name {
+  color: var(--accent);
+}
+
+.desc {
+  margin-top: var(--space-1);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.meta {
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.metaDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: breathe 3s var(--ease-inout) infinite;
+}
+
+.metaDotIdle {
+  background: var(--text-3);
+  animation: none;
+}
+
+.arrow {
+  margin-top: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.arrow svg {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.featured:hover .arrow {
+  color: var(--accent);
+}
+
+.featured:hover .arrow svg {
+  transform: translate(2px, -2px);
+}
+
+/* ----- Recent activity ----- */
+
+.activity {
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.activityList {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+}
+
+.activityList li {
+  animation: fadeUp 0.6s var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.activityRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: background var(--dur-base) var(--ease-out);
+}
+
+.activityRow:hover {
+  background: rgba(231, 234, 238, 0.03);
+}
+
+.activityDot {
+  width: 4px;
+  height: 4px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.75;
+  transition: opacity var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.activityRow:hover .activityDot {
+  opacity: 1;
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.activityBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.activityRepo {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-1);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.activityMsg {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activityRow:hover .activityRepo {
+  color: var(--accent);
+}
+
+.activityTime {
+  margin-left: auto;
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+
+.activityArrow {
+  flex: none;
+  color: var(--text-3);
+  opacity: 0;
+  transform: translate(-3px, 2px);
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.activityRow:hover .activityArrow {
+  opacity: 1;
+  transform: translate(0, 0);
+  color: var(--accent);
+}
+
+/* ----- Activity timeline ----- */
+
+.timeline {
+  position: relative;
+  padding-block: var(--space-5);
+  animation: fadeUp 0.6s var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.nodes {
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.node {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.node:hover,
+.node:focus-visible {
+  transform: scale(1.35);
+}
+
+.nodeCore {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.nodeTip {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: var(--space-2) var(--space-3);
+  background: rgba(16, 19, 23, 0.95);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-preview);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.nodeTipDate {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.nodeTipRepo {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.nodeTipType {
+  font-size: 0.66rem;
+  color: var(--text-2);
+}
+
+/* ----- Skeleton ----- */
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--space-5);
+  gap: var(--space-3);
+}
+
+.skLabel,
+.skTitle,
+.skLine,
+.skRow {
+  height: 8px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, rgba(231, 234, 238, 0.05), rgba(231, 234, 238, 0.1), rgba(231, 234, 238, 0.05));
+  background-size: 200% 100%;
+  animation: shimmer 1.6s var(--ease-inout) infinite;
+}
+
+.skLabel {
+  width: 40%;
+  height: 6px;
+}
+
+.skTitle {
+  width: 50%;
+  height: 20px;
+}
+
+.skLine {
+  width: 90%;
+}
+
+.skRows {
+  margin-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skRow {
+  width: 100%;
+}
+
+.skNodes {
+  margin-top: var(--space-3);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.skNode {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-3);
+  opacity: 0.25;
+  animation: breathe 2.4s var(--ease-inout) infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liveDot,
+  .metaDot,
+  .skNode {
+    animation: none;
+  }
+
+  .featured,
+  .activityList li,
+  .timeline {
+    animation: none;
+  }
+}
+/* ----- Neutral fallback ----- */
+
+.fallback {
+  padding-block: var(--space-5);
+  animation: fadeUp 0.6s var(--ease-out) both;
+  animation-delay: var(--d, 120ms);
+}
+
+.fallbackTitle {
+  margin-top: var(--space-3);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+.fallbackSub {
+  margin-top: var(--space-1);
+  font-size: 0.82rem;
+  color: var(--text-2);
+}
+
+/* ----- GitHub pulse ----- */
+
+.pulse {
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--line);
+  animation: fadeUp 0.6s var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.pulseRow {
+  margin-top: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.pulseItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: var(--space-4);
+}
+
+.pulseItem + .pulseItem {
+  border-left: 1px solid var(--line);
+  padding-left: var(--space-4);
+}
+
+.pulseValue {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text-1);
+}
+
+.pulseLabel {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.pulsePeriod {
+  position: absolute;
+  top: 2px;
+  right: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  opacity: 0.7;
+}
+
+.pulseItem + .pulseItem .pulsePeriod {
+  right: var(--space-1);
+}
+
+/* ----- Neutral states ----- */
+
+.fallback {
+  padding-block: var(--space-5);
+  animation: fadeUp 0.6s var(--ease-out) both;
+  animation-delay: var(--d, 120ms);
+}
+
+.fallbackTitle {
+  margin-top: var(--space-3);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+.fallbackSub {
+  margin-top: var(--space-1);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-2);
+}

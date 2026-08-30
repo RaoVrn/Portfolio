@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables
+.env.local
+.env.*.local
+
+# GitHub live-data cache (runtime artifact)
+server/.github-cache.json
