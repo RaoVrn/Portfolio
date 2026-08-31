@@ -7,7 +7,7 @@ export function Footer() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.top}>
           <p className={styles.name}>{site.name}</p>
-          <p className={styles.role}>Software Engineer · Building with AI</p>
+          <p className={styles.role}>Software Engineer</p>
         </div>
         <div className={styles.bottom}>
           <p className={styles.meta}>© 2026 {site.name} · {site.location}</p>

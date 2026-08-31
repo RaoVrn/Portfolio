@@ -3,6 +3,7 @@ import { site } from "../data/site";
 import { about } from "../data/about";
 import { LiveDevelopment } from "./LiveDevelopment/LiveDevelopment";
 import { Reveal } from "./Reveal";
+import { RotatingRole } from "./RotatingRole";
 import styles from "./Hero.module.css";
 
 export function Hero() {
@@ -12,7 +13,7 @@ export function Hero() {
         <div className={styles.left}>
           <Reveal as="p" variant="fade" delay={40} className={styles.label}>
             <span className={styles.labelDot} aria-hidden="true" />
-            Software Engineer · Building with AI
+            <RotatingRole />
           </Reveal>
 
           <Reveal as="h1" variant="line" delay={140} className={styles.name}>

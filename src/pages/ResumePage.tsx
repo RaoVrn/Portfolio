@@ -9,7 +9,7 @@ import styles from "./ResumePage.module.css";
  */
 export function ResumePage() {
   return (
-    <main className={styles.page} id="resume-page">
+    <main className={styles.page} id="main">
       <div className={`container ${styles.inner}`}>
         <header className={styles.head}>
           <div className={styles.headMain}>

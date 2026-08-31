@@ -7,6 +7,7 @@ const NAV = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
+  { id: "achievements", label: "Achievements" },
   { id: "arsenal", label: "Arsenal" },
   { id: "certifications", label: "Certifications" },
   { id: "contact", label: "Contact" },
@@ -125,7 +126,7 @@ export function Navbar({ onOpenContact }: { onOpenContact: () => void }) {
           </div>
           <nav aria-label="Mobile">
             <ul className={styles.menuList}>
-              {NAV.slice(0, 5).map((n) => (
+              {NAV.slice(0, 6).map((n) => (
                 <li key={n.id}>
                   <a href={sectionHref(n.id)} className={styles.menuLink} onClick={() => setMenuOpen(false)}>
                     {n.label}
