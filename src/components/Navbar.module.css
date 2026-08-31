@@ -86,19 +86,56 @@
   gap: var(--space-3);
 }
 
-.cta {
+/* Secondary action: Resume ↗ */
+.resumeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
+  min-height: 2.25rem;
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--text-1);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-sm);
+  background: transparent;
   transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
 
-.cta:hover {
+.resumeBtn svg {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.resumeBtn:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background: rgba(109, 181, 177, 0.06);
+}
+
+.resumeBtn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.resumeBtnActive {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(109, 181, 177, 0.08);
+}
+
+/* Primary action */
+.cta {
+  padding: var(--space-2) var(--space-4);
+  min-height: 2.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--btn-text);
+  background: var(--btn-bg);
+  border-radius: var(--radius-sm);
+  transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.cta:hover {
+  background: var(--accent-strong);
 }
 
 .burger {

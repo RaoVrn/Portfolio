@@ -11,7 +11,7 @@ export function Contact({ onOpenContact }: { onOpenContact: () => void }) {
     <section className={styles.section} id="contact" aria-labelledby="contact-heading">
       <div className={`container ${styles.grid}`}>
         <SectionHeading
-          index="07"
+          index="08"
           label="Contact"
           heading={
             <>

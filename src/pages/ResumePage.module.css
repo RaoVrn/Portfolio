@@ -1,0 +1,401 @@
+.page {
+  padding-top: calc(var(--header-h) + var(--space-6));
+  padding-bottom: var(--space-10);
+  min-height: 100svh;
+}
+
+/* Narrower document width than the homepage */
+.inner {
+  max-width: 58rem;
+}
+
+/* ----- Header ----- */
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text-1);
+}
+
+.title {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.contacts {
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.contact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.contact svg {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.contact:hover {
+  color: var(--accent);
+}
+
+.contact:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.location {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  opacity: 0.75;
+}
+
+.location::before {
+  content: "·";
+  margin-right: var(--space-3);
+  color: var(--text-3);
+  opacity: 0.6;
+}
+
+/* ----- View Resume PDF ----- */
+
+.pdfBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  min-height: 2.25rem;
+  flex: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-1);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.pdfBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(109, 181, 177, 0.06);
+}
+
+/* ----- Sections ----- */
+
+.section {
+  padding-top: var(--space-6);
+}
+
+.title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.title::before {
+  content: "";
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--accent);
+  margin-right: var(--space-3);
+  vertical-align: middle;
+}
+
+.list {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+}
+
+.entry {
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.entry:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.entryHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.entryRole {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+.entryCompany {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.entryPeriod {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  flex: none;
+  white-space: nowrap;
+}
+
+.bullets {
+  margin-top: var(--space-3);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.bullet {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.bullet::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.6rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.7;
+}
+
+/* ----- Skills ----- */
+
+.skilllines {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skillLine {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.55fr) minmax(0, 1.45fr);
+  gap: var(--space-5);
+  align-items: baseline;
+}
+
+.skillLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.skillItems {
+  font-size: 0.87rem;
+  color: var(--text-2);
+}
+
+/* ----- Education ----- */
+
+.eduRow {
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.eduSchool {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.eduDegree {
+  margin-top: 2px;
+  font-size: 0.87rem;
+  color: var(--text-2);
+}
+
+.eduMeta {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* ----- Achievements ----- */
+
+.achievements {
+  margin-top: var(--space-4);
+  list-style: none;
+}
+
+.achievement {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.55fr) minmax(0, 1.45fr) auto;
+  gap: var(--space-5);
+  align-items: baseline;
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--line);
+}
+
+.achievement:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.achievementEvent {
+  font-size: 0.87rem;
+  color: var(--text-3);
+}
+
+.achievementResult {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+.achievementDate {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* ----- Certifications ----- */
+
+.certs {
+  margin-top: var(--space-4);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cert {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: 0.87rem;
+  color: var(--text-2);
+}
+
+.certMeta {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  flex: none;
+}
+
+.certNote {
+  margin-top: var(--space-3);
+  font-size: 0.82rem;
+  color: var(--text-3);
+  opacity: 0.85;
+}
+
+.certLink {
+  margin-top: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.certLink svg {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.certLink:hover {
+  color: var(--accent);
+}
+
+.certLink:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ----- Responsive ----- */
+
+@media (max-width: 640px) {
+  .head {
+    flex-direction: column;
+  }
+
+  .entryHead {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .skillLine {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .achievement {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .eduRow {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .eduMeta {
+    white-space: normal;
+  }
+}
