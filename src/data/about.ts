@@ -48,6 +48,6 @@ export const about = {
     cgpa: "9.60",
     cgpaUnit: "CGPA / 10",
     years: "2022 – 2026",
-    location: "Chennai",
+    location: "Bharat",
   },
 } as const;

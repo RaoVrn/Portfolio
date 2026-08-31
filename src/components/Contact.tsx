@@ -1,13 +1,15 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { site } from "../data/site";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import styles from "./Contact.module.css";
 
+const MAILTO = "mailto:prakash.varun.0305@gmail.com";
+
 export function Contact({ onOpenContact }: { onOpenContact: () => void }) {
   return (
     <section className={styles.section} id="contact" aria-labelledby="contact-heading">
-      <div className="container">
+      <div className={`container ${styles.grid}`}>
         <SectionHeading
           index="07"
           label="Contact"
@@ -16,41 +18,32 @@ export function Contact({ onOpenContact }: { onOpenContact: () => void }) {
               Let's build something <em>together.</em>
             </>
           }
-          support="Open to internships, collaborations, and interesting problems. I usually reply within a day."
+          support="Open to software engineering opportunities, collaborations, and interesting problems."
           headingId="contact-heading"
         />
 
-        <Reveal as="div" variant="rise" delay={140} className={styles.body}>
-          <a href={`mailto:${site.email}`} className={styles.email}>
+        <Reveal as="div" variant="rise" delay={140} className={styles.block}>
+          <a href={MAILTO} className={styles.email} aria-label={`Email ${site.email}`}>
+            <Mail size={15} className={styles.emailIcon} aria-hidden="true" />
             {site.email}
-            <ArrowUpRight size={18} aria-hidden="true" />
+            <ArrowUpRight size={14} className={styles.emailArrow} aria-hidden="true" />
           </a>
 
-          <div className={styles.actions}>
-            <button type="button" className={styles.cta} onClick={onOpenContact} data-magnetic>
-              Start a conversation
-            </button>
-            <a
-              href={site.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-            >
+          <button type="button" className={styles.cta} onClick={onOpenContact}>
+            Start a conversation
+          </button>
+
+          <div className={styles.links}>
+            <a href={site.links.github} target="_blank" rel="noopener noreferrer" className={styles.link}>
               GitHub
               <ArrowUpRight size={12} aria-hidden="true" />
             </a>
-            <a
-              href={site.links.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-            >
+            <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer" className={styles.link}>
               LinkedIn
               <ArrowUpRight size={12} aria-hidden="true" />
             </a>
+            <span className={styles.location}>{site.location}</span>
           </div>
-
-          <p className={styles.meta}>{site.location}</p>
         </Reveal>
       </div>
     </section>

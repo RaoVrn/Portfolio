@@ -1,17 +1,17 @@
 .footer {
   border-top: 1px solid var(--line);
-  padding-block: var(--space-7) var(--space-6);
+  padding-block: var(--space-6) var(--space-5);
 }
 
 .inner {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 .top {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-6);
   flex-wrap: wrap;
@@ -19,7 +19,7 @@
 
 .name {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: -0.025em;
   color: var(--text-1);
@@ -28,37 +28,35 @@
 .role {
   font-family: var(--font-mono);
   font-size: var(--text-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-.socials {
-  display: flex;
-  gap: var(--space-5);
-}
-
-.social {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  font-family: var(--font-mono);
-  font-size: var(--text-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-3);
-  transition: color var(--dur-fast) var(--ease-out);
 }
 
-.social:hover {
-  color: var(--accent);
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
 }
 
 .meta {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-3);
   opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .bottom {
+    justify-content: flex-start;
+  }
 }

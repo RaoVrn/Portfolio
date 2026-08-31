@@ -5,7 +5,7 @@
 export const site = {
   name: "Varun Prakash",
   role: "Software Engineer",
-  location: "Chennai, India",
+  location: "Bharat",
   email: "prakash.varun.0305@gmail.com",
   phone: "+91 88262 07628",
   links: {

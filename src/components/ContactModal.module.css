@@ -7,16 +7,16 @@
   justify-content: center;
   padding: var(--space-5);
   background: rgba(5, 6, 8, 0.72);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(3px);
   animation: overlayIn 200ms var(--ease-out) both;
 }
 
 .dialog {
   position: relative;
-  width: min(100%, 34rem);
+  width: min(100%, 32rem);
   max-height: 90svh;
   overflow-y: auto;
-  padding: var(--space-7);
+  padding: var(--space-6);
   background: var(--surface);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-card);

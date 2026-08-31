@@ -1,8 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { contactMailto } from "../data/site";
 import styles from "./ContactForm.module.css";
 
-type Status = "idle" | "sending" | "success" | "error";
+type Status = "idle" | "opening" | "handoff";
 
 interface Values {
   name: string;
@@ -16,6 +15,7 @@ type Errors = Partial<Record<keyof Values, string>>;
 
 const EMPTY: Values = { name: "", email: "", company: "", subject: "", message: "" };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DESTINATION = "prakash.varun.0305@gmail.com";
 
 function validate(v: Values): Errors {
   const e: Errors = {};
@@ -27,59 +27,52 @@ function validate(v: Values): Errors {
   return e;
 }
 
+/**
+ * Builds the mailto compose URL. Every part is URL-encoded so spaces,
+ * line breaks, @ symbols, & and special characters survive intact.
+ */
+export function buildContactMailto(v: Values): string {
+  const subject = encodeURIComponent(v.subject.trim());
+  const body = encodeURIComponent(
+    `Name: ${v.name.trim()}\n` +
+      `Email: ${v.email.trim()}\n` +
+      `Company / Organization: ${v.company.trim() || "Not provided"}\n\n` +
+      `Message:\n${v.message.trim()}`
+  );
+  return `mailto:${DESTINATION}?subject=${subject}&body=${body}`;
+}
+
 export function ContactForm({ onDone }: { onDone: () => void }) {
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
-  const [serverError, setServerError] = useState("");
 
   const set = (field: keyof Values) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValues((v) => ({ ...v, [field]: e.target.value }));
     if (errors[field]) setErrors((er) => ({ ...er, [field]: undefined }));
   };
 
-  const submit = async (e: FormEvent) => {
+  const submit = (e: FormEvent) => {
     e.preventDefault();
-    if (status === "sending") return;
+    if (status === "opening") return;
     const errs = validate(values);
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
-    setStatus("sending");
-    setServerError("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: values.name.trim(),
-          email: values.email.trim(),
-          company: values.company.trim(),
-          subject: values.subject.trim(),
-          message: values.message.trim(),
-        }),
-      });
-      const data = await res.json().catch(() => null);
-      if (!res.ok) {
-        setServerError(data?.message ? data.message : "Unable to send message");
-        setStatus("error");
-        return;
-      }
-      setStatus("success");
-    } catch {
-      setServerError("Unable to reach the server. Please try again.");
-      setStatus("error");
-    }
+    setStatus("opening");
+    window.location.href = buildContactMailto(values);
+    setStatus("handoff");
   };
 
-  if (status === "success") {
+  if (status === "handoff") {
     return (
       <div className={styles.success} role="status">
-        <p className={styles.successTitle}>Message sent</p>
+        <p className={styles.successTitle}>Opening your email app</p>
         <p className={styles.successCopy}>
-          Thanks for reaching out. I'll get back to you soon.
+          Your message is ready to send from your mail client. If nothing
+          opened, email me directly at {DESTINATION}.
         </p>
-        <button type="button" className={styles.submit} onClick={onDone} data-magnetic>
+        <button type="button" className={styles.submit} onClick={onDone}>
           Close
         </button>
       </div>
@@ -88,19 +81,11 @@ export function ContactForm({ onDone }: { onDone: () => void }) {
 
   return (
     <form className={styles.form} onSubmit={submit} noValidate>
+      <p className={styles.kicker}>Contact / message</p>
       <h2 className={styles.title} id="contact-modal-title">
-        Let's start a conversation.
+        Start a conversation
       </h2>
-      <p className={styles.intro}>
-        Tell me a little about what you're working on, and I'll get back to you.
-      </p>
-
-      {status === "error" && (
-        <p className={styles.errorBox} role="alert">
-          {serverError || "Something went wrong. Please try again."} Or{" "}
-          <a href={contactMailto}>email me directly</a>.
-        </p>
-      )}
+      <p className={styles.intro}>Have something in mind? Send me a message.</p>
 
       <div className={styles.grid}>
         <Field
@@ -128,7 +113,7 @@ export function ContactForm({ onDone }: { onDone: () => void }) {
           optional
           value={values.company}
           onChange={set("company")}
-          placeholder="Optional"
+          placeholder="Where do you work?"
           error={errors.company}
         />
         <Field
@@ -137,7 +122,7 @@ export function ContactForm({ onDone }: { onDone: () => void }) {
           required
           value={values.subject}
           onChange={set("subject")}
-          placeholder="What would you like to talk about?"
+          placeholder="What would you like to discuss?"
           error={errors.subject}
         />
       </div>
@@ -149,19 +134,14 @@ export function ContactForm({ onDone }: { onDone: () => void }) {
         textarea
         value={values.message}
         onChange={set("message")}
-        placeholder="Tell me about your idea, opportunity, project, or anything you'd like to discuss..."
+        placeholder="Tell me a little about what you have in mind..."
         error={errors.message}
       />
 
       <div className={styles.footer}>
-        <button
-          type="submit"
-          className={styles.submit}
-          disabled={status === "sending"}
-          data-magnetic
-        >
-          {status === "sending" ? "Sending..." : "Send message"}
-          {status !== "sending" && <span aria-hidden="true">→</span>}
+        <button type="submit" className={styles.submit} disabled={status === "opening"}>
+          {status === "opening" ? "Opening email..." : "Send message"}
+          {status !== "opening" && <span aria-hidden="true">→</span>}
         </button>
       </div>
     </form>
