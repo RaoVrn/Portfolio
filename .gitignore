@@ -23,9 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment variables
+# Environment variables — real env files are never committed
+.env
 .env.local
 .env.*.local
+# BUT the template stays tracked
+!.env.example
 
 # GitHub live-data cache (runtime artifact)
 server/.github-*-cache.json

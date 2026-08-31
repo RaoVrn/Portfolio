@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import styles from "./ContactForm.module.css";
 
-type Status = "idle" | "opening" | "handoff";
+type Status = "idle" | "sending" | "success" | "error";
 
 interface Values {
   name: string;
@@ -15,7 +15,6 @@ type Errors = Partial<Record<keyof Values, string>>;
 
 const EMPTY: Values = { name: "", email: "", company: "", subject: "", message: "" };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const DESTINATION = "prakash.varun.0305@gmail.com";
 
 function validate(v: Values): Errors {
   const e: Errors = {};
@@ -23,55 +22,63 @@ function validate(v: Values): Errors {
   if (!v.email.trim()) e.email = "Please enter your email.";
   else if (!EMAIL_RE.test(v.email.trim())) e.email = "Please enter a valid email address.";
   if (!v.subject.trim()) e.subject = "Please enter a subject.";
+  else if (v.subject.trim().length > 150) e.subject = "Please keep the subject under 150 characters.";
   if (!v.message.trim()) e.message = "Please add a message.";
+  else if (v.message.trim().length < 10) e.message = "Please add a little more detail (at least 10 characters).";
+  else if (v.message.trim().length > 5000) e.message = "Please keep the message under 5,000 characters.";
   return e;
-}
-
-/**
- * Builds the mailto compose URL. Every part is URL-encoded so spaces,
- * line breaks, @ symbols, & and special characters survive intact.
- */
-export function buildContactMailto(v: Values): string {
-  const subject = encodeURIComponent(v.subject.trim());
-  const body = encodeURIComponent(
-    `Name: ${v.name.trim()}\n` +
-      `Email: ${v.email.trim()}\n` +
-      `Company / Organization: ${v.company.trim() || "Not provided"}\n\n` +
-      `Message:\n${v.message.trim()}`
-  );
-  return `mailto:${DESTINATION}?subject=${subject}&body=${body}`;
 }
 
 export function ContactForm({ onDone }: { onDone: () => void }) {
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [serverError, setServerError] = useState("");
 
   const set = (field: keyof Values) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValues((v) => ({ ...v, [field]: e.target.value }));
     if (errors[field]) setErrors((er) => ({ ...er, [field]: undefined }));
   };
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (status === "opening") return;
+    if (status === "sending") return;
     const errs = validate(values);
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
-    setStatus("opening");
-    window.location.href = buildContactMailto(values);
-    setStatus("handoff");
+    setStatus("sending");
+    setServerError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          email: values.email.trim(),
+          company: values.company.trim(),
+          subject: values.subject.trim(),
+          message: values.message.trim(),
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        setServerError(data?.message || "Unable to send your message right now. Please try again.");
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+    } catch {
+      setServerError("Unable to send your message right now. Please try again.");
+      setStatus("error");
+    }
   };
 
-  if (status === "handoff") {
+  if (status === "success") {
     return (
       <div className={styles.success} role="status">
-        <p className={styles.successTitle}>Opening your email app</p>
-        <p className={styles.successCopy}>
-          Your message is ready to send from your mail client. If nothing
-          opened, email me directly at {DESTINATION}.
-        </p>
+        <p className={styles.successTitle}>Message sent successfully</p>
+        <p className={styles.successCopy}>Thanks for reaching out. I'll get back to you soon.</p>
         <button type="button" className={styles.submit} onClick={onDone}>
           Close
         </button>
@@ -86,6 +93,18 @@ export function ContactForm({ onDone }: { onDone: () => void }) {
         Start a conversation
       </h2>
       <p className={styles.intro}>Have something in mind? Send me a message.</p>
+
+      {status === "error" && (
+        <p className={styles.errorBox} role="alert">
+          {serverError}
+        </p>
+      )}
+
+      {/* Honeypot — hidden, ignored by humans, catches bots */}
+      <div className={styles.hp} aria-hidden="true">
+        <label htmlFor="contact-company_hp">Company</label>
+        <input id="contact-company_hp" name="company_hp" tabIndex={-1} autoComplete="off" />
+      </div>
 
       <div className={styles.grid}>
         <Field
@@ -139,9 +158,9 @@ export function ContactForm({ onDone }: { onDone: () => void }) {
       />
 
       <div className={styles.footer}>
-        <button type="submit" className={styles.submit} disabled={status === "opening"}>
-          {status === "opening" ? "Opening email..." : "Send message"}
-          {status !== "opening" && <span aria-hidden="true">→</span>}
+        <button type="submit" className={styles.submit} disabled={status === "sending"}>
+          {status === "sending" ? "Sending..." : "Send message"}
+          {status !== "sending" && <span aria-hidden="true">→</span>}
         </button>
       </div>
     </form>

@@ -8,15 +8,43 @@
  *   RESEND_FROM     — verified sender identity; swap this when moving
  *                     from the testing sender to a verified domain
  *   CONTACT_EMAIL   — recipient, defaults to the portfolio address
+ *
+ * Spam protection (lightweight): a hidden honeypot field and a
+ * sliding-window rate limit per IP.
  */
 import { Resend } from "resend";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DESTINATION = "prakash.varun.0305@gmail.com";
+const MAX_MESSAGE = 5000;
+const MAX_OTHER = 300;
+const RATE_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const RATE_MAX = 8; // submissions per IP per hour
+
+const submissions = new Map();
+
+function rateLimited(ip) {
+  const now = Date.now();
+  const windowStart = now - RATE_WINDOW_MS;
+  const timestamps = (submissions.get(ip) ?? []).filter((t) => t > windowStart);
+  if (timestamps.length >= RATE_MAX) {
+    submissions.set(ip, timestamps);
+    return true;
+  }
+  timestamps.push(now);
+  submissions.set(ip, timestamps);
+  return false;
+}
 
 export async function handleContact(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ success: false, message: "Method not allowed" });
+    return;
+  }
+
+  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.headers["x-vercel-forwarded-for"] || req.ip || "unknown";
+  if (rateLimited(ip)) {
+    res.status(429).json({ success: false, message: "Too many messages. Please try again later." });
     return;
   }
 
@@ -27,6 +55,12 @@ export async function handleContact(req, res) {
   const subject = String(body.subject ?? "").trim();
   const message = String(body.message ?? "").trim();
 
+  // Honeypot: real users never fill this hidden field.
+  if (body.company_hp) {
+    res.status(400).json({ success: true, message: "Message sent successfully" });
+    return;
+  }
+
   if (!name || !email || !subject || !message) {
     res.status(400).json({ success: false, message: "Missing required fields" });
     return;
@@ -35,7 +69,7 @@ export async function handleContact(req, res) {
     res.status(400).json({ success: false, message: "Invalid email address" });
     return;
   }
-  if (message.length > 10000 || subject.length > 300 || name.length > 200 || email.length > 200) {
+  if (name.length > MAX_OTHER || email.length > MAX_OTHER || company.length > MAX_OTHER || subject.length > MAX_OTHER || message.length > MAX_MESSAGE) {
     res.status(400).json({ success: false, message: "Input too long" });
     return;
   }
@@ -51,7 +85,7 @@ export async function handleContact(req, res) {
   }
 
   const submittedAt = new Date().toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" });
-  const mailSubject = `Portfolio contact — ${subject}`;
+  const mailSubject = `Portfolio Contact — ${subject}`;
 
   const textBody = [
     "Portfolio Contact Message",

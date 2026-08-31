@@ -34,6 +34,17 @@
   margin-top: calc(var(--space-5) * -1 + var(--space-1));
 }
 
+/* ----- Honeypot (spam trap, visually hidden) ----- */
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* ----- Fields ----- */
 
 .grid {

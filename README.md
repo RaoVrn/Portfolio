@@ -1,62 +1,98 @@
 # Varun Prakash — Portfolio
 
-A premium personal product site. Built with React, TypeScript and Vite.
+A modern personal portfolio showcasing my work in software engineering, AI, full-stack development, and developer tools.
+
+---
+
+## Overview
+
+This repository contains the source code for my personal portfolio, including my professional experience, selected projects, technical skills, certifications, achievements, and a dedicated online resume.
+
+- Experience and professional background
+- Selected projects
+- Technical arsenal
+- Certifications and achievements
+- Dedicated resume page
+- Contact form powered by Resend
+
+## Features
+
+- Responsive and accessible design
+- Dedicated `/resume` page
+- Project showcase with live and repository links
+- Certification credentials
+- GitHub activity integration
+- Contact form with server-side Resend delivery (honeypot + rate limiting)
+- Smooth navigation and scroll-spy
+- Vercel-ready deployment
+
+## Tech Stack
+
+| Area       | Technologies                          |
+| ---------- | ------------------------------------- |
+| Frontend   | React, TypeScript                     |
+| Build      | Vite                                  |
+| Styling    | CSS Modules, design tokens            |
+| Icons      | lucide-react, simple-icons            |
+| API        | Express                               |
+| Email      | Resend                                |
+| Deployment | Vercel (serverless functions)         |
+
+## Project Structure
+
+```text
+.
+├── api/                 # Serverless API functions
+├── public/              # Static assets
+├── server/              # Local development API
+├── src/
+│   ├── components/      # Reusable UI and sections
+│   ├── data/            # Portfolio content
+│   ├── pages/           # Application pages
+│   ├── lib/             # Utilities and client logic
+│   ├── styles/          # Global styles and tokens
+│   └── App.tsx          # Homepage composition + routing
+├── .env.example
+├── LICENSE
+├── README.md
+└── package.json
+```
 
 ## Development
 
 ```bash
 npm install
-npm run dev       # starts the API server (port 3001) and Vite together
-npm run dev:web   # Vite only
-npm run dev:api   # API server only
-npm run build     # type-check + production build
-npm run lint      # oxlint
+npm run dev        # API server (port 3001) + Vite together
+npm run dev:web    # Vite only
+npm run dev:api    # API server only
+npm run build      # type-check + production build
+npm run lint       # oxlint
+npm run preview    # preview the production build
 ```
 
-## Contact form
+## Contact Architecture
 
-The contact modal submits to `POST /api/contact`:
+The contact form submits `POST /api/contact` directly:
 
-- **Local dev**: `server/index.js` (Express, port 3001) — Vite proxies `/api` to it.
-- **Vercel**: `api/contact.js` is a serverless function that delegates to the same shared handler (`server/contact.js`).
+- **Local development**: `server/index.js` (Express, port 3001) — Vite proxies `/api` to it
+- **Vercel production**: `api/contact.js` — a serverless function delegating to the same shared handler (`server/contact.js`)
 
-Email delivery uses Resend. Required environment variables (never expose `RESEND_API_KEY` to the client):
+The shared handler validates the request (required fields, email format, length limits), applies honeypot and per-IP rate-limit protection, then sends the email through Resend with `reply_to` set to the visitor's address. The API key never reaches the client.
 
-```
-RESEND_API_KEY=re_...
-RESEND_FROM=Portfolio <onboarding@resend.dev>
-CONTACT_EMAIL=prakash.varun.0305@gmail.com
-```
+## Environment Variables
 
-Copy real values into `.env.local` (gitignored); `.env.example` holds the template.
+Copy `.env.example` to `.env.local` and fill in your values. Secrets are server-side only.
 
-## Architecture
+| Variable                | Purpose                          | Required |
+| ----------------------- | -------------------------------- | -------- |
+| `RESEND_API_KEY`        | Contact email delivery           | required for email |
+| `RESEND_FROM`           | Verified Resend sender identity  | required for email |
+| `CONTACT_EMAIL`         | Where messages are delivered     | required for email |
+| `GITHUB_USERNAME`       | Live GitHub data source          | optional |
+| `GITHUB_TOKEN`          | Raise GitHub rate limits         | optional |
+| `GITHUB_FEATURED_REPO`  | Pin the "currently building" repo| optional |
+| `PORT`                  | Local API server port            | optional |
 
-```
-src/
-  data/
-    site.ts             # site content & configuration
-    projects.ts         # projects, in three tiers (featured / selected / compact)
-    experience.ts       # work experience snapshot
-    skills.ts           # what I work with
-  lib/
-    useInView, useScroll, useMagnetic hooks
-  styles/
-    tokens.css          # design tokens — color, type, space, motion
-    base.css            # reset, base styles, shared primitives
-  components/
-    Header, Footer, ExperienceSection, SkillsSection, AboutSection,
-    SkipLink, ScrollProgress, Reveal, Ambient
-    Hero/               # short hero + CommandCard visual
-    Work/               # Panda flagship + bento project grid (ProjectMotif)
-```
+## License
 
-## Design system
-
-Dark graphite environment (`--bg`), warm off-white text, one muted sage
-accent (`--accent`). Sans-first typography (Instrument Sans); the serif is
-reserved for the Panda centerpiece and the About statement. All tokens live
-in `src/styles/tokens.css`; content lives in `src/data/`.
-
-The live Panda screenshot lives in `public/images/panda-hero.png` and the
-entire Panda preview links to the live application.
+[MIT](./LICENSE) © Varun Prakash
