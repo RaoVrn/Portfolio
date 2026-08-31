@@ -149,7 +149,8 @@
   color: var(--text-1);
 }
 
-/* ----- Mobile overlay ----- */
+/* ----- Mobile overlay (portaled to document.body — outside the
+        fixed header so its backdrop-filter can never trap it) ----- */
 
 .overlay {
   position: fixed;
@@ -157,8 +158,14 @@
   z-index: var(--z-menu);
   display: flex;
   flex-direction: column;
+  height: 100vh; /* fallback */
+  height: 100dvh; /* modern mobile viewport */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   background: var(--bg-deep);
-  padding: var(--space-5) var(--gutter) var(--space-7);
+  padding: calc(var(--space-5) + env(safe-area-inset-top)) var(--gutter)
+    calc(var(--space-7) + env(safe-area-inset-bottom));
   animation: overlayIn var(--dur-base) var(--ease-out);
 }
 
@@ -183,9 +190,11 @@
   margin-top: var(--space-8);
   display: flex;
   flex-direction: column;
+  flex: none;
 }
 
 .menuLink {
+  display: block;
   padding-block: var(--space-4);
   border-bottom: 1px solid var(--line);
   font-family: var(--font-ui);
